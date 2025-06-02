@@ -56,24 +56,25 @@ do {
 # Definir codigo y descripcion segun la seleccion
 $code = ""
 $desc = ""
+$emoji = ""
 
 switch ($commitChoice) {
-    "1"  { $code = "feat"; $desc = "Nueva funcionalidad" }
-    "2"  { $code = "fix"; $desc = "Correccion de bugs" }
-    "3"  { $code = "docs"; $desc = "Documentacion" }
-    "4"  { $code = "config"; $desc = "Configuracion" }
-    "5"  { $code = "wip"; $desc = "Work in progress" }
-    "6"  { $code = "milestone"; $desc = "Fase completada" }
-    "7"  { $code = "db"; $desc = "MongoDB/Base de datos" }
-    "8"  { $code = "unity"; $desc = "Unity/Cliente" }
-    "9"  { $code = "api"; $desc = "API/Backend" }
-    "10" { $code = "ui"; $desc = "UI/Interfaz" }
-    "11" { $code = "refactor"; $desc = "Refactoring" }
-    "12" { $code = "test"; $desc = "Testing" }
-    "13" { $code = "security"; $desc = "Seguridad" }
-    "14" { $code = "perf"; $desc = "Performance" }
-    "15" { $code = "hotfix"; $desc = "Hotfix critico" }
-    "16" { $code = "tool"; $desc = "Herramientas/Scripts" }
+    "1"  { $code = "feat"; $desc = "Nueva funcionalidad"; $emoji = ":sparkles:" }
+    "2"  { $code = "fix"; $desc = "Correccion de bugs"; $emoji = ":bug:" }
+    "3"  { $code = "docs"; $desc = "Documentacion"; $emoji = ":books:" }
+    "4"  { $code = "config"; $desc = "Configuracion"; $emoji = ":wrench:" }
+    "5"  { $code = "wip"; $desc = "Work in progress"; $emoji = ":construction:" }
+    "6"  { $code = "milestone"; $desc = "Fase completada"; $emoji = ":tada:" }
+    "7"  { $code = "db"; $desc = "MongoDB/Base de datos"; $emoji = ":file_cabinet:" }
+    "8"  { $code = "unity"; $desc = "Unity/Cliente"; $emoji = ":video_game:" }
+    "9"  { $code = "api"; $desc = "API/Backend"; $emoji = ":globe_with_meridians:" }
+    "10" { $code = "ui"; $desc = "UI/Interfaz"; $emoji = ":lipstick:" }
+    "11" { $code = "refactor"; $desc = "Refactoring"; $emoji = ":hammer:" }
+    "12" { $code = "test"; $desc = "Testing"; $emoji = ":rotating_light:" }
+    "13" { $code = "security"; $desc = "Seguridad"; $emoji = ":lock:" }
+    "14" { $code = "perf"; $desc = "Performance"; $emoji = ":racehorse:" }
+    "15" { $code = "hotfix"; $desc = "Hotfix critico"; $emoji = ":ambulance:" }
+    "16" { $code = "tool"; $desc = "Herramientas/Scripts"; $emoji = ":hammer_and_wrench:" }
 }
 
 Write-Host "Seleccionado: $desc" -ForegroundColor Green
@@ -90,7 +91,7 @@ if ([string]::IsNullOrWhiteSpace($commitMessage)) {
 }
 
 # Construir mensaje completo del commit
-$fullCommitMessage = "$code`: $commitMessage"
+$fullCommitMessage = "$emoji $code`: $commitMessage"
 
 Write-Host ""
 Write-Host "Mensaje del commit:" -ForegroundColor Cyan
