@@ -53,15 +53,16 @@ echo -e "${WHITE}  13. security - Seguridad${NC}"
 echo -e "${WHITE}  14. perf - Performance${NC}"
 echo -e "${WHITE}  15. hotfix - Hotfix critico${NC}"
 echo -e "${WHITE}  16. tool - Herramientas/Scripts${NC}"
+echo -e "${WHITE}  17. varios - Cambios mixtos/varios${NC}"
 echo ""
 
 # Solicitar tipo de commit
 while true; do
-    read -p "Ingresa el numero del tipo de commit (1-16): " commitChoice
-    if [[ "$commitChoice" =~ ^([1-9]|1[0-6])$ ]]; then
+    read -p "Ingresa el numero del tipo de commit (1-17): " commitChoice
+    if [[ "$commitChoice" =~ ^([1-9]|1[0-7])$ ]]; then
         break
     else
-        echo -e "${RED}Por favor ingresa un numero entre 1 y 16${NC}"
+        echo -e "${RED}Por favor ingresa un numero entre 1 y 17${NC}"
     fi
 done
 
@@ -83,6 +84,7 @@ case $commitChoice in
     14) code="perf"; desc="Performance"; emoji=":racehorse:" ;;
     15) code="hotfix"; desc="Hotfix critico"; emoji=":ambulance:" ;;
     16) code="tool"; desc="Herramientas/Scripts"; emoji=":hammer_and_wrench:" ;;
+    17) code="varios"; desc="Cambios mixtos/varios"; emoji=":package:" ;;
 esac
 
 echo -e "${GREEN}Seleccionado: $desc${NC}"
@@ -98,12 +100,33 @@ if [ -z "$commitMessage" ]; then
     exit 1
 fi
 
+# Solicitar número de issue (opcional)
+echo ""
+echo -e "${YELLOW}¿Quieres vincular este commit a un issue de GitHub? (opcional)${NC}"
+echo -e "${GRAY}Esto ayuda a mantener trazabilidad del proyecto${NC}"
+read -p "Numero de issue (presiona Enter para omitir): " issueNumber
+
+# Validar número de issue si se proporciona
+issueReference=""
+if [ -n "$issueNumber" ]; then
+    if [[ "$issueNumber" =~ ^[0-9]+$ ]]; then
+        issueReference=" (closes #$issueNumber)"
+        echo -e "${GREEN}Issue #$issueNumber sera vinculado al commit${NC}"
+    else
+        echo -e "${YELLOW}Numero de issue invalido, continuando sin vincular${NC}"
+        issueReference=""
+    fi
+fi
+
 # Construir mensaje completo del commit
-fullCommitMessage="$emoji $code: $commitMessage"
+fullCommitMessage="$emoji $code: $commitMessage$issueReference"
 
 echo ""
 echo -e "${CYAN}Mensaje del commit:${NC}"
 echo -e "${WHITE}   $fullCommitMessage${NC}"
+if [ -n "$issueReference" ]; then
+    echo -e "${GRAY}   (Este commit cerrara automaticamente el issue #$issueNumber)${NC}"
+fi
 echo ""
 
 # Mostrar rama actual
@@ -304,6 +327,9 @@ echo -e "${CYAN}Resumen del commit:${NC}"
 echo -e "${WHITE}   Tipo: $desc${NC}"
 echo -e "${WHITE}   Mensaje: $fullCommitMessage${NC}"
 echo -e "${WHITE}   Rama: $targetBranch${NC}"
+if [ -n "$issueReference" ]; then
+    echo -e "${WHITE}   Issue: #$issueNumber (se cerrara automaticamente)${NC}"
+fi
 echo ""
 
 # Confirmacion final
@@ -320,6 +346,9 @@ git commit -m "$fullCommitMessage"
 
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}Commit realizado exitosamente!${NC}"
+    if [ -n "$issueReference" ]; then
+        echo -e "${GREEN}El issue #$issueNumber sera cerrado cuando este commit llegue a la rama principal${NC}"
+    fi
     echo ""
     
     # Preguntar si quiere hacer push
@@ -330,6 +359,9 @@ if [ $? -eq 0 ]; then
         
         if [ $? -eq 0 ]; then
             echo -e "${GREEN}Push realizado exitosamente!${NC}"
+            if [ -n "$issueReference" ]; then
+                echo -e "${GREEN}El commit con referencia al issue #$issueNumber esta ahora en GitHub${NC}"
+            fi
         else
             echo -e "${YELLOW}Error en el push, pero el commit local fue exitoso${NC}"
         fi
@@ -340,6 +372,9 @@ if [ $? -eq 0 ]; then
     echo -e "${WHITE}   1. Actualizar documentacion de progreso si corresponde${NC}"
     echo -e "${WHITE}   2. Verificar que el commit sigue las convenciones del proyecto${NC}"
     echo -e "${WHITE}   3. Continuar con el siguiente task de la fase${NC}"
+    if [ -n "$issueReference" ]; then
+        echo -e "${WHITE}   4. Verificar en GitHub que el issue #$issueNumber fue vinculado${NC}"
+    fi
 else
     echo -e "${RED}Error al realizar el commit${NC}"
     exit 1

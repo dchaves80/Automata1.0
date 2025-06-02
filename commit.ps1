@@ -42,14 +42,15 @@ Write-Host "  13. security - Seguridad" -ForegroundColor White
 Write-Host "  14. perf - Performance" -ForegroundColor White
 Write-Host "  15. hotfix - Hotfix critico" -ForegroundColor White
 Write-Host "  16. tool - Herramientas/Scripts" -ForegroundColor White
+Write-Host "  17. varios - Cambios mixtos/varios" -ForegroundColor White
 Write-Host ""
 
 # Solicitar tipo de commit
 do {
-    $commitChoice = Read-Host "Ingresa el numero del tipo de commit (1-16)"
-    $validChoice = $commitChoice -match '^([1-9]|1[0-6])$'
+    $commitChoice = Read-Host "Ingresa el numero del tipo de commit (1-17)"
+    $validChoice = $commitChoice -match '^([1-9]|1[0-7])$'
     if (-not $validChoice) {
-        Write-Host "Por favor ingresa un numero entre 1 y 16" -ForegroundColor Red
+        Write-Host "Por favor ingresa un numero entre 1 y 17" -ForegroundColor Red
     }
 } while (-not $validChoice)
 
@@ -75,6 +76,7 @@ switch ($commitChoice) {
     "14" { $code = "perf"; $desc = "Performance"; $emoji = ":racehorse:" }
     "15" { $code = "hotfix"; $desc = "Hotfix critico"; $emoji = ":ambulance:" }
     "16" { $code = "tool"; $desc = "Herramientas/Scripts"; $emoji = ":hammer_and_wrench:" }
+    "17" { $code = "varios"; $desc = "Cambios mixtos/varios"; $emoji = ":package:" }
 }
 
 Write-Host "Seleccionado: $desc" -ForegroundColor Green
@@ -90,12 +92,33 @@ if ([string]::IsNullOrWhiteSpace($commitMessage)) {
     exit 1
 }
 
+# Solicitar número de issue (opcional)
+Write-Host ""
+Write-Host "¿Quieres vincular este commit a un issue de GitHub? (opcional)" -ForegroundColor Yellow
+Write-Host "Esto ayuda a mantener trazabilidad del proyecto" -ForegroundColor Gray
+$issueNumber = Read-Host "Numero de issue (presiona Enter para omitir)"
+
+# Validar número de issue si se proporciona
+$issueReference = ""
+if (-not [string]::IsNullOrWhiteSpace($issueNumber)) {
+    if ($issueNumber -match '^\d+$') {
+        $issueReference = " (closes #$issueNumber)"
+        Write-Host "Issue #$issueNumber sera vinculado al commit" -ForegroundColor Green
+    } else {
+        Write-Host "Numero de issue invalido, continuando sin vincular" -ForegroundColor Yellow
+        $issueReference = ""
+    }
+}
+
 # Construir mensaje completo del commit
-$fullCommitMessage = "$emoji $code`: $commitMessage"
+$fullCommitMessage = "$emoji $code`: $commitMessage$issueReference"
 
 Write-Host ""
 Write-Host "Mensaje del commit:" -ForegroundColor Cyan
 Write-Host "   $fullCommitMessage" -ForegroundColor White
+if (-not [string]::IsNullOrWhiteSpace($issueReference)) {
+    Write-Host "   (Este commit cerrara automaticamente el issue #$issueNumber)" -ForegroundColor Gray
+}
 Write-Host ""
 
 # Mostrar rama actual
@@ -276,6 +299,9 @@ Write-Host "Resumen del commit:" -ForegroundColor Cyan
 Write-Host "   Tipo: $desc" -ForegroundColor White
 Write-Host "   Mensaje: $fullCommitMessage" -ForegroundColor White
 Write-Host "   Rama: $targetBranch" -ForegroundColor White
+if (-not [string]::IsNullOrWhiteSpace($issueReference)) {
+    Write-Host "   Issue: #$issueNumber (se cerrara automaticamente)" -ForegroundColor White
+}
 Write-Host ""
 
 # Confirmacion final
@@ -292,6 +318,9 @@ git commit -m $fullCommitMessage
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Commit realizado exitosamente!" -ForegroundColor Green
+    if (-not [string]::IsNullOrWhiteSpace($issueReference)) {
+        Write-Host "El issue #$issueNumber sera cerrado cuando este commit llegue a la rama principal" -ForegroundColor Green
+    }
     Write-Host ""
     
     # Preguntar si quiere hacer push
@@ -302,6 +331,9 @@ if ($LASTEXITCODE -eq 0) {
         
         if ($LASTEXITCODE -eq 0) {
             Write-Host "Push realizado exitosamente!" -ForegroundColor Green
+            if (-not [string]::IsNullOrWhiteSpace($issueReference)) {
+                Write-Host "El commit con referencia al issue #$issueNumber esta ahora en GitHub" -ForegroundColor Green
+            }
         } else {
             Write-Host "Error en el push, pero el commit local fue exitoso" -ForegroundColor Yellow
         }
@@ -312,6 +344,9 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "   1. Actualizar documentacion de progreso si corresponde" -ForegroundColor White
     Write-Host "   2. Verificar que el commit sigue las convenciones del proyecto" -ForegroundColor White
     Write-Host "   3. Continuar con el siguiente task de la fase" -ForegroundColor White
+    if (-not [string]::IsNullOrWhiteSpace($issueReference)) {
+        Write-Host "   4. Verificar en GitHub que el issue #$issueNumber fue vinculado" -ForegroundColor White
+    }
 } else {
     Write-Host "Error al realizar el commit" -ForegroundColor Red
     exit 1

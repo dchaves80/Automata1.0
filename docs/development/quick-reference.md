@@ -42,6 +42,7 @@ git push origin [branch]
 | 🌐 | `:globe_with_meridians:` | API/Backend |
 | 💄 | `:lipstick:` | UI/Interfaz |
 | 🛠️ | `:hammer_and_wrench:` | Herramientas/Scripts |
+| 📦 | `:package:` | Cambios mixtos/varios |
 
 ---
 
@@ -129,6 +130,25 @@ git commit -m "🛠️ tool: [herramienta o script]"
 
 # Fase completada
 git commit -m "🎉 milestone: Completar Fase X"
+
+# Cambios mixtos/varios
+git commit -m "📦 varios: [descripción de cambios mixtos]"
+```
+
+### **🔗 Commits con Issues de GitHub**
+
+```bash
+# Vincular commit a issue específico
+git commit -m "✨ feat: Implementar autenticación JWT (closes #15)"
+
+# Múltiples issues
+git commit -m "🐛 fix: Corregir timeout MongoDB (closes #23, #24)"
+
+# Referencias sin cerrar
+git commit -m "🚧 wip: Avance en sistema de terreno (ref #30)"
+
+# Fix que cierra issue
+git commit -m "🐛 fix: Resolver error de validación (fixes #18)"
 ```
 
 ---
@@ -289,6 +309,7 @@ git checkout -b config/ci-cd-pipeline
 □ Progreso actualizado
 □ Commit message correcto
 □ Testing básico
+□ Issue vinculado (si aplica)
 ```
 
 ---
@@ -316,6 +337,12 @@ git commit -m "📚 docs: Actualizar Fase 1"
 
 # Commit de herramientas
 git commit -m "🛠️ tool: Crear script de commit helper"
+
+# Commit con cambios mixtos
+git commit -m "📦 varios: Actualizar docs y corregir bugs menores"
+
+# Commit con issue vinculado
+git commit -m "✨ feat: Sistema de autenticación (closes #12)"
 ```
 
 ---
@@ -338,13 +365,55 @@ git tag -l
 ## **📋 Comandos del Proyecto**
 
 ### **Commits Automatizados**
+
+#### **🪟 Windows (PowerShell)**
 ```powershell
-# Ejecutar helper de commits (desde la raíz)
+# Ejecutar helper de commits
 .\commit.ps1
 
 # Con alias (después de configurar)
 ac
 ```
+
+#### **🐧 Linux/macOS (Bash)**
+```bash
+# Ejecutar helper de commits
+./commit.sh
+
+# Hacer ejecutable (primera vez)
+chmod +x commit.sh
+
+# Con alias (después de configurar)
+alias ac='./commit.sh'
+```
+
+### **🔗 Funcionalidades de los Scripts**
+
+- ✅ **17 tipos de commit** con emojis
+- ✅ **Gestión de ramas** interactiva
+- ✅ **Validación automática** de Git
+- ✅ **Vinculación con issues** de GitHub
+- ✅ **Push automático** opcional
+- ✅ **Colores y formato** mejorado
+- ✅ **Compatibilidad** Windows/Linux
+
+### **📝 Ejemplo de Uso con Issues**
+
+```bash
+# El script preguntará:
+# "¿Quieres vincular este commit a un issue de GitHub? (opcional)"
+# "Numero de issue (presiona Enter para omitir): 15"
+
+# Resultado:
+# ":sparkles: feat: Implementar autenticación JWT (closes #15)"
+```
+
+### **🎯 Palabras Clave para Issues**
+
+- `closes #123` - Cierra el issue automáticamente
+- `fixes #123` - Corrige y cierra el issue
+- `resolves #123` - Resuelve y cierra el issue
+- `ref #123` - Solo referencia sin cerrar
 
 ---
 

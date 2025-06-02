@@ -32,15 +32,18 @@
 
 ### **🛠️ Herramientas de Desarrollo**
 
-#### **Script de Commits (`commit.ps1`)**
+#### **Script de Commits (`commit.ps1` / `commit.sh`)**
 - **Ubicación:** Raíz del proyecto
 - **Propósito:** Automatizar commits siguiendo convenciones
-- **Uso:** `.\commit.ps1`
+- **Uso Windows:** `.\commit.ps1`
+- **Uso Linux/macOS:** `./commit.sh`
 - **Ventajas:** 
   - Consistencia en mensajes de commit
   - Validación automática
   - Gestión de ramas integrada
-  - Compatible con cualquier configuración de PowerShell
+  - **Vinculación automática con issues de GitHub**
+  - Compatible con cualquier configuración de PowerShell/Bash
+  - Soporte multiplataforma (Windows/Linux/macOS)
 
 ---
 
@@ -97,6 +100,7 @@
 | **Performance** | 🐎 | `:racehorse:` | `🐎 Optimizar consultas a MongoDB` |
 | **Testing** | 🚨 | `:rotating_light:` | `🚨 Agregar tests para AuthController` |
 | **Seguridad** | 🔒 | `:lock:` | `🔒 Implementar validación de JWT tokens` |
+| **Cambios mixtos/varios** | 📦 | `:package:` | `📦 Actualizar docs y corregir bugs menores` |
 
 ### **🏗️ Tipos de Commit Específicos del Proyecto**
 
@@ -110,6 +114,7 @@
 | **Autómatas** | 🤖 | `:robot:` | `🤖 Implementar lógica básica de autómatas` |
 | **Materiales** | 📦 | `:package:` | `📦 Agregar sistema de materiales` |
 | **Marketplace** | 🏪 | `:convenience_store:` | `🏪 Implementar intercambio entre usuarios` |
+| **Herramientas/Scripts** | 🛠️ | `:hammer_and_wrench:` | `🛠️ Mejorar script de commits` |
 
 ### **🔧 Tipos de Commit Técnicos**
 
@@ -121,6 +126,7 @@
 | **CI/CD** | 💚 | `:green_heart:` | `💚 Configurar pipeline de deployment` |
 | **Hotfix crítico** | 🚑 | `:ambulance:` | `🚑 Corregir fallo crítico en autenticación` |
 | **Deploy** | 🚀 | `:rocket:` | `🚀 Deploy versión 0.1 a producción` |
+| **Cambios mixtos/varios** | 📦 | `:package:` | `📦 Actualizar dependencias y documentación` |
 
 ---
 
@@ -162,6 +168,21 @@ estándar para el equipo.
 
 Agregar configuración para MongoDB en puerto 27020
 y JWT secret key.
+
+# Cambios mixtos/varios
+📦 varios: Actualizar documentación y corregir bugs menores
+
+- Actualizar README con nuevas instrucciones
+- Corregir typos en comentarios del código
+- Ajustar configuración de desarrollo
+
+# Commit con issue vinculado
+✨ feat: Implementar autenticación JWT (closes #15)
+
+Sistema completo de autenticación con tokens JWT,
+validación de usuarios y middleware de autorización.
+
+Fase 1 - Progreso: 40%
 ```
 
 ### **❌ Ejemplos Incorrectos**
@@ -175,6 +196,38 @@ Add user registration
 # Muy largo en el título
 ✨ Implementar todo el sistema completo de autenticación con JWT, validación de email, encriptación de contraseñas y recuperación de contraseña
 ```
+
+### **🔗 Vinculación con Issues de GitHub**
+
+#### **📋 Palabras Clave Soportadas**
+- `closes #123` - Cierra el issue automáticamente al hacer merge
+- `fixes #123` - Corrige y cierra el issue
+- `resolves #123` - Resuelve y cierra el issue  
+- `ref #123` - Solo referencia sin cerrar
+
+#### **🎯 Ejemplos de Uso**
+```bash
+# Cerrar issue específico
+git commit -m "🐛 fix: Corregir validación de email (closes #23)"
+
+# Múltiples issues
+git commit -m "✨ feat: Sistema de autenticación (closes #15, #16)"
+
+# Solo referencia
+git commit -m "🚧 wip: Avance en terreno (ref #30)"
+
+# Diferentes palabras clave
+git commit -m "🔒 security: Implementar JWT (fixes #18)"
+git commit -m "🐎 perf: Optimizar consultas (resolves #25)"
+```
+
+#### **🔄 Flujo con Issues**
+1. **Crear issue** en GitHub describiendo la tarea
+2. **Crear rama** relacionada: `feature/issue-15-auth-system`
+3. **Desarrollar** la funcionalidad
+4. **Commit** con referencia: `(closes #15)`
+5. **Push** y crear Pull Request
+6. **Merge** cierra automáticamente el issue
 
 ---
 
@@ -517,6 +570,9 @@ git commit -m "🚧 wip: [descripción]"
 
 # Fase completada
 git commit -m "🎉 milestone: Completar [Fase X]"
+
+# Cambios mixtos/varios
+git commit -m "📦 varios: [descripción]"
 ```
 
 ---
