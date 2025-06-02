@@ -1,387 +1,261 @@
-# 🎯 Fase 4: Materiales y Transformaciones ⭐
+# ❌ Fase 4: Programación de Autómatas (NO IMPLEMENTADO)
 
-**Estado:** 🎯 OBJETIVO PRINCIPAL  
-**Inicio:** Julio 2026  
-**Fin Estimado:** Septiembre 2026 (10 semanas)  
-**Horas Totales:** 95 horas  
-**Progreso:** 0%
-
----
-
-## 🚀 **PRIMER RELEASE JUGABLE (Alpha v0.1)**
-
-Esta fase marca el **hito más importante** del proyecto: el primer release jugable completo. Al finalizar esta fase, tendremos un juego funcional con todas las mecánicas core implementadas.
+**Estado:** ❌ NO IMPLEMENTADO  
+**Duración:** Octubre - Diciembre 2025 (3 meses)  
+**Horas Totales:** 0 horas  
+**Progreso:** 0% ❌
 
 ---
 
 ## 🎯 Objetivos Principales
 
-La Fase 4 implementará el **sistema económico completo** del juego, incluyendo materiales, transformaciones, máquinas de producción y la calculadora integrada. Esta fase convertirá el proyecto en un juego completamente jugable.
+La **Fase 4** implementará el **sistema de programación de autómatas**, el corazón del juego. Los jugadores podrán programar sus autómatas usando un **pseudo-lenguaje visual** intuitivo para automatizar tareas complejas. Esta fase se ejecutará **después de completar las Fases 0, 1, 2 y 3**.
 
-### **🏭 Sistemas a Implementar**
+### **🧠 Concepto de Programación**
+El **sistema de programación** permitirá a los jugadores crear **algoritmos visuales** para controlar el comportamiento de sus autómatas:
 
-#### **📦 Sistema Completo de Materiales**
-- **Materiales Básicos:** Hierro, Cobre, Silicio, Litio
-- **Materiales Procesados:** Alambre de Cobre, Cables, Componentes
-- **Materiales Avanzados:** Autómatas, Baterías, Circuitos
-- **Sistema de Spawners:** Con costos y gestión de tick
+#### **📝 Pseudo-Lenguaje Visual**
+- **Bloques de código** arrastrables y conectables
+- **Sintaxis simple** similar a pseudocódigo
+- **Validación en tiempo real** de la lógica
+- **Debugging visual** con breakpoints y step-by-step
 
-#### **⚙️ Máquinas de Transformación**
-- **Extrusora:** Cobre → Alambre de Cobre
-- **Ensamblador de Cables:** Alambre + Aislante → Cables
-- **Fábrica Electrónica:** Silicio + Alambre → Componentes
-- **Ensamblador de Baterías:** Litio + Alambre → Baterías
+#### **🎯 Comandos Básicos**
+- **Movimiento:** `mover_a(x, y)`, `mover_arriba()`, `mover_derecha()`
+- **Condicionales:** `si (condición) entonces`, `sino`
+- **Bucles:** `repetir N veces`, `mientras (condición)`
+- **Sensores:** `detectar_material()`, `hay_obstáculo()`
+- **Acciones:** `recoger_material()`, `depositar_material()`
 
-#### **🔗 Cadenas de Producción**
-- **Cadenas Básicas:** Materiales → Productos simples
-- **Cadenas Complejas:** Múltiples pasos de transformación
-- **Optimización:** Balanceado de tiempos y costos
-- **Eficiencia:** Métricas de rendimiento
+#### **🔄 Ejecución en Tiempo Real**
+- **Intérprete** que ejecuta el código paso a paso
+- **Visualización** del estado actual del programa
+- **Pausa y reanudación** de la ejecución
+- **Logs de actividad** para debugging
 
-#### **🧮 Calculadora Integrada**
-- **Calculadora Básica:** Operaciones matemáticas
-- **Calculadoras Especializadas:** Costos, ROI, eficiencia
-- **Sistema de Notas:** Persistencia y organización
-- **Integración:** Datos automáticos del juego
+### **🎨 Estilo Visual**
+- **Vista:** Top-down (desde arriba)
+- **Editor:** Interfaz visual con bloques de código
+- **Debugging:** Indicadores visuales en la cuadrícula
+- **Feedback:** Animaciones y efectos para mostrar ejecución
+
+### **🌐 Integración con Backend**
+- **Guardado:** Programas se sincronizan con el servidor (Fase 1)
+- **Compartir:** Posibilidad de compartir programas entre jugadores
+- **Versionado:** Historial de cambios en los programas
 
 ---
 
-## 📊 Cronograma Detallado
+## 🏗️ Sistemas Por Implementar
 
-### **Semanas 1-2: Sistema de Spawners con Costos**
-**Horas:** 18h | **Prioridad:** 🔴 Alta
+#### **❌ Editor Visual de Programación**
+- **Archivo:** `Scripts/Programming/VisualEditor.cs` (NO EXISTE)
+- **Funcionalidad:** Interfaz drag & drop para crear programas
+- **Características:** Bloques conectables, validación, syntax highlighting
+- **Estado:** ❌ NO IMPLEMENTADO
+- **Dependencia:** Requiere Fases 0, 1, 2 y 3 completadas
 
-#### **Spawners Inteligentes:**
+#### **❌ Intérprete de Pseudo-Lenguaje**
+- **Archivo:** `Scripts/Programming/CodeInterpreter.cs` (NO EXISTE)
+- **Funcionalidad:** Ejecutar programas paso a paso
+- **Características:** Parsing, validación, ejecución controlada
+- **Estado:** ❌ NO IMPLEMENTADO
+
+#### **❌ Sistema de Debugging**
+- **Archivo:** `Scripts/Programming/Debugger.cs` (NO EXISTE)
+- **Funcionalidad:** Breakpoints, step-by-step, logs
+- **Características:** Visualización de estado, inspección de variables
+- **Estado:** ❌ NO IMPLEMENTADO
+
+#### **❌ Biblioteca de Comandos**
+- **Archivo:** `Scripts/Programming/CommandLibrary.cs` (NO EXISTE)
+- **Funcionalidad:** Comandos disponibles para programar autómatas
+- **Características:** Movimiento, sensores, acciones, lógica
+- **Estado:** ❌ NO IMPLEMENTADO
+
+#### **❌ Sistema de Validación**
+- **Archivo:** `Scripts/Programming/CodeValidator.cs` (NO EXISTE)
+- **Funcionalidad:** Validar sintaxis y lógica del programa
+- **Características:** Detección de errores, sugerencias
+- **Estado:** ❌ NO IMPLEMENTADO
+
+#### **❌ Sincronización con Backend**
+- **Archivo:** `Scripts/Backend/ProgramSync.cs` (NO EXISTE)
+- **Funcionalidad:** Guardar/cargar programas desde servidor
+- **Características:** Versionado, compartir, backup
+- **Estado:** ❌ NO IMPLEMENTADO
+
+---
+
+## 📊 Plan de Implementación
+
+### **🔧 Tareas Pendientes**
+```
+Sistemas a Implementar (Fase 4):
+├── ❌ Editor Visual
+│   ├── 🎨 Interfaz drag & drop
+│   ├── 🧩 Bloques de código conectables
+│   ├── ✅ Validación en tiempo real
+│   └── 🎯 Syntax highlighting
+├── ❌ Intérprete de Código
+│   ├── 📝 Parser de pseudo-lenguaje
+│   ├── ⚡ Motor de ejecución
+│   ├── 🔄 Control de flujo
+│   └── 📊 Gestión de estado
+├── ❌ Sistema de Debugging
+│   ├── 🔍 Breakpoints visuales
+│   ├── ⏯️ Ejecución paso a paso
+│   ├── 📋 Logs de actividad
+│   └── 🎯 Inspección de variables
+├── ❌ Biblioteca de Comandos
+│   ├── 🚶 Comandos de movimiento
+│   ├── 👁️ Comandos de sensores
+│   ├── 🤏 Comandos de acciones
+│   └── 🧠 Comandos de lógica
+├── ❌ Integración con Backend
+│   ├── 💾 Guardar programas
+│   ├── 📥 Cargar programas
+│   ├── 🔄 Sincronización automática
+│   └── 📤 Compartir con otros jugadores
+└── ❌ Testing y optimización
+```
+
+### **📁 Estructura de Archivos Planificada**
+```
+Scripts/Programming/ (NO EXISTE)
+├── VisualEditor.cs        # Editor visual drag & drop
+├── CodeInterpreter.cs     # Intérprete de pseudo-lenguaje
+├── Debugger.cs            # Sistema de debugging
+├── CommandLibrary.cs      # Biblioteca de comandos
+├── CodeValidator.cs       # Validación de sintaxis
+├── ProgramManager.cs      # Gestión de programas
+└── UI/
+    ├── CodeBlock.cs       # Bloques de código individuales
+    ├── ConnectionLine.cs  # Líneas de conexión entre bloques
+    ├── DebugPanel.cs      # Panel de debugging
+    └── CommandPalette.cs  # Paleta de comandos disponibles
+
+Scripts/Backend/ (DEPENDE DE FASE 1)
+├── ProgramSync.cs         # Sincronización con servidor
+└── ProgramData.cs         # Modelos de datos de programas
+```
+
+---
+
+## 🔗 Dependencias de Fases Anteriores
+
+### **✅ Requisitos Previos (de Fase 0):**
+- ✅ **Identidad visual** para el editor de programación
+- ✅ **Arquitectura UI** para interfaces complejas
+- ✅ **Sistema de escenas** para transiciones
+- ✅ **Configuración** para parámetros del editor
+
+### **✅ Requisitos Previos (de Fase 1):**
+- ✅ **APIs de estado del juego** para guardar programas
+- ✅ **Autenticación** para asociar programas a usuario
+- ✅ **Cliente Unity** para comunicación con backend
+- ✅ **Sincronización** automática de datos
+
+### **✅ Requisitos Previos (de Fase 2):**
+- ✅ **Sistema de coordenadas** de la cuadrícula
+- ✅ **Tiles y posiciones** para referencias en código
+- ✅ **Navegación** en el terreno
+
+### **✅ Requisitos Previos (de Fase 3):**
+- ✅ **Autómatas básicos** para programar
+- ✅ **Sistema de movimiento** en la cuadrícula
+- ✅ **Estados de autómatas** para control
+- ✅ **Comandos básicos** ya implementados
+
+### **🔄 Integración con Fases Anteriores:**
+- **Fase 3:** Los autómatas ejecutarán los programas creados
+- **Fase 2:** Referencias a posiciones en la cuadrícula
+- **Fase 1:** Guardado automático de programas
+- **UI:** Editor integrado en la interfaz principal
+
+---
+
+## 🚀 Preparación para Fases Futuras
+
+### **🎯 Fase 5 (Materiales):**
+- **Comandos específicos:** Para manipular diferentes tipos de materiales
+- **Sensores avanzados:** Para detectar materiales específicos
+- **Lógica de inventario:** Para gestionar materiales en autómatas
+
+### **🎯 Fase 6 (Marketplace):**
+- **Programas compartidos:** Marketplace de algoritmos
+- **Valoración:** Sistema de rating para programas
+- **Monetización:** Venta de programas entre jugadores
+
+### **🎯 Fase 7 (Producción):**
+- **Automatización completa:** Programas para cadenas de producción
+- **Optimización:** Algoritmos para maximizar eficiencia
+- **Coordinación:** Múltiples autómatas trabajando juntos
+
+---
+
+## 🛠️ Especificaciones Técnicas
+
+### **🎮 Rendimiento**
+- **Target:** 60 FPS con hasta 100 autómatas ejecutando programas
+- **Memoria:** Optimización para programas complejos
+- **Ejecución:** Máximo 1000 instrucciones por frame
+- **Debugging:** Herramientas que no afecten rendimiento
+
+### **💾 Estructura de Programas**
 ```csharp
-Funcionalidades:
-├── 💰 Sistema de costos por tick
-├── ⏱️ Gestión de tiempo de activación
-├── 📊 Métricas de producción
-├── 🎯 Optimización automática
-├── 💡 Recomendaciones de uso
-└── 📈 Análisis de rentabilidad
+Estructura de Datos:
+├── 📝 Program                # Programa completo
+│   ├── 🆔 ProgramId          # Identificador único
+│   ├── 📛 Name               # Nombre del programa
+│   ├── 👤 Author             # Autor del programa
+│   ├── 🧩 CodeBlocks[]       # Lista de bloques de código
+│   ├── 🔗 Connections[]      # Conexiones entre bloques
+│   ├── 📊 Variables[]        # Variables del programa
+│   └── 🕐 LastModified       # Timestamp de modificación
+├── 🧩 CodeBlock              # Bloque individual
+│   ├── 🆔 BlockId            # Identificador del bloque
+│   ├── 🏷️ BlockType          # Tipo (comando, condicional, bucle)
+│   ├── 📝 Parameters[]       # Parámetros del bloque
+│   ├── 📍 Position           # Posición en el editor
+│   └── 🔗 Connections[]      # Conexiones de entrada/salida
+└── 🔗 Connection             # Conexión entre bloques
+    ├── 🆔 FromBlockId        # Bloque origen
+    ├── 🆔 ToBlockId          # Bloque destino
+    ├── 🏷️ ConnectionType     # Tipo de conexión
+    └── 📊 Data               # Datos que fluyen por la conexión
 ```
 
-#### **Tipos de Spawners:**
-```
-Spawners Disponibles:
-├── 🔩 Hierro: 1₡/tick, 3 unidades/min
-├── 🟠 Cobre: 2₡/tick, 2 unidades/min
-├── 🔘 Silicio: 4₡/tick, 1 unidad/min
-├── 🔋 Litio: 8₡/tick, 0.5 unidades/min
-└── 🧪 Materiales Especiales: Costos variables
-```
-
-### **Semanas 3-4: Máquinas de Transformación**
-**Horas:** 18h | **Prioridad:** 🔴 Alta
-
-#### **Sistema de Máquinas:**
-```csharp
-Arquitectura:
-├── MachineBase: Clase base para todas las máquinas
-├── TransformationRecipe: Recetas de transformación
-├── ProductionQueue: Cola de producción
-├── EfficiencyCalculator: Cálculo de eficiencia
-└── MaintenanceSystem: Sistema de mantenimiento
-```
-
-#### **Máquinas Implementadas:**
-```
-Máquinas de Producción:
-├── 🏭 Extrusora: Cobre → Alambre (8s, 2 unidades)
-├── 🔌 Ensamblador Cables: Alambre + Aislante → Cables (12s, 3 unidades)
-├── 🖥️ Fábrica Electrónica: Silicio + Alambre → Componentes (25s, 1 unidad)
-├── 🔋 Ensamblador Baterías: Litio + Alambre → Baterías (20s, 1 unidad)
-└── 🤖 Fábrica Autómatas: Componentes + Baterías → Autómatas (60s, 1 unidad)
-```
-
-### **Semanas 5-6: Cadenas de Producción Básicas**
-**Horas:** 18h | **Prioridad:** 🔴 Alta
-
-#### **Flujos de Producción:**
-```
-Cadena Completa de Autómata:
-1. 🔩 Hierro (spawner) → 🏗️ Estructura base
-2. 🟠 Cobre (spawner) → 🏭 Extrusora → 🔌 Alambre de Cobre
-3. 🔘 Silicio (spawner) + Alambre → 🖥️ Fábrica → 📱 Componentes
-4. 🔋 Litio (spawner) + Alambre → 🔋 Ensamblador → 🔋 Baterías
-5. Componentes + Baterías → 🤖 Fábrica → 🤖 Autómata
-```
-
-#### **Balanceado Económico:**
-```
-Análisis de Costos:
-├── 💰 Costo total por autómata: ~45₡
-├── ⏱️ Tiempo de producción: ~120 segundos
-├── 📊 ROI esperado: 163% en 35 minutos
-├── 🎯 Break-even: 2.5 horas de operación
-└── 💡 Optimizaciones: Múltiples rutas posibles
-```
-
-### **Semanas 7-8: 🧮 Calculadora Integrada**
-**Horas:** 16h | **Prioridad:** 🟡 Media
-
-#### **Funcionalidades Core:**
-```csharp
-Calculadora Completa:
-├── 🔢 Calculadora básica (operaciones matemáticas)
-├── 💰 Calculadora de costos de producción
-├── ⏱️ Calculadora de tiempos y eficiencia
-├── 📈 Calculadora de ROI y rentabilidad
-├── 📝 Sistema de notas con tags
-├── 💾 Historial persistente (500 cálculos)
-├── 📊 Templates predefinidos
-└── 🔗 Integración con datos del juego
-```
-
-#### **Integración con Gameplay:**
-```csharp
-Características Avanzadas:
-├── ⌨️ Acceso rápido (F12 o Ctrl+C)
-├── 📊 Auto-completar con datos actuales
-├── 🔗 Enlaces directos a spawners/máquinas
-├── 💡 Sugerencias automáticas de optimización
-├── 📈 Análisis predictivo de tendencias
-└── 🎯 Recomendaciones contextuales
-```
-
-### **Semana 9: Balanceado Económico**
-**Horas:** 12h | **Prioridad:** 🔴 Alta
-
-#### **Optimización de Valores:**
-```
-Balanceado Final:
-├── 📊 Análisis de todas las cadenas de producción
-├── 💰 Ajuste de costos para gameplay equilibrado
-├── ⏱️ Optimización de tiempos de producción
-├── 🎯 Validación de objetivos de rentabilidad
-├── 📈 Testing de progresión económica
-└── 🔄 Iteración basada en métricas
-```
-
-### **Semana 10: Testing y Pulido**
-**Horas:** 13h | **Prioridad:** 🟡 Media
-
-#### **Testing Comprehensivo:**
-```
-Validación Completa:
-├── 🧪 Testing de todas las cadenas de producción
-├── 🎮 Playtesting de gameplay completo
-├── 📊 Validación de métricas económicas
-├── 🐛 Bug fixing y optimización
-├── 🎨 Pulido de UI y UX
-└── 📝 Documentación final
-```
+### **🌐 Sincronización con Backend**
+- **Frecuencia:** Guardado automático cada 60 segundos
+- **Versionado:** Control de versiones para programas
+- **Conflictos:** Resolución automática con merge
+- **Offline:** Cache local para programación sin conexión
 
 ---
 
-## 🎮 Funcionalidades de Gameplay
+## 🎯 Próximos Pasos
 
-### **🏭 Experiencia de Producción Completa**
+### **⏳ Esperando Fases Anteriores:**
+1. Completar Fase 0 (Menú Principal)
+2. Completar Fase 1 (Servidor Backend)
+3. Completar Fase 2 (Terreno/Foundations)
+4. Completar Fase 3 (Autómatas)
 
-#### **🎯 Flujo de Juego Principal:**
-```
-Gameplay Loop Completo:
-1. 🎮 Jugador inicia con recursos básicos
-2. 🏗️ Construye primeros spawners (Hierro, Cobre)
-3. 🤖 Programa autómatas para recolección
-4. 🏭 Construye máquinas de transformación
-5. 🔗 Establece cadenas de producción
-6. 🧮 Usa calculadora para optimizar
-7. 📈 Analiza métricas y mejora eficiencia
-8. 💰 Genera ganancias para expansión
-9. 🚀 Escala operaciones y especializa
-10. 🏆 Compite en eficiencia y rentabilidad
-```
-
-#### **🎯 Objetivos del Jugador:**
-```
-Metas Progresivas:
-├── 🥉 Bronce: Producir primer autómata (30 min)
-├── 🥈 Plata: Cadena de producción eficiente (2 horas)
-├── 🥇 Oro: 10 autómatas/hora sostenible (5 horas)
-├── 💎 Diamante: Optimización máxima (10+ horas)
-└── 🏆 Maestro: Innovación en estrategias
-```
-
-### **🧮 Calculadora como Herramienta Central**
-
-#### **🎯 Casos de Uso en Gameplay:**
-```
-Escenarios Típicos:
-├── 💰 "¿Cuánto cuesta producir 10 autómatas?"
-├── ⏱️ "¿Cuál es la ruta más eficiente?"
-├── 📊 "¿Qué spawner activar primero?"
-├── 🎯 "¿Cuándo es rentable expandir?"
-├── 📈 "¿Qué estrategia da mejor ROI?"
-└── 🔄 "¿Cómo optimizar mi cadena actual?"
-```
+### **🚀 Inmediato (Fase 4):**
+1. Diseñar interfaz del editor visual
+2. Implementar sistema de bloques conectables
+3. Crear intérprete de pseudo-lenguaje
+4. Desarrollar sistema de debugging
+5. Integrar con autómatas de Fase 3
+6. Conectar con backend de Fase 1
 
 ---
 
-## 🔧 Arquitectura Técnica
-
-### **🏗️ Estructura del Sistema**
-```
-MaterialsSystem/
-├── Core/
-│   ├── Material.cs
-│   ├── MaterialType.cs
-│   ├── MaterialManager.cs
-│   └── TransformationRecipe.cs
-├── Spawners/
-│   ├── Spawner.cs
-│   ├── SpawnerController.cs
-│   ├── CostManager.cs
-│   └── TickSystem.cs
-├── Machines/
-│   ├── MachineBase.cs
-│   ├── Extrusora.cs
-│   ├── EnsambladorCables.cs
-│   ├── FabricaElectronica.cs
-│   └── EnsambladorBaterias.cs
-├── Production/
-│   ├── ProductionChain.cs
-│   ├── EfficiencyAnalyzer.cs
-│   ├── CostCalculator.cs
-│   └── OptimizationEngine.cs
-└── Calculator/
-    ├── CalculatorCore.cs
-    ├── SpecializedCalculators.cs
-    ├── NotesSystem.cs
-    ├── DataIntegration.cs
-    └── UIController.cs
-```
+**Estado Final:** ❌ **NO IMPLEMENTADO - ESPERANDO FASES 0-3**  
+**Decisión:** 🎯 **CORAZÓN DEL JUEGO - PROGRAMACIÓN VISUAL**  
+**Próximo paso:** ✅ **COMPLETAR FASES ANTERIORES PRIMERO**
 
 ---
 
-## 🎯 Casos de Uso Específicos
-
-### **🎮 Caso 1: Primer Autómata**
-```
-Escenario: Jugador novato quiere su primer autómata
-├── 🎯 Objetivo: Producir 1 autómata básico
-├── 📊 Recursos necesarios: 45₡ + materiales
-├── ⏱️ Tiempo estimado: 30-45 minutos
-├── 🧮 Uso de calculadora:
-│   ├── Calcular costos totales
-│   ├── Planificar secuencia de spawners
-│   ├── Optimizar tiempos de activación
-│   └── Monitorear progreso
-├── 📈 Resultado: Autómata funcional + conocimiento
-└── 🎓 Aprendizaje: Fundamentos de producción
-```
-
-### **🎮 Caso 2: Optimización Avanzada**
-```
-Escenario: Jugador experto optimiza cadena compleja
-├── 🎯 Objetivo: 10 autómatas/hora sostenible
-├── 📊 Desafío: Múltiples cuellos de botella
-├── 🧮 Estrategia con calculadora:
-│   ├── Análisis de throughput por máquina
-│   ├── Identificación de cuellos de botella
-│   ├── Cálculo de ROI por mejora
-│   ├── Simulación de escenarios
-│   └── Optimización de timing de spawners
-├── 📈 Resultado: 400% mejora en eficiencia
-└── 🏆 Logro: Maestría en optimización
-```
-
----
-
-## 🚀 Preparación para Release
-
-### **✅ Criterios de Release Alpha v0.1**
-```
-Requisitos Mínimos:
-├── ✅ Todas las cadenas de producción funcionando
-├── ✅ Calculadora integrada completamente funcional
-├── ✅ Balanceado económico validado
-├── ✅ Tutorial completo implementado
-├── ✅ Sistema de guardado funcionando
-├── ✅ Performance optimizado (60 FPS)
-├── ✅ UI/UX pulida y intuitiva
-└── ✅ Testing comprehensivo completado
-```
-
-### **🎯 Métricas de Éxito del Release**
-```
-KPIs del Alpha:
-├── 🎮 Gameplay: 90% jugadores completan tutorial
-├── ⏱️ Engagement: 45+ minutos sesión promedio
-├── 🧮 Calculadora: 80% jugadores la usan activamente
-├── 📊 Retención: 60% regresan al día siguiente
-├── 🐛 Bugs: <5 bugs críticos reportados
-├── 📈 Performance: 60 FPS en hardware medio
-└── 😊 Satisfacción: 4.2/5 rating promedio
-```
-
----
-
-## 🎉 Impacto del Release
-
-### **🚀 Beneficios del Alpha v0.1**
-```
-Valor para Stakeholders:
-├── 👥 Jugadores: Experiencia completa y divertida
-├── 💼 Inversores: Proof of concept validado
-├── 🤝 Colaboradores: Base sólida para contribuir
-├── 📊 Mercado: Diferenciación clara vs competencia
-├── 🔮 Futuro: Fundación para características avanzadas
-└── 📈 Crecimiento: Plataforma para escalabilidad
-```
-
-### **📊 Datos para Futuras Fases**
-```
-Analytics Recopilados:
-├── 🎮 Patrones de gameplay más populares
-├── 🧮 Funciones de calculadora más usadas
-├── 📊 Cuellos de botella en producción
-├── 💰 Estrategias económicas exitosas
-├── 🤖 Programas de autómatas efectivos
-└── 🎯 Áreas de mejora identificadas
-```
-
----
-
-## ⚠️ Riesgos Críticos
-
-### **🔴 Riesgos de Release**
-- **Balanceado incorrecto:** Gameplay frustrante
-  - *Mitigación:* Testing extensivo con jugadores reales
-- **Performance insuficiente:** Experiencia pobre
-  - *Mitigación:* Optimización continua y profiling
-- **Calculadora compleja:** Curva de aprendizaje alta
-  - *Mitigación:* Tutorial progresivo y templates
-
----
-
-## 🎯 Criterios de Éxito
-
-### **✅ Objetivos Mínimos (Release Ready)**
-- ✅ Juego completamente jugable de inicio a fin
-- ✅ Todas las mecánicas core implementadas
-- ✅ Calculadora funcional e integrada
-- ✅ Performance estable en hardware medio
-
-### **🌟 Objetivos Ideales**
-- 🌟 Experiencia pulida y profesional
-- 🌟 Balanceado económico perfecto
-- 🌟 Calculadora intuitiva y poderosa
-- 🌟 Métricas de engagement altas
-
-### **🚀 Objetivos Stretch**
-- 🚀 Características innovadoras únicas
-- 🚀 Community features básicas
-- 🚀 Analytics avanzados implementados
-- 🚀 Preparación para monetización
-
----
-
-**Estado:** 🎯 **OBJETIVO PRINCIPAL - PRIMER RELEASE**  
-**Dependencias:** ✅ Fase 3 completada  
-**Impacto:** 🚀 **CRÍTICO PARA EL PROYECTO**
-
----
-
-**Anterior:** [⚙️ Fase 3: Autómatas](phase-3.md) | **Siguiente:** [🏪 Fase 5: Marketplace](phase-5.md) | **Roadmap:** [📋 Roadmap General](../roadmap/overview.md) | **Volver a:** [🏠 README Principal](../../README.md) 
+**Anterior:** [🤖 Fase 3: Autómatas](phase-3.md) | **Siguiente:** [📦 Fase 5: Materiales](phase-5.md) | **Roadmap:** [📋 Roadmap General](../roadmap/overview.md) | **Volver a:** [🏠 README Principal](../../README.md) 

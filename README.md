@@ -21,7 +21,7 @@ Un juego de automatización industrial donde los jugadores programan autómatas 
 ### 🏗️ **Fases de Desarrollo**
 - **[🚧 Fase 0: Menú Principal](docs/phases/phase-0.md)** - Fundación del proyecto y UI base (EN DESARROLLO)
 - **[❌ Fase 1: Servidor Backend](docs/phases/phase-1.md)** - Backend para estado del juego por usuario (NO IMPLEMENTADO)
-- **[❌ Fase 2: Terreno/Foundations](docs/phases/phase-2-new.md)** - Sistema de cimientos cuadriculados (NO IMPLEMENTADO)
+- **[❌ Fase 2: Terreno/Foundations](docs/phases/phase-2.md)** - Sistema de cimientos cuadriculados (NO IMPLEMENTADO)
 - **[❌ Fase 3: Autómatas](docs/phases/phase-3.md)** - Entidades móviles básicas (NO IMPLEMENTADO)
 - **[❌ Fase 4: Programación de Autómatas](docs/phases/phase-4.md)** - Pseudo-lenguaje y editor visual (NO IMPLEMENTADO)
 - **[❌ Fase 5: Materiales](docs/phases/phase-5.md)** - Sistema de recursos y materiales (NO IMPLEMENTADO)
