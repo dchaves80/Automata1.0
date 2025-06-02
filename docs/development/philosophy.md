@@ -42,8 +42,10 @@
   - Validación automática
   - Gestión de ramas integrada
   - **Vinculación automática con issues de GitHub**
+  - **Verificación automática del estado de issues**
   - Compatible con cualquier configuración de PowerShell/Bash
   - Soporte multiplataforma (Windows/Linux/macOS)
+  - Feedback inmediato sobre el cierre de issues
 
 ---
 

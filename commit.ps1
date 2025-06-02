@@ -333,6 +333,54 @@ if ($LASTEXITCODE -eq 0) {
             Write-Host "Push realizado exitosamente!" -ForegroundColor Green
             if (-not [string]::IsNullOrWhiteSpace($issueReference)) {
                 Write-Host "El commit con referencia al issue #$issueNumber esta ahora en GitHub" -ForegroundColor Green
+                
+                # Verificar estado del issue después del push
+                Write-Host ""
+                Write-Host "Verificando estado del issue en GitHub..." -ForegroundColor Cyan
+                Write-Host "Esperando 5 segundos para que GitHub procese el commit..." -ForegroundColor Gray
+                Start-Sleep -Seconds 5
+                
+                # Obtener información del repositorio remoto
+                $remoteUrl = git config --get remote.origin.url
+                if ($remoteUrl -match "github\.com[:/]([^/]+)/([^/.]+)") {
+                    $owner = $matches[1]
+                    $repo = $matches[2] -replace "\.git$", ""
+                    
+                    Write-Host "Consultando issue #$issueNumber en $owner/$repo..." -ForegroundColor Cyan
+                    
+                    try {
+                        # Hacer curl a la API de GitHub
+                        $apiUrl = "https://api.github.com/repos/$owner/$repo/issues/$issueNumber"
+                        $response = Invoke-RestMethod -Uri $apiUrl -Method Get -ErrorAction Stop
+                        
+                        Write-Host ""
+                        Write-Host "=== ESTADO DEL ISSUE #$issueNumber ===" -ForegroundColor Yellow
+                        Write-Host "Titulo: $($response.title)" -ForegroundColor White
+                        Write-Host "Estado: $($response.state.ToUpper())" -ForegroundColor $(if ($response.state -eq "closed") { "Green" } else { "Yellow" })
+                        Write-Host "Creado: $($response.created_at)" -ForegroundColor Gray
+                        if ($response.closed_at) {
+                            Write-Host "Cerrado: $($response.closed_at)" -ForegroundColor Green
+                        }
+                        Write-Host "URL: $($response.html_url)" -ForegroundColor Cyan
+                        
+                        if ($response.state -eq "closed") {
+                            Write-Host ""
+                            Write-Host "✅ El issue fue cerrado exitosamente!" -ForegroundColor Green
+                        } else {
+                            Write-Host ""
+                            Write-Host "⏳ El issue aun esta abierto. Puede tardar unos minutos en cerrarse automaticamente." -ForegroundColor Yellow
+                            Write-Host "   Esto es normal si el commit no esta en la rama principal aun." -ForegroundColor Gray
+                        }
+                        
+                    } catch {
+                        Write-Host ""
+                        Write-Host "⚠️  No se pudo verificar el estado del issue:" -ForegroundColor Yellow
+                        Write-Host "   $($_.Exception.Message)" -ForegroundColor Gray
+                        Write-Host "   Puedes verificar manualmente en: https://github.com/$owner/$repo/issues/$issueNumber" -ForegroundColor Cyan
+                    }
+                } else {
+                    Write-Host "⚠️  No se pudo determinar el repositorio de GitHub desde la URL remota" -ForegroundColor Yellow
+                }
             }
         } else {
             Write-Host "Error en el push, pero el commit local fue exitoso" -ForegroundColor Yellow

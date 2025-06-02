@@ -361,6 +361,73 @@ if [ $? -eq 0 ]; then
             echo -e "${GREEN}Push realizado exitosamente!${NC}"
             if [ -n "$issueReference" ]; then
                 echo -e "${GREEN}El commit con referencia al issue #$issueNumber esta ahora en GitHub${NC}"
+                
+                # Verificar estado del issue después del push
+                echo ""
+                echo -e "${CYAN}Verificando estado del issue en GitHub...${NC}"
+                echo -e "${GRAY}Esperando 5 segundos para que GitHub procese el commit...${NC}"
+                sleep 5
+                
+                # Obtener información del repositorio remoto
+                remoteUrl=$(git config --get remote.origin.url)
+                if [[ "$remoteUrl" =~ github\.com[:/]([^/]+)/([^/.]+) ]]; then
+                    owner="${BASH_REMATCH[1]}"
+                    repo="${BASH_REMATCH[2]}"
+                    repo="${repo%.git}"  # Remover .git si existe
+                    
+                    echo -e "${CYAN}Consultando issue #$issueNumber en $owner/$repo...${NC}"
+                    
+                    # Hacer curl a la API de GitHub
+                    apiUrl="https://api.github.com/repos/$owner/$repo/issues/$issueNumber"
+                    response=$(curl -s "$apiUrl")
+                    
+                    if [ $? -eq 0 ] && [ -n "$response" ]; then
+                        # Extraer información del JSON usando herramientas básicas
+                        title=$(echo "$response" | grep -o '"title":"[^"]*"' | cut -d'"' -f4)
+                        state=$(echo "$response" | grep -o '"state":"[^"]*"' | cut -d'"' -f4)
+                        created_at=$(echo "$response" | grep -o '"created_at":"[^"]*"' | cut -d'"' -f4)
+                        closed_at=$(echo "$response" | grep -o '"closed_at":"[^"]*"' | cut -d'"' -f4)
+                        html_url=$(echo "$response" | grep -o '"html_url":"[^"]*"' | cut -d'"' -f4)
+                        
+                        # Verificar si la respuesta contiene un error
+                        if echo "$response" | grep -q '"message":"Not Found"'; then
+                            echo ""
+                            echo -e "${YELLOW}⚠️  Issue #$issueNumber no encontrado en $owner/$repo${NC}"
+                            echo -e "${GRAY}   Verifica que el numero de issue sea correcto${NC}"
+                        else
+                            echo ""
+                            echo -e "${YELLOW}=== ESTADO DEL ISSUE #$issueNumber ===${NC}"
+                            echo -e "${WHITE}Titulo: $title${NC}"
+                            
+                            if [ "$state" = "closed" ]; then
+                                echo -e "${GREEN}Estado: CLOSED${NC}"
+                            else
+                                echo -e "${YELLOW}Estado: OPEN${NC}"
+                            fi
+                            
+                            echo -e "${GRAY}Creado: $created_at${NC}"
+                            if [ -n "$closed_at" ] && [ "$closed_at" != "null" ]; then
+                                echo -e "${GREEN}Cerrado: $closed_at${NC}"
+                            fi
+                            echo -e "${CYAN}URL: $html_url${NC}"
+                            
+                            if [ "$state" = "closed" ]; then
+                                echo ""
+                                echo -e "${GREEN}✅ El issue fue cerrado exitosamente!${NC}"
+                            else
+                                echo ""
+                                echo -e "${YELLOW}⏳ El issue aun esta abierto. Puede tardar unos minutos en cerrarse automaticamente.${NC}"
+                                echo -e "${GRAY}   Esto es normal si el commit no esta en la rama principal aun.${NC}"
+                            fi
+                        fi
+                    else
+                        echo ""
+                        echo -e "${YELLOW}⚠️  No se pudo verificar el estado del issue${NC}"
+                        echo -e "${GRAY}   Puedes verificar manualmente en: https://github.com/$owner/$repo/issues/$issueNumber${NC}"
+                    fi
+                else
+                    echo -e "${YELLOW}⚠️  No se pudo determinar el repositorio de GitHub desde la URL remota${NC}"
+                fi
             fi
         else
             echo -e "${YELLOW}Error en el push, pero el commit local fue exitoso${NC}"

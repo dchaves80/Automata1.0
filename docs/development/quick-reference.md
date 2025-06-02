@@ -393,6 +393,7 @@ alias ac='./commit.sh'
 - ✅ **Gestión de ramas** interactiva
 - ✅ **Validación automática** de Git
 - ✅ **Vinculación con issues** de GitHub
+- ✅ **Verificación automática** del estado de issues
 - ✅ **Push automático** opcional
 - ✅ **Colores y formato** mejorado
 - ✅ **Compatibilidad** Windows/Linux
@@ -406,6 +407,20 @@ alias ac='./commit.sh'
 
 # Resultado:
 # ":sparkles: feat: Implementar autenticación JWT (closes #15)"
+
+# Después del push exitoso:
+# "Verificando estado del issue en GitHub..."
+# "Esperando 5 segundos para que GitHub procese el commit..."
+# "Consultando issue #15 en usuario/repositorio..."
+# 
+# === ESTADO DEL ISSUE #15 ===
+# Titulo: Implementar sistema de autenticación
+# Estado: CLOSED
+# Creado: 2025-01-15T10:30:00Z
+# Cerrado: 2025-01-15T14:45:00Z
+# URL: https://github.com/usuario/repositorio/issues/15
+# 
+# ✅ El issue fue cerrado exitosamente!
 ```
 
 ### **🎯 Palabras Clave para Issues**
@@ -414,6 +429,30 @@ alias ac='./commit.sh'
 - `fixes #123` - Corrige y cierra el issue
 - `resolves #123` - Resuelve y cierra el issue
 - `ref #123` - Solo referencia sin cerrar
+
+### **🔍 Verificación Automática de Issues**
+
+Los scripts ahora incluyen verificación automática del estado de los issues:
+
+- ⏱️ **Espera 5 segundos** después del push para que GitHub procese
+- 🌐 **Consulta la API** de GitHub automáticamente
+- 📊 **Muestra información completa** del issue (título, estado, fechas, URL)
+- ✅ **Confirma si fue cerrado** o si aún está pendiente
+- ⚠️ **Manejo de errores** si no se puede verificar
+
+### **📋 Información Mostrada del Issue**
+
+```
+=== ESTADO DEL ISSUE #123 ===
+Titulo: [Título del issue]
+Estado: OPEN/CLOSED
+Creado: [Fecha de creación]
+Cerrado: [Fecha de cierre si aplica]
+URL: [Enlace directo al issue]
+
+✅ El issue fue cerrado exitosamente!
+⏳ El issue aun esta abierto. Puede tardar unos minutos...
+```
 
 ---
 
