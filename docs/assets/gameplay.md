@@ -6,7 +6,110 @@
 
 ---
 
-## 🔄 Core Game Loop
+## 🎮 Bucle Principal del Juego
+
+### **🔄 Flujo de Juego Completo**
+
+```mermaid
+flowchart TD
+    Start([🎯 Inicio del Juego]) --> Tutorial{📚 Tutorial?}
+    Tutorial -->|Sí| TutorialFlow[📖 Tutorial Interactivo]
+    Tutorial -->|No| MainMenu[🏠 Menú Principal]
+    TutorialFlow --> MainMenu
+    
+    MainMenu --> NewGame[🆕 Nueva Partida]
+    NewGame --> WorldGen[🌍 Generación de Mundo]
+    WorldGen --> InitialSetup[⚙️ Configuración Inicial]
+    
+    InitialSetup --> GameLoop{🔄 BUCLE PRINCIPAL}
+    
+    subgraph CoreLoop["🎯 BUCLE CENTRAL"]
+        GameLoop --> Explore[🔍 Explorar Terreno]
+        Explore --> Extract[⛏️ Extraer Recursos]
+        Extract --> Plan[📋 Planificar Producción]
+        Plan --> Build[🏗️ Construir Estructuras]
+        Build --> Program[💻 Programar Autómatas]
+        Program --> Optimize[⚡ Optimizar Cadenas]
+        Optimize --> Trade[💰 Comerciar]
+        Trade --> Expand[📈 Expandir Base]
+        Expand --> GameLoop
+    end
+    
+    subgraph Progression["📊 PROGRESIÓN"]
+        GameLoop --> CheckGoals{🎯 Objetivos?}
+        CheckGoals -->|Completado| Rewards[🏆 Recompensas]
+        CheckGoals -->|Pendiente| Continue[➡️ Continuar]
+        Rewards --> Unlock[🔓 Desbloquear Contenido]
+        Unlock --> Continue
+        Continue --> GameLoop
+    end
+    
+    subgraph Economy["💼 ECONOMÍA"]
+        Trade --> Market[🏪 Marketplace Global]
+        Market --> Prices[📈 Análisis Precios]
+        Prices --> Strategy[🧠 Estrategia Comercial]
+        Strategy --> Production[🏭 Ajustar Producción]
+        Production --> Trade
+    end
+    
+    subgraph Advanced["🚀 AVANZADO"]
+        GameLoop --> Research[🔬 Investigación]
+        Research --> NewTech[⚗️ Nueva Tecnología]
+        NewTech --> AdvancedAutomata[🤖 Autómatas Avanzados]
+        AdvancedAutomata --> Competition[🏆 Competencias]
+        Competition --> Ranking[📊 Ranking Global]
+        Ranking --> GameLoop
+    end
+    
+    GameLoop --> Save[💾 Guardar Progreso]
+    Save --> Exit{🚪 Salir?}
+    Exit -->|No| GameLoop
+    Exit -->|Sí| MainMenu
+    
+    %% Estilos
+    classDef start fill:#e17055,stroke:#d63031,stroke-width:3px,color:#fff
+    classDef core fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef progression fill:#55a3ff,stroke:#2d3436,stroke-width:2px,color:#fff
+    classDef economy fill:#00b894,stroke:#00a085,stroke-width:2px,color:#fff
+    classDef advanced fill:#a29bfe,stroke:#6c5ce7,stroke-width:2px,color:#fff
+    classDef decision fill:#fdcb6e,stroke:#e17055,stroke-width:2px,color:#2d3436
+    
+    class Start,MainMenu,NewGame start
+    class Explore,Extract,Plan,Build,Program,Optimize core
+    class CheckGoals,Rewards,Unlock,Continue progression
+    class Trade,Market,Prices,Strategy,Production economy
+    class Research,NewTech,AdvancedAutomata,Competition,Ranking advanced
+    class Tutorial,Exit,GameLoop decision
+```
+
+### **⚡ Micro-Bucle de Optimización**
+
+```mermaid
+graph LR
+    subgraph MicroLoop["🔧 MICRO-BUCLE (5-10 min)"]
+        Analyze[📊 Analizar Eficiencia] --> Identify[🎯 Identificar Cuellos de Botella]
+        Identify --> Adjust[⚙️ Ajustar Configuración]
+        Adjust --> Test[🧪 Probar Cambios]
+        Test --> Measure[📏 Medir Resultados]
+        Measure --> Analyze
+    end
+    
+    subgraph Tools["🛠️ HERRAMIENTAS"]
+        Debug[🐛 Debugger Visual]
+        Stats[📈 Estadísticas Tiempo Real]
+        Profiler[⚡ Profiler Rendimiento]
+    end
+    
+    MicroLoop -.-> Tools
+    
+    classDef micro fill:#ff7675,stroke:#d63031,stroke-width:2px,color:#fff
+    classDef tools fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
+    
+    class Analyze,Identify,Adjust,Test,Measure micro
+    class Debug,Stats,Profiler tools
+```
+
+### **🎯 Bucle Principal**
 
 ### **Loop Principal (5-10 minutos)**
 ```

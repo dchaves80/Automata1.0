@@ -6,6 +6,175 @@ El sistema de materiales y transformación es el **corazón económico** del jue
 
 ---
 
+## 🌳 Árbol de Transformación Completo
+
+```mermaid
+graph TD
+    %% Materiales Básicos (Tier 1)
+    Fe[🔴 Hierro<br/>Fe]
+    Cu[🟠 Cobre<br/>Cu]
+    C[⚫ Carbón<br/>C]
+    Si[🔵 Silicio<br/>Si]
+    Li[🟡 Litio<br/>Li]
+    
+    %% Materiales Procesados (Tier 2)
+    Acero[⚙️ Acero<br/>2Fe + 1C]
+    Bronce[🟤 Bronce<br/>3Cu + 1Fe]
+    Cables[🔌 Cables<br/>2Cu → 3 Cables]
+    Chips[💻 Chips<br/>1Si + 1Cu]
+    Baterias[🔋 Baterías<br/>2Li + 1Cu]
+    
+    %% Componentes Avanzados (Tier 3)
+    Motor[⚡ Motor<br/>2 Acero + 3 Cables + 1 Chip]
+    Procesador[🧠 Procesador<br/>3 Chips + 1 Batería + 2 Cables]
+    Chasis[🏗️ Chasis<br/>4 Acero + 2 Bronce]
+    Sensor[👁️ Sensor<br/>2 Chips + 1 Si + 3 Cables]
+    Actuador[🦾 Actuador<br/>1 Motor + 2 Acero + 1 Procesador]
+    
+    %% Autómatas (Tier 4)
+    AutoTransporte[🚚 Autómata Transporte<br/>1 Chasis + 2 Motor + 1 Sensor + 1 Procesador]
+    AutoConstruccion[🔨 Autómata Construcción<br/>1 Chasis + 2 Actuador + 2 Sensor + 1 Procesador]
+    AutoEnergia[⚡ Autómata Energía<br/>1 Chasis + 3 Baterías + 2 Procesador + 10 Cables]
+    AutoInteligente[🧠 Autómata Inteligente<br/>1 Chasis + 3 Procesador + 3 Sensor + 1 Actuador]
+    
+    %% Conexiones Tier 1 → Tier 2
+    Fe --> Acero
+    C --> Acero
+    Cu --> Bronce
+    Fe --> Bronce
+    Cu --> Cables
+    Si --> Chips
+    Cu --> Chips
+    Li --> Baterias
+    Cu --> Baterias
+    
+    %% Conexiones Tier 2 → Tier 3
+    Acero --> Motor
+    Cables --> Motor
+    Chips --> Motor
+    Chips --> Procesador
+    Baterias --> Procesador
+    Cables --> Procesador
+    Acero --> Chasis
+    Bronce --> Chasis
+    Chips --> Sensor
+    Si --> Sensor
+    Cables --> Sensor
+    Motor --> Actuador
+    Acero --> Actuador
+    Procesador --> Actuador
+    
+    %% Conexiones Tier 3 → Tier 4
+    Chasis --> AutoTransporte
+    Motor --> AutoTransporte
+    Sensor --> AutoTransporte
+    Procesador --> AutoTransporte
+    
+    Chasis --> AutoConstruccion
+    Actuador --> AutoConstruccion
+    Sensor --> AutoConstruccion
+    Procesador --> AutoConstruccion
+    
+    Chasis --> AutoEnergia
+    Baterias --> AutoEnergia
+    Procesador --> AutoEnergia
+    Cables --> AutoEnergia
+    
+    Chasis --> AutoInteligente
+    Procesador --> AutoInteligente
+    Sensor --> AutoInteligente
+    Actuador --> AutoInteligente
+    
+    %% Estilos
+    classDef tier1 fill:#ff6b6b,stroke:#d63031,stroke-width:2px,color:#fff
+    classDef tier2 fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
+    classDef tier3 fill:#45b7d1,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef tier4 fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
+    
+    class Fe,Cu,C,Si,Li tier1
+    class Acero,Bronce,Cables,Chips,Baterias tier2
+    class Motor,Procesador,Chasis,Sensor,Actuador tier3
+    class AutoTransporte,AutoConstruccion,AutoEnergia,AutoInteligente tier4
+```
+
+### **📊 Leyenda del Diagrama**
+- 🔴 **Tier 1 (Rojo):** Materiales básicos extraídos del terreno
+- 🔵 **Tier 2 (Azul Claro):** Materiales procesados (primera transformación)
+- 🟦 **Tier 3 (Azul):** Componentes avanzados (segunda transformación)
+- 🟢 **Tier 4 (Verde):** Autómatas completos (producto final)
+
+---
+
+## 🏭 Flujo de Producción con Máquinas
+
+```mermaid
+flowchart LR
+    %% Extracción
+    subgraph Extraccion["🏔️ EXTRACCIÓN"]
+        Mina[⛏️ Mina<br/>5 seg/unidad]
+        Pozo[🕳️ Pozo Petróleo<br/>3 seg/unidad]
+    end
+    
+    %% Procesamiento Básico
+    subgraph ProcBasico["🔥 PROCESAMIENTO BÁSICO"]
+        Fundicion[🔥 Fundición<br/>10 seg]
+        Refineria[⚗️ Refinería<br/>15 seg]
+        Ensamblador1[🔧 Ensamblador I<br/>8 seg]
+    end
+    
+    %% Procesamiento Avanzado
+    subgraph ProcAvanzado["⚙️ PROCESAMIENTO AVANZADO"]
+        Ensamblador2[🔧 Ensamblador II<br/>20 seg]
+        FabricaChips[💻 Fábrica Chips<br/>25 seg]
+        TallerMotores[⚡ Taller Motores<br/>30 seg]
+    end
+    
+    %% Ensamblaje Final
+    subgraph EnsamblajeFinal["🏭 ENSAMBLAJE FINAL"]
+        LineaAutomatas[🤖 Línea Autómatas<br/>60-120 seg]
+    end
+    
+    %% Flujo de materiales
+    Mina --> |Fe, Cu, Si, Li| Fundicion
+    Pozo --> |C| Refineria
+    
+    Fundicion --> |Acero, Bronce| Ensamblador2
+    Refineria --> |Cables| Ensamblador1
+    Ensamblador1 --> |Chips, Baterías| FabricaChips
+    
+    Ensamblador2 --> |Chasis| LineaAutomatas
+    FabricaChips --> |Procesador, Sensor| TallerMotores
+    TallerMotores --> |Motor, Actuador| LineaAutomatas
+    
+    LineaAutomatas --> |Autómatas| Marketplace[🏪 Marketplace]
+    
+    %% Estilos
+    classDef extraccion fill:#8b5a3c,stroke:#6d4c41,stroke-width:2px,color:#fff
+    classDef basico fill:#ff7675,stroke:#d63031,stroke-width:2px,color:#fff
+    classDef avanzado fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef final fill:#55a3ff,stroke:#2d3436,stroke-width:3px,color:#fff
+    classDef market fill:#00b894,stroke:#00a085,stroke-width:3px,color:#fff
+    
+    class Mina,Pozo extraccion
+    class Fundicion,Refineria,Ensamblador1 basico
+    class Ensamblador2,FabricaChips,TallerMotores avanzado
+    class LineaAutomatas final
+    class Marketplace market
+```
+
+### **⏱️ Tiempos de Producción por Máquina**
+| Máquina | Tiempo Base | Eficiencia | Costo Energía |
+|---------|-------------|------------|---------------|
+| ⛏️ Mina | 5 seg/unidad | 100% | 2 kW |
+| 🔥 Fundición | 10 seg | 95% | 5 kW |
+| 🔧 Ensamblador I | 8 seg | 90% | 3 kW |
+| 🔧 Ensamblador II | 20 seg | 85% | 8 kW |
+| 💻 Fábrica Chips | 25 seg | 80% | 12 kW |
+| ⚡ Taller Motores | 30 seg | 75% | 15 kW |
+| 🤖 Línea Autómatas | 60-120 seg | 70% | 25 kW |
+
+---
+
 ## 🧱 Materiales Básicos (Tier 1)
 
 ### **Recursos Primarios** - Extraídos del terreno
@@ -171,31 +340,75 @@ Valor de Mercado: 400-600 créditos
 
 ---
 
-## 📊 Economía y Balanceado
+## 💰 Economía y Balanceado
 
-### **Progresión de Valor**
+### **📈 Progresión de Valor**
+
+```mermaid
+graph LR
+    subgraph Valores["💰 VALORES DE MERCADO"]
+        subgraph T1["Tier 1 - Básicos"]
+            Fe1[Fe: 1₡]
+            Cu1[Cu: 1₡]
+            C1[C: 1₡]
+            Si1[Si: 2₡]
+            Li1[Li: 3₡]
+        end
+        
+        subgraph T2["Tier 2 - Procesados"]
+            Acero2[Acero: 5₡]
+            Bronce2[Bronce: 8₡]
+            Cables2[Cables: 3₡]
+            Chips2[Chips: 12₡]
+            Baterias2[Baterías: 15₡]
+        end
+        
+        subgraph T3["Tier 3 - Componentes"]
+            Motor3[Motor: 45₡]
+            Procesador3[Procesador: 65₡]
+            Chasis3[Chasis: 35₡]
+            Sensor3[Sensor: 40₡]
+            Actuador3[Actuador: 85₡]
+        end
+        
+        subgraph T4["Tier 4 - Autómatas"]
+            AutoT4[Transporte: 250₡]
+            AutoC4[Construcción: 320₡]
+            AutoE4[Energía: 450₡]
+            AutoI4[Inteligente: 580₡]
+        end
+    end
+    
+    %% Flujo de valor
+    T1 --> T2
+    T2 --> T3
+    T3 --> T4
+    
+    %% Multiplicadores de valor
+    T1 -.->|x5-15| T2
+    T2 -.->|x3-8| T3
+    T3 -.->|x3-7| T4
+    
+    %% Estilos
+    classDef tier1 fill:#ff6b6b,stroke:#d63031,stroke-width:2px,color:#fff
+    classDef tier2 fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
+    classDef tier3 fill:#45b7d1,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef tier4 fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
+    
+    class Fe1,Cu1,C1,Si1,Li1 tier1
+    class Acero2,Bronce2,Cables2,Chips2,Baterias2 tier2
+    class Motor3,Procesador3,Chasis3,Sensor3,Actuador3 tier3
+    class AutoT4,AutoC4,AutoE4,AutoI4 tier4
 ```
-Materiales Básicos (Tier 1): 1 crédito base
-├── Hierro, Carbón: 1 crédito
-├── Cobre, Silicio: 1.5 créditos
-└── Litio: 2 créditos
 
-Materiales Procesados (Tier 2): 2-5 créditos
-├── Acero, Bronce: 2-3 créditos
-├── Cables, Chips: 3-4 créditos
-└── Baterías: 5 créditos
+### **📊 Análisis Tiempo vs Valor**
 
-Componentes (Tier 3): 10-50 créditos
-├── Chasis, Motor: 10-20 créditos
-├── Sensor, Procesador: 25-35 créditos
-└── Actuador: 40-50 créditos
-
-Autómatas (Tier 4): 50-600 créditos
-├── Transporte: 50-80 créditos
-├── Construcción: 120-180 créditos
-├── Energía: 200-300 créditos
-└── Inteligente: 400-600 créditos
-```
+| Material/Componente | Tiempo Total | Valor Final | Eficiencia (₡/min) |
+|---------------------|--------------|-------------|-------------------|
+| 🔴 **Materiales Básicos** | 5 seg | 1-3₡ | 12-36₡/min |
+| 🔵 **Materiales Procesados** | 15-25 seg | 5-15₡ | 12-36₡/min |
+| 🟦 **Componentes Avanzados** | 45-85 seg | 35-85₡ | 25-60₡/min |
+| 🟢 **Autómatas Completos** | 180-300 seg | 250-580₡ | 50-116₡/min |
 
 ### **Tiempo vs. Valor**
 - **Materiales Básicos:** Extracción instantánea

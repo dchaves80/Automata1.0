@@ -1,4 +1,160 @@
-# 🏗️ Arquitectura Técnica - Visión General del Sistema
+# 🏗️ Arquitectura del Sistema - Automata Factory Game
+
+## 🎯 Visión General
+
+La arquitectura del **Automata Factory Game** está diseñada para ser **escalable**, **modular** y **eficiente**, soportando tanto el gameplay local como las funcionalidades multijugador en tiempo real.
+
+---
+
+## 🏛️ Arquitectura del Sistema
+
+### **🔧 Diagrama de Arquitectura Completa**
+
+```mermaid
+graph TB
+    subgraph Client["🖥️ CLIENTE (Unity)"]
+        subgraph UI["🎨 INTERFAZ DE USUARIO"]
+            MainMenu[🏠 Menú Principal]
+            GameUI[🎮 UI del Juego]
+            Settings[⚙️ Configuraciones]
+            Tutorial[📚 Tutorial]
+        end
+        
+        subgraph GameCore["🎯 NÚCLEO DEL JUEGO"]
+            GameManager[🎮 Game Manager]
+            SceneManager[🌍 Scene Manager]
+            SaveSystem[💾 Sistema de Guardado]
+            InputManager[🎯 Input Manager]
+        end
+        
+        subgraph GameSystems["⚙️ SISTEMAS DE JUEGO"]
+            GridSystem[🗺️ Sistema de Grilla]
+            BuildSystem[🏗️ Sistema de Construcción]
+            AutomataSystem[🤖 Sistema de Autómatas]
+            ProductionSystem[🏭 Sistema de Producción]
+            EconomySystem[💰 Sistema Económico]
+        end
+        
+        subgraph Rendering["🎨 RENDERIZADO"]
+            Camera[📷 Cámara 2D]
+            Sprites[🖼️ Sprites]
+            Animations[🎬 Animaciones]
+            Effects[✨ Efectos Visuales]
+        end
+    end
+    
+    subgraph Network["🌐 CAPA DE RED"]
+        NetworkManager[🔗 Network Manager]
+        APIClient[📡 API Client]
+        WebSocket[⚡ WebSocket]
+        Authentication[🔐 Autenticación]
+    end
+    
+    subgraph Backend["☁️ BACKEND (Node.js)"]
+        subgraph API["🔌 API REST"]
+            AuthAPI[🔐 Auth API]
+            GameAPI[🎮 Game API]
+            MarketAPI[🏪 Market API]
+            UserAPI[👤 User API]
+        end
+        
+        subgraph Services["⚙️ SERVICIOS"]
+            AuthService[🔐 Auth Service]
+            GameService[🎮 Game Service]
+            MarketService[🏪 Market Service]
+            NotificationService[📢 Notification Service]
+        end
+        
+        subgraph RealTime["⚡ TIEMPO REAL"]
+            SocketIO[🔌 Socket.IO]
+            GameRooms[🏠 Game Rooms]
+            MarketUpdates[📈 Market Updates]
+        end
+    end
+    
+    subgraph Database["🗄️ BASE DE DATOS"]
+        subgraph MongoDB["🍃 MongoDB"]
+            Users[👥 Usuarios]
+            Games[🎮 Partidas]
+            Market[🏪 Marketplace]
+            Analytics[📊 Analytics]
+        end
+        
+        subgraph Redis["🔴 Redis Cache"]
+            Sessions[🎫 Sesiones]
+            MarketCache[💰 Cache Mercado]
+            GameState[🎮 Estado Juego]
+        end
+    end
+    
+    subgraph External["🌍 SERVICIOS EXTERNOS"]
+        CloudSave[☁️ Cloud Save]
+        Analytics_Ext[📊 Analytics]
+        CDN[🌐 CDN]
+        Monitoring[📈 Monitoring]
+    end
+    
+    %% Conexiones Cliente
+    UI --> GameCore
+    GameCore --> GameSystems
+    GameSystems --> Rendering
+    GameCore --> Network
+    
+    %% Conexiones Red
+    Network --> Backend
+    NetworkManager --> SocketIO
+    APIClient --> API
+    
+    %% Conexiones Backend
+    API --> Services
+    Services --> Database
+    RealTime --> Redis
+    Services --> External
+    
+    %% Conexiones Base de Datos
+    MongoDB --> Redis
+    
+    %% Estilos
+    classDef client fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef network fill:#fdcb6e,stroke:#e17055,stroke-width:2px,color:#2d3436
+    classDef backend fill:#55a3ff,stroke:#2d3436,stroke-width:2px,color:#fff
+    classDef database fill:#00b894,stroke:#00a085,stroke-width:2px,color:#fff
+    classDef external fill:#a29bfe,stroke:#6c5ce7,stroke-width:2px,color:#fff
+    
+    class MainMenu,GameUI,Settings,Tutorial,GameManager,SceneManager,SaveSystem,InputManager,GridSystem,BuildSystem,AutomataSystem,ProductionSystem,EconomySystem,Camera,Sprites,Animations,Effects client
+    class NetworkManager,APIClient,WebSocket,Authentication network
+    class AuthAPI,GameAPI,MarketAPI,UserAPI,AuthService,GameService,MarketService,NotificationService,SocketIO,GameRooms,MarketUpdates backend
+    class Users,Games,Market,Analytics,Sessions,MarketCache,GameState database
+    class CloudSave,Analytics_Ext,CDN,Monitoring external
+```
+
+### **📊 Flujo de Datos Principal**
+
+```mermaid
+sequenceDiagram
+    participant U as 👤 Usuario
+    participant C as 🖥️ Cliente Unity
+    participant N as 🌐 Network Layer
+    participant B as ☁️ Backend
+    participant D as 🗄️ Database
+    
+    U->>C: 🎮 Acción del Jugador
+    C->>C: 🔄 Procesar Localmente
+    C->>N: 📡 Enviar Datos
+    N->>B: 🔌 API Request
+    B->>D: 💾 Consultar/Guardar
+    D-->>B: 📊 Respuesta
+    B-->>N: 📦 Datos Procesados
+    N-->>C: ⬇️ Actualizar Cliente
+    C-->>U: 🎨 Mostrar Resultado
+    
+    Note over C,B: 🔄 Sincronización Automática
+    B->>N: 📢 Push Notifications
+    N->>C: ⚡ Tiempo Real
+    C->>U: 🔔 Notificación
+```
+
+---
 
 ## 🎯 Introducción
 
