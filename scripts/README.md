@@ -4,16 +4,16 @@ Scripts útiles para automatizar tareas comunes del proyecto Automata Factory.
 
 ---
 
-## 🎯 Commit Helper (`commit-helper.ps1`)
+## 🎯 Commit Helper (`commit.ps1`)
 
 Script interactivo de PowerShell que guía paso a paso para hacer commits siguiendo las convenciones del proyecto.
 
-**📍 Ubicación:** Raíz del proyecto (`commit-helper.ps1`)
+**📍 Ubicación:** Raíz del proyecto (`commit.ps1`)
 
 ### **🚀 Características**
 
 - ✅ **Validación automática** de repositorio Git y cambios pendientes
-- 🎨 **16 tipos de commit** con emojis predefinidos
+- 🎯 **16 tipos de commit** predefinidos
 - 🌿 **Gestión de ramas** - cambio automático o creación de nuevas ramas
 - 📋 **Vista previa** del commit antes de confirmar
 - 📤 **Push automático** opcional después del commit
@@ -21,37 +21,37 @@ Script interactivo de PowerShell que guía paso a paso para hacer commits siguie
 
 ### **📋 Tipos de Commit Disponibles**
 
-| # | Emoji | Tipo | Descripción |
-|---|-------|------|-------------|
-| 1 | ✨ | `feat` | Nueva funcionalidad |
-| 2 | 🐛 | `fix` | Corrección de bugs |
-| 3 | 📚 | `docs` | Documentación |
-| 4 | 🔧 | `config` | Configuración |
-| 5 | 🚧 | `wip` | Work in progress |
-| 6 | 🎉 | `milestone` | Fase completada |
-| 7 | 🗄️ | `db` | MongoDB/Base de datos |
-| 8 | 🎮 | `unity` | Unity/Cliente |
-| 9 | 🌐 | `api` | API/Backend |
-| 10 | 💄 | `ui` | UI/Interfaz |
-| 11 | 🔨 | `refactor` | Refactoring |
-| 12 | 🚨 | `test` | Testing |
-| 13 | 🔒 | `security` | Seguridad |
-| 14 | 🐎 | `perf` | Performance |
-| 15 | 🚑 | `hotfix` | Hotfix crítico |
-| 16 | 🛠️ | `tool` | Herramientas/Scripts |
+| # | Tipo | Descripción |
+|---|------|-------------|
+| 1 | `feat` | Nueva funcionalidad |
+| 2 | `fix` | Corrección de bugs |
+| 3 | `docs` | Documentación |
+| 4 | `config` | Configuración |
+| 5 | `wip` | Work in progress |
+| 6 | `milestone` | Fase completada |
+| 7 | `db` | MongoDB/Base de datos |
+| 8 | `unity` | Unity/Cliente |
+| 9 | `api` | API/Backend |
+| 10 | `ui` | UI/Interfaz |
+| 11 | `refactor` | Refactoring |
+| 12 | `test` | Testing |
+| 13 | `security` | Seguridad |
+| 14 | `perf` | Performance |
+| 15 | `hotfix` | Hotfix crítico |
+| 16 | `tool` | Herramientas/Scripts |
 
 ### **🔧 Cómo Usar**
 
 #### **Método 1: Desde la raíz del proyecto (recomendado)**
 ```powershell
 # Ejecutar directamente desde la raíz
-.\commit-helper.ps1
+.\commit.ps1
 ```
 
 #### **Método 2: Crear alias global**
 ```powershell
 # Agregar al perfil de PowerShell
-echo 'function ac { & "$PWD\commit-helper.ps1" }' >> $PROFILE
+echo 'function ac { & "$PWD\commit.ps1" }' >> $PROFILE
 
 # Recargar perfil
 . $PROFILE
@@ -64,7 +64,7 @@ ac
 ```powershell
 # Navegar al proyecto y ejecutar
 cd "C:\ruta\a\tu\proyecto\Automata"
-.\commit-helper.ps1
+.\commit.ps1
 ```
 
 ### **📝 Flujo de Uso**
@@ -80,7 +80,7 @@ cd "C:\ruta\a\tu\proyecto\Automata"
 
 3. **📝 Mensaje del commit**
    - Ingresa descripción clara y concisa
-   - El script construye el mensaje completo con emoji
+   - El script construye el mensaje completo
 
 4. **🌿 Gestión de ramas**
    - Muestra rama actual y ramas disponibles
@@ -100,44 +100,35 @@ cd "C:\ruta\a\tu\proyecto\Automata"
 
 #### **Ejemplo 1: Documentación**
 ```
-🎨 Selecciona el tipo de commit:
-  3. 📚 Documentación
+Selecciona el tipo de commit:
+  3. docs - Documentacion
 
-📝 Ingresa el mensaje del commit:
 Mensaje: Actualizar lineamientos de desarrollo
 
-📋 Mensaje del commit:
-   📚 docs: Actualizar lineamientos de desarrollo
+Mensaje del commit:
+   docs: Actualizar lineamientos de desarrollo
 ```
 
 #### **Ejemplo 2: Nueva funcionalidad**
 ```
-🎨 Selecciona el tipo de commit:
-  1. ✨ Nueva funcionalidad
+Selecciona el tipo de commit:
+  1. feat - Nueva funcionalidad
 
-📝 Ingresa el mensaje del commit:
 Mensaje: Implementar sistema de autenticación JWT
 
-🌿 Ramas disponibles:
-   Rama actual: main
-   
-🎯 ¿A qué rama quieres hacer commit?
-Rama destino: feature/fase-1-auth
-
-📋 Mensaje del commit:
-   ✨ feat: Implementar sistema de autenticación JWT
+Mensaje del commit:
+   feat: Implementar sistema de autenticación JWT
 ```
 
 #### **Ejemplo 3: Herramientas/Scripts**
 ```
-🎨 Selecciona el tipo de commit:
-  16. 🛠️ Herramientas/Scripts
+Selecciona el tipo de commit:
+  16. tool - Herramientas/Scripts
 
-📝 Ingresa el mensaje del commit:
-Mensaje: Crear script interactivo para commits
+Mensaje: Simplificar script de commits
 
-📋 Mensaje del commit:
-   🛠️ tool: Crear script interactivo para commits
+Mensaje del commit:
+   tool: Simplificar script de commits
 ```
 
 ### **⚠️ Requisitos**
@@ -154,7 +145,7 @@ Mensaje: Crear script interactivo para commits
 notepad $PROFILE
 
 # Agregar esta línea al archivo:
-function ac { & "C:\ruta\completa\a\Automata\scripts\commit-helper.ps1" }
+function ac { & "C:\ruta\completa\a\Automata\commit.ps1" }
 
 # Guardar y recargar
 . $PROFILE
@@ -169,7 +160,7 @@ ac
 - ⚡ **Rapidez** - Proceso guiado sin memorizar comandos
 - 🛡️ **Seguridad** - Validaciones antes de ejecutar
 - 📊 **Trazabilidad** - Commits bien estructurados y categorizados
-- 🎨 **Visual** - Interfaz colorida y clara
+- 🎨 **Compatible** - Sin problemas de codificación
 
 ### **🐛 Solución de Problemas**
 

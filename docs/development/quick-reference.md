@@ -230,7 +230,7 @@ git tag -l
 ### **Commits Automatizados**
 ```powershell
 # Ejecutar helper de commits (desde la raíz)
-.\commit-helper.ps1
+.\commit.ps1
 
 # Con alias (después de configurar)
 ac

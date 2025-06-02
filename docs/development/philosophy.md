@@ -30,6 +30,18 @@
 - **APIs extensibles** para futuras funcionalidades
 - **Base sólida** para crecimiento del proyecto
 
+### **🛠️ Herramientas de Desarrollo**
+
+#### **Script de Commits (`commit.ps1`)**
+- **Ubicación:** Raíz del proyecto
+- **Propósito:** Automatizar commits siguiendo convenciones
+- **Uso:** `.\commit.ps1`
+- **Ventajas:** 
+  - Consistencia en mensajes de commit
+  - Validación automática
+  - Gestión de ramas integrada
+  - Compatible con cualquier configuración de PowerShell
+
 ---
 
 ## 🔄 Flujo de Trabajo de Desarrollo
