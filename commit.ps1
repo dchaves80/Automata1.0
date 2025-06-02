@@ -132,7 +132,17 @@ switch ($branchChoice) {
         # Cambiar a rama existente
         Write-Host ""
         Write-Host "Ramas locales disponibles:" -ForegroundColor Cyan
-        $localBranches = git branch --format="%(refname:short)" | Where-Object { $_ -ne $currentBranch }
+        
+        # Obtener ramas locales de manera más simple
+        $branchOutput = git branch
+        $localBranches = @()
+        
+        foreach ($line in $branchOutput) {
+            $cleanBranch = $line.Trim() -replace '^\*\s*', ''
+            if ($cleanBranch -ne $currentBranch -and $cleanBranch -ne '') {
+                $localBranches += $cleanBranch
+            }
+        }
         
         if ($localBranches.Count -eq 0) {
             Write-Host "No hay otras ramas locales disponibles" -ForegroundColor Yellow
@@ -181,26 +191,34 @@ switch ($branchChoice) {
         }
         
         Write-Host ""
-        Write-Host "Todas las ramas disponibles:" -ForegroundColor Cyan
+        Write-Host "Ramas locales:" -ForegroundColor Cyan
         
-        # Obtener ramas locales y remotas
-        $allBranches = @()
-        $localBranches = git branch --format="%(refname:short)"
-        $remoteBranches = git branch -r --format="%(refname:short)" | Where-Object { $_ -notlike "*/HEAD*" }
+        # Mostrar ramas locales
+        $branchOutput = git branch
+        $localBranches = @()
         
-        # Agregar ramas locales
-        foreach ($branch in $localBranches) {
-            if ($branch -ne $currentBranch) {
-                $allBranches += @{ Name = $branch; Type = "local" }
+        foreach ($line in $branchOutput) {
+            $cleanBranch = $line.Trim() -replace '^\*\s*', ''
+            if ($cleanBranch -ne $currentBranch -and $cleanBranch -ne '') {
+                $localBranches += $cleanBranch
+                Write-Host "  $($localBranches.Count). $cleanBranch (local)" -ForegroundColor White
             }
         }
         
-        # Agregar ramas remotas que no existen localmente
-        foreach ($remoteBranch in $remoteBranches) {
-            $branchName = $remoteBranch -replace "origin/", ""
-            $existsLocally = $localBranches -contains $branchName
-            if (-not $existsLocally -and $branchName -ne $currentBranch) {
-                $allBranches += @{ Name = $branchName; Type = "remote" }
+        Write-Host ""
+        Write-Host "Ramas remotas:" -ForegroundColor Cyan
+        
+        # Mostrar ramas remotas
+        $remoteBranchOutput = git branch -r
+        $remoteBranches = @()
+        $allBranches = $localBranches.Clone()
+        
+        foreach ($line in $remoteBranchOutput) {
+            $cleanBranch = $line.Trim() -replace '^origin/', ''
+            if ($cleanBranch -notlike '*HEAD*' -and $cleanBranch -ne $currentBranch -and $localBranches -notcontains $cleanBranch) {
+                $remoteBranches += $cleanBranch
+                $allBranches += $cleanBranch
+                Write-Host "  $($allBranches.Count). $cleanBranch (remoto)" -ForegroundColor White
             }
         }
         
@@ -208,13 +226,7 @@ switch ($branchChoice) {
             Write-Host "No hay otras ramas disponibles" -ForegroundColor Yellow
             $targetBranch = $currentBranch
         } else {
-            for ($i = 0; $i -lt $allBranches.Count; $i++) {
-                $branch = $allBranches[$i]
-                $typeIndicator = if ($branch.Type -eq "local") { "(local)" } else { "(remoto)" }
-                Write-Host "  $($i + 1). $($branch.Name) $typeIndicator" -ForegroundColor White
-            }
             Write-Host ""
-            
             do {
                 $branchIndex = Read-Host "Selecciona el numero de rama (1-$($allBranches.Count))"
                 $validIndex = $branchIndex -match "^[1-$($allBranches.Count)]$"
@@ -223,9 +235,10 @@ switch ($branchChoice) {
                 }
             } while (-not $validIndex)
             
-            $selectedBranch = $allBranches[$branchIndex - 1]
-            $targetBranch = $selectedBranch.Name
-            Write-Host "Seleccionada: $targetBranch ($($selectedBranch.Type))" -ForegroundColor Green
+            $targetBranch = $allBranches[$branchIndex - 1]
+            $isRemote = $remoteBranches -contains $targetBranch
+            $branchType = if ($isRemote) { "remoto" } else { "local" }
+            Write-Host "Seleccionada: $targetBranch ($branchType)" -ForegroundColor Green
         }
     }
 }
