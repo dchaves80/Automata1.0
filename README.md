@@ -115,7 +115,7 @@ docs/
 | Fase | Nombre | Estado | Progreso | Fecha Estimada |
 |------|--------|--------|----------|----------------|
 | **Fase 0** | Menú Principal | 🚧 En Desarrollo | 0% | Enero 2025 |
-| **Fase 1** | Servidor Backend | ❌ No Implementado | 0% | Febrero-Abril 2025 |
+| **Fase 1** | Servidor Backend | 🚧 En Desarrollo | 15% | Enero-Abril 2025 |
 | **Fase 2** | Terreno/Foundations | ❌ No Implementado | 0% | Mayo-Julio 2025 |
 | **Fase 3** | Autómatas | ❌ No Implementado | 0% | Agosto-Septiembre 2025 |
 | **Fase 4** | Programación de Autómatas | ❌ No Implementado | 0% | Octubre-Diciembre 2025 |
