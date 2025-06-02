@@ -1,539 +1,356 @@
-# 🏭 Materiales y Transformación - Árbol Completo de Producción
+# 🏭 Materiales y Transformación - Sistema de Spawners y Producción
 
 ## 🎯 Visión General del Sistema
 
-El sistema de materiales y transformación es el **corazón económico** del juego, donde los jugadores crean cadenas de producción cada vez más complejas para fabricar autómatas avanzados y competir en el marketplace global.
+El sistema de materiales combina **spawners económicos** para materiales básicos con **producción industrial** para componentes avanzados. Los jugadores deben balancear costos de extracción, eficiencia de producción y estrategias de marketplace.
 
 ---
 
-## 🌳 Árbol de Transformación Completo
+## 💰 Sistema de Spawners (Solo Materiales Básicos)
+
+### **🏭 Mecánica de Spawners**
+
+Los spawners son la **única fuente** de materiales básicos y operan bajo las siguientes reglas:
+
+#### **⏱️ Sistema de Ticks**
+- Cada spawner genera **1 unidad por tick** si está libre
+- Si el spawner está **ocupado** (material sin recoger), no genera nuevo material
+- **Costo por unidad** se deduce automáticamente del balance del jugador
+- Sin dinero = spawner se detiene hasta tener fondos
+
+#### **💸 Costos de Extracción por Material**
+
+| Material | Símbolo | Costo/Unidad | Tick Rate | Abundancia |
+|----------|---------|--------------|-----------|------------|
+| **Hierro** | Fe 🔴 | 0.5₡ | 3 seg | Alta |
+| **Cobre** | Cu 🟠 | 0.8₡ | 4 seg | Media |
+| **Carbón** | C ⚫ | 0.3₡ | 2 seg | Alta |
+| **Silicio** | Si 🔵 | 1.5₡ | 6 seg | Media |
+| **Litio** | Li 🟡 | 3.0₡ | 8 seg | Baja |
+
+#### **🎯 Estrategia de Spawners**
+```
+Gestión Eficiente:
+├── 🔄 Recoger materiales rápidamente para mantener spawners activos
+├── 💰 Balancear costos de extracción vs. ingresos por ventas
+├── 📦 Optimizar almacenamiento para evitar bloqueos
+└── ⚡ Priorizar materiales según demanda del marketplace
+```
+
+---
+
+## 🏭 Sistema de Producción (Todo lo Demás)
+
+### **⚙️ Materiales Procesados (Tier 2) - Solo Producción**
+
+Estos materiales **NO se pueden comprar** en el marketplace, solo producir:
+
+| Material | Componentes | Máquina | Tiempo | Costo Producción |
+|----------|-------------|---------|--------|------------------|
+| **Acero** | 2 Fe + 1 C | Fundición | 30s | 1.3₡ materiales |
+| **Bronce** | 3 Cu + 1 Fe | Fundición | 25s | 2.9₡ materiales |
+| **Alambre de Cobre** | 1 Cu | Extrusora | 8s | 0.8₡ materiales |
+| **Cables** | 3 Alambre + Aislante | Ensamblador | 12s | 2.4₡ + Aislante |
+| **Chips** | 1 Si + 1 Alambre | Fab. Electrónica | 25s | 2.3₡ materiales |
+| **Baterías** | 2 Li + 1 Alambre | Ensamblador | 20s | 6.8₡ materiales |
+
+### **🔧 Componentes Avanzados (Tier 3) - Producción + Marketplace**
+
+Estos se pueden **producir** O **comprar** en el marketplace:
+
+| Componente | Costo Producción | Precio Marketplace | Diferencia |
+|------------|------------------|-------------------|------------|
+| **Motor** | ~15₡ materiales | 45₡ | +200% |
+| **Procesador** | ~25₡ materiales | 65₡ | +160% |
+| **Chasis** | ~8₡ materiales | 35₡ | +337% |
+| **Sensor** | ~12₡ materiales | 40₡ | +233% |
+| **Actuador** | ~40₡ materiales | 85₡ | +112% |
+
+### **🤖 Autómatas (Tier 4) - Solo Marketplace**
+
+Los autómatas completos **solo se venden** en el marketplace:
+
+| Autómata | Costo Total Producción | Precio Venta | Margen |
+|----------|------------------------|--------------|--------|
+| **Transporte** | ~80₡ | 250₡ | +212% |
+| **Construcción** | ~140₡ | 320₡ | +128% |
+| **Energía** | ~180₡ | 450₡ | +150% |
+| **Inteligente** | ~220₡ | 580₡ | +163% |
+
+---
+
+## 🏪 Estrategias de Marketplace vs Producción
+
+### **📊 Análisis Económico**
 
 ```mermaid
 graph TD
-    %% Materiales Básicos (Tier 1)
-    Fe[🔴 Hierro<br/>Fe]
-    Cu[🟠 Cobre<br/>Cu]
-    C[⚫ Carbón<br/>C]
-    Si[🔵 Silicio<br/>Si]
-    Li[🟡 Litio<br/>Li]
+    subgraph Spawners["💰 SPAWNERS (Costo Fijo)"]
+        Fe[Fe: 0.5₡/3s]
+        Cu[Cu: 0.8₡/4s]
+        C[C: 0.3₡/2s]
+        Si[Si: 1.5₡/6s]
+        Li[Li: 3.0₡/8s]
+    end
     
-    %% Materiales Procesados (Tier 2)
-    Acero[⚙️ Acero<br/>2Fe + 1C]
-    Bronce[🟤 Bronce<br/>3Cu + 1Fe]
-    AlambreCobre[🔶 Alambre de Cobre<br/>1Cu → 2 Alambres]
-    Cables[🔌 Cables<br/>3 Alambre + Aislante]
-    Chips[💻 Chips<br/>1Si + 1 Alambre]
-    Baterias[🔋 Baterías<br/>2Li + 1 Alambre]
+    subgraph Produccion["🏭 PRODUCCIÓN (Solo Fabricar)"]
+        Acero[Acero: 1.3₡]
+        Bronce[Bronce: 2.9₡]
+        Alambre[Alambre: 0.8₡]
+        Cables[Cables: 2.4₡]
+        Chips[Chips: 2.3₡]
+        Baterias[Baterías: 6.8₡]
+    end
     
-    %% Componentes Avanzados (Tier 3)
-    Motor[⚡ Motor<br/>2 Acero + 3 Cables + 1 Chip]
-    Procesador[🧠 Procesador<br/>3 Chips + 1 Batería + 2 Cables]
-    Chasis[🏗️ Chasis<br/>4 Acero + 2 Bronce]
-    Sensor[👁️ Sensor<br/>2 Chips + 1Si + 3 Alambre]
-    Actuador[🦾 Actuador<br/>1 Motor + 2 Acero + 1 Procesador]
+    subgraph Mixto["⚖️ MIXTO (Producir o Comprar)"]
+        Motor[Motor: 15₡ vs 45₡]
+        Procesador[Procesador: 25₡ vs 65₡]
+        Chasis[Chasis: 8₡ vs 35₡]
+        Sensor[Sensor: 12₡ vs 40₡]
+        Actuador[Actuador: 40₡ vs 85₡]
+    end
     
-    %% Autómatas (Tier 4)
-    AutoTransporte[🚚 Autómata Transporte<br/>1 Chasis + 2 Motor + 1 Sensor + 1 Procesador]
-    AutoConstruccion[🔨 Autómata Construcción<br/>1 Chasis + 2 Actuador + 2 Sensor + 1 Procesador]
-    AutoEnergia[⚡ Autómata Energía<br/>1 Chasis + 3 Baterías + 2 Procesador + 15 Cables]
-    AutoInteligente[🧠 Autómata Inteligente<br/>1 Chasis + 3 Procesador + 3 Sensor + 1 Actuador]
+    subgraph Marketplace["🏪 MARKETPLACE (Solo Vender)"]
+        AutoT[Transporte: 250₡]
+        AutoC[Construcción: 320₡]
+        AutoE[Energía: 450₡]
+        AutoI[Inteligente: 580₡]
+    end
     
-    %% Conexiones Tier 1 → Tier 2
-    Fe --> Acero
-    C --> Acero
-    Cu --> Bronce
-    Fe --> Bronce
-    Cu --> AlambreCobre
-    AlambreCobre --> Cables
-    Si --> Chips
-    AlambreCobre --> Chips
-    Li --> Baterias
-    AlambreCobre --> Baterias
+    %% Flujo económico
+    Spawners --> |Costo Base| Produccion
+    Produccion --> |Valor Agregado| Mixto
+    Mixto --> |Máximo Valor| Marketplace
     
-    %% Conexiones Tier 2 → Tier 3
-    Acero --> Motor
-    Cables --> Motor
-    Chips --> Motor
-    Chips --> Procesador
-    Baterias --> Procesador
-    Cables --> Procesador
-    Acero --> Chasis
-    Bronce --> Chasis
-    Chips --> Sensor
-    Si --> Sensor
-    AlambreCobre --> Sensor
-    Motor --> Actuador
-    Acero --> Actuador
-    Procesador --> Actuador
-    
-    %% Conexiones Tier 3 → Tier 4
-    Chasis --> AutoTransporte
-    Motor --> AutoTransporte
-    Sensor --> AutoTransporte
-    Procesador --> AutoTransporte
-    
-    Chasis --> AutoConstruccion
-    Actuador --> AutoConstruccion
-    Sensor --> AutoConstruccion
-    Procesador --> AutoConstruccion
-    
-    Chasis --> AutoEnergia
-    Baterias --> AutoEnergia
-    Procesador --> AutoEnergia
-    Cables --> AutoEnergia
-    
-    Chasis --> AutoInteligente
-    Procesador --> AutoInteligente
-    Sensor --> AutoInteligente
-    Actuador --> AutoInteligente
+    %% Decisiones estratégicas
+    Mixto -.->|¿Producir?| Produccion
+    Mixto -.->|¿Comprar?| Marketplace
     
     %% Estilos
-    classDef tier1 fill:#ff6b6b,stroke:#d63031,stroke-width:2px,color:#fff
-    classDef tier2 fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
-    classDef tier3 fill:#45b7d1,stroke:#0984e3,stroke-width:2px,color:#fff
-    classDef tier4 fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
+    classDef spawner fill:#ff6b6b,stroke:#d63031,stroke-width:2px,color:#fff
+    classDef produccion fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
+    classDef mixto fill:#45b7d1,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef market fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
     
-    class Fe,Cu,C,Si,Li tier1
-    class Acero,Bronce,AlambreCobre,Cables,Chips,Baterias tier2
-    class Motor,Procesador,Chasis,Sensor,Actuador tier3
-    class AutoTransporte,AutoConstruccion,AutoEnergia,AutoInteligente tier4
+    class Fe,Cu,C,Si,Li spawner
+    class Acero,Bronce,Alambre,Cables,Chips,Baterias produccion
+    class Motor,Procesador,Chasis,Sensor,Actuador mixto
+    class AutoT,AutoC,AutoE,AutoI market
 ```
 
-### **📊 Leyenda del Diagrama**
-- 🔴 **Tier 1 (Rojo):** Materiales básicos extraídos del terreno
-- 🔵 **Tier 2 (Azul Claro):** Materiales procesados (primera transformación)
-- 🟦 **Tier 3 (Azul):** Componentes avanzados (segunda transformación)
-- 🟢 **Tier 4 (Verde):** Autómatas completos (producto final)
+### **🎯 Decisiones Estratégicas**
 
----
-
-## 🏭 Flujo de Producción con Máquinas
-
-```mermaid
-flowchart LR
-    %% Extracción
-    subgraph Extraccion["🏔️ EXTRACCIÓN"]
-        Mina[⛏️ Mina<br/>5 seg/unidad]
-        Pozo[🕳️ Pozo Petróleo<br/>3 seg/unidad]
-    end
-    
-    %% Procesamiento Básico
-    subgraph ProcBasico["🔥 PROCESAMIENTO BÁSICO"]
-        Fundicion[🔥 Fundición<br/>10 seg]
-        Refineria[⚗️ Refinería<br/>15 seg]
-        Extrusora[🔧 Extrusora<br/>8 seg]
-    end
-    
-    %% Procesamiento Intermedio
-    subgraph ProcIntermedio["⚙️ PROCESAMIENTO INTERMEDIO"]
-        EnsambladorCables[🔌 Ensamblador Cables<br/>12 seg]
-        FabricaChips[💻 Fábrica Chips<br/>25 seg]
-        EnsambladorBaterias[🔋 Ensamblador Baterías<br/>20 seg]
-    end
-    
-    %% Procesamiento Avanzado
-    subgraph ProcAvanzado["⚙️ PROCESAMIENTO AVANZADO"]
-        TallerMotores[⚡ Taller Motores<br/>30 seg]
-        FabricaProcesadores[🧠 Fábrica Procesadores<br/>35 seg]
-        TallerSensores[👁️ Taller Sensores<br/>28 seg]
-    end
-    
-    %% Ensamblaje Final
-    subgraph EnsamblajeFinal["🏭 ENSAMBLAJE FINAL"]
-        LineaAutomatas[🤖 Línea Autómatas<br/>60-120 seg]
-    end
-    
-    %% Flujo de materiales
-    Mina --> |Fe, Cu, Si, Li| Fundicion
-    Pozo --> |C| Refineria
-    
-    Fundicion --> |Acero, Bronce| TallerMotores
-    Mina --> |Cu| Extrusora
-    Extrusora --> |Alambre de Cobre| EnsambladorCables
-    Extrusora --> |Alambre de Cobre| FabricaChips
-    Extrusora --> |Alambre de Cobre| EnsambladorBaterias
-    
-    EnsambladorCables --> |Cables| TallerMotores
-    FabricaChips --> |Chips| FabricaProcesadores
-    FabricaChips --> |Chips| TallerSensores
-    EnsambladorBaterias --> |Baterías| FabricaProcesadores
-    
-    TallerMotores --> |Motor, Chasis| LineaAutomatas
-    FabricaProcesadores --> |Procesador| LineaAutomatas
-    TallerSensores --> |Sensor| LineaAutomatas
-    
-    LineaAutomatas --> |Autómatas| Marketplace[🏪 Marketplace]
-    
-    %% Estilos
-    classDef extraccion fill:#8b5a3c,stroke:#6d4c41,stroke-width:2px,color:#fff
-    classDef basico fill:#ff7675,stroke:#d63031,stroke-width:2px,color:#fff
-    classDef intermedio fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
-    classDef avanzado fill:#55a3ff,stroke:#2d3436,stroke-width:2px,color:#fff
-    classDef final fill:#00b894,stroke:#00a085,stroke-width:3px,color:#fff
-    classDef market fill:#a29bfe,stroke:#6c5ce7,stroke-width:3px,color:#fff
-    
-    class Mina,Pozo extraccion
-    class Fundicion,Refineria,Extrusora basico
-    class EnsambladorCables,FabricaChips,EnsambladorBaterias intermedio
-    class TallerMotores,FabricaProcesadores,TallerSensores avanzado
-    class LineaAutomatas final
-    class Marketplace market
+#### **Early Game: Optimizar Spawners**
+```
+Prioridades:
+├── 🔄 Mantener spawners de Hierro y Carbón activos (bajo costo)
+├── 💰 Minimizar costos de Litio hasta tener ingresos estables
+├── 📦 Construir almacenamiento para evitar bloqueos
+└── ⚡ Foco en Acero para infraestructura básica
 ```
 
-### **⏱️ Tiempos de Producción por Máquina**
-| Máquina | Tiempo Base | Eficiencia | Costo Energía |
-|---------|-------------|------------|---------------|
-| ⛏️ Mina | 5 seg/unidad | 100% | 2 kW |
-| 🔥 Fundición | 10 seg | 95% | 5 kW |
-| 🔧 Extrusora | 8 seg | 90% | 3 kW |
-| 🔌 Ensamblador Cables | 12 seg | 88% | 4 kW |
-| 💻 Fábrica Chips | 25 seg | 85% | 8 kW |
-| 🔋 Ensamblador Baterías | 20 seg | 87% | 6 kW |
-| ⚡ Taller Motores | 30 seg | 80% | 12 kW |
-| 🧠 Fábrica Procesadores | 35 seg | 78% | 15 kW |
-| 👁️ Taller Sensores | 28 seg | 82% | 10 kW |
-| 🤖 Línea Autómatas | 60-120 seg | 70% | 25 kW |
-
----
-
-## 🧱 Materiales Básicos (Tier 1)
-
-### **Recursos Primarios** - Extraídos del terreno
-
-| Material | Símbolo | Color | Abundancia | Uso Principal |
-|----------|---------|-------|------------|---------------|
-| **Hierro** | Fe | 🔴 Rojo | Alta | Estructura y componentes básicos |
-| **Cobre** | Cu | 🟠 Naranja | Media | Circuitos y conductividad |
-| **Carbón** | C | ⚫ Negro | Alta | Energía y aleaciones |
-| **Silicio** | Si | 🔵 Azul | Media | Electrónicos y procesadores |
-| **Litio** | Li | 🟡 Amarillo | Baja | Baterías y almacenamiento |
-
-### Características de Extracción:
-- **Hierro y Carbón:** Abundantes, fáciles de extraer
-- **Cobre y Silicio:** Moderadamente raros, requieren exploración
-- **Litio:** Escaso, encontrado en depósitos especiales
-
----
-
-## ⚙️ Materiales Procesados (Tier 2)
-
-### **Aleaciones y Compuestos** - Primera transformación
-
-| Material | Componentes | Máquina | Tiempo | Valor |
-|----------|-------------|---------|--------|-------|
-| **Acero** | 2 Hierro + 1 Carbón | Horno Básico | 30s | 3x |
-| **Bronce** | 3 Cobre + 1 Hierro | Horno Básico | 25s | 2.5x |
-| **Alambre de Cobre** | 1 Cobre | Extrusora | 15s | 2x |
-| **Cables** | 3 Alambre de Cobre + Aislante | Extrusora | 15s | 2x |
-| **Chips** | 1 Silicio + 1 Alambre de Cobre | Fab. Electrónica | 45s | 4x |
-| **Baterías** | 2 Litio + 1 Alambre de Cobre | Ensambladora | 60s | 5x |
-
-### **Fórmulas de Transformación:**
+#### **Mid Game: Producir vs Comprar**
 ```
-Acero = 2Fe + 1C → 1 Acero (Valor: 3 unidades básicas)
-Bronce = 3Cu + 1Fe → 1 Bronce (Valor: 2.5 unidades básicas)
-Alambre de Cobre = 1Cu → 2 Alambres (Valor: 2 unidades básicas)
-Cables = 3 Alambre de Cobre + Aislante → 3 Cables (Valor: 2 unidades básicas)
-Chips = 1Si + 1 Alambre de Cobre → 1 Chip (Valor: 4 unidades básicas)
-Baterías = 2Li + 1 Alambre de Cobre → 1 Batería (Valor: 5 unidades básicas)
+Análisis por Componente:
+├── ✅ PRODUCIR: Chasis (337% markup) - Máxima rentabilidad
+├── ✅ PRODUCIR: Sensores (233% markup) - Alta rentabilidad
+├── ⚖️ EVALUAR: Motores (200% markup) - Según capacidad
+├── ⚖️ EVALUAR: Procesadores (160% markup) - Según demanda
+└── ❌ COMPRAR: Actuadores (112% markup) - Si falta tiempo
+```
+
+#### **Late Game: Maximizar Márgenes**
+```
+Estrategia de Autómatas:
+├── 🎯 Especialización en 1-2 tipos de autómatas
+├── 🏭 Líneas de producción completamente automatizadas
+├── 📈 Optimización de costos de spawners (eficiencia energética)
+└── 🏪 Dominación de nicho específico en marketplace
 ```
 
 ---
 
-## 🔧 Componentes Avanzados (Tier 3)
+## ⚡ Optimización de Costos de Spawners
 
-### **Partes Especializadas** - Segunda transformación
+### **💡 Eficiencia por Material**
 
-| Componente | Materiales Requeridos | Máquina | Tiempo | Complejidad |
-|------------|----------------------|---------|--------|-------------|
-| **Motor** | 2 Acero + 3 Cables + 1 Chip | Ensambladora Avanzada | 120s | Media |
-| **Procesador** | 3 Chips + 1 Batería + 2 Cables | Fab. Avanzada | 180s | Alta |
-| **Chasis** | 4 Acero + 2 Bronce | Soldadora | 90s | Baja |
-| **Sensor** | 2 Chips + 1 Silicio + 3 Alambre | Fab. Electrónica | 150s | Media |
-| **Actuador** | 1 Motor + 2 Acero + 1 Procesador | Ensambladora Avanzada | 200s | Alta |
+| Material | Costo/Min | Valor Agregado Potencial | ROI |
+|----------|-----------|-------------------------|-----|
+| **Hierro** | 10₡/min | Acero (5₡) → Motor (45₡) | 450% |
+| **Cobre** | 12₡/min | Alambre (2₡) → Cables (3₡) → Motor | 375% |
+| **Carbón** | 9₡/min | Acero (5₡) → Componentes | 500% |
+| **Silicio** | 15₡/min | Chips (12₡) → Procesador (65₡) | 433% |
+| **Litio** | 22.5₡/min | Baterías (15₡) → Procesador | 289% |
 
-### **Cadenas de Dependencia:**
+### **🔄 Gestión de Flujo de Caja**
+
+#### **Ciclo Económico Básico**
 ```
-Motor:
-├── Acero (2) ← Hierro (4) + Carbón (2)
-├── Cables (3) ← Cobre (6)
-└── Chip (1) ← Silicio (1) + Cobre (1)
+1. 💰 Inversión Inicial: Activar spawners básicos (Fe, C)
+2. 🏭 Producción: Acero → Chasis → Venta rápida
+3. 📈 Reinversión: Expandir a Cobre y Silicio
+4. 🎯 Especialización: Foco en autómatas rentables
+5. 🏪 Dominación: Control de mercado específico
+```
 
-Procesador:
-├── Chips (3) ← Silicio (3) + Cobre (3)
-├── Batería (1) ← Litio (2) + Cobre (1)
-└── Cables (2) ← Cobre (4)
+#### **Indicadores Clave**
+- **Break-even Point:** Tiempo hasta recuperar inversión en spawners
+- **Cash Flow:** Balance entre costos de spawners e ingresos
+- **Efficiency Ratio:** Valor producido vs. costo de materiales básicos
+- **Market Share:** Porcentaje de ventas en categoría especializada
+
+---
+
+## ⚙️ Mecánica Detallada de Spawners
+
+### **🔄 Sistema de Ticks y Estados**
+
+#### **Estados del Spawner**
+```
+🟢 ACTIVO: Spawner libre, genera material cada tick
+├── ✅ Condiciones: Espacio libre + dinero suficiente
+├── ⏱️ Acción: Genera 1 unidad y deduce costo
+└── 🔄 Siguiente: Estado OCUPADO
+
+🔴 OCUPADO: Material sin recoger, no genera nuevo
+├── ❌ Condiciones: Material presente en spawner
+├── ⏸️ Acción: Espera hasta que se recoja material
+└── 🔄 Siguiente: Estado ACTIVO (si se recoge)
+
+🟡 SIN FONDOS: Dinero insuficiente para generar
+├── 💰 Condiciones: Balance < costo del material
+├── ⏸️ Acción: Spawner pausado hasta tener dinero
+└── 🔄 Siguiente: Estado ACTIVO (si hay fondos)
+```
+
+#### **⏱️ Timing de Spawners**
+
+| Material | Tick Rate | Costo/Tick | Costo/Minuto | Unidades/Minuto |
+|----------|-----------|-------------|---------------|-----------------|
+| **Hierro** | 3 seg | 0.5₡ | 10₡ | 20 unidades |
+| **Cobre** | 4 seg | 0.8₡ | 12₡ | 15 unidades |
+| **Carbón** | 2 seg | 0.3₡ | 9₡ | 30 unidades |
+| **Silicio** | 6 seg | 1.5₡ | 15₡ | 10 unidades |
+| **Litio** | 8 seg | 3.0₡ | 22.5₡ | 7.5 unidades |
+
+### **📦 Gestión de Inventario y Spawners**
+
+#### **Estrategias de Recolección**
+```
+🤖 Automatización Recomendada:
+├── 🔄 Autómata de Transporte: Recolección automática cada 2-3 segundos
+├── 📦 Almacén Cercano: Máximo 2 hexágonos de distancia
+├── ⚡ Prioridad: Materiales más costosos primero (Li > Si > Cu > Fe > C)
+└── 🎯 Backup Manual: Para emergencias o inicio de partida
+
+📊 Indicadores de Eficiencia:
+├── ⏱️ Tiempo Spawner Ocupado: <10% del tiempo total
+├── 💰 Costo vs Ingresos: Ratio positivo constante
+├── 📈 Throughput: Unidades/hora vs. capacidad máxima
+└── 🔋 Energía: Costo energético de recolección vs. valor
+```
+
+#### **🎯 Optimización por Fase de Juego**
+
+##### **Fase 1: Arranque (0-15 min)**
+```
+Spawners Activos:
+├── ✅ Hierro: Esencial para infraestructura
+├── ✅ Carbón: Necesario para Acero
+├── ❌ Cobre: Solo si hay demanda inmediata
+├── ❌ Silicio: Demasiado costoso inicialmente
+└── ❌ Litio: Prohibitivo en early game
+
+Estrategia: Minimizar costos, maximizar Acero
+```
+
+##### **Fase 2: Expansión (15-45 min)**
+```
+Spawners Activos:
+├── ✅ Hierro + Carbón: Mantener para Acero
+├── ✅ Cobre: Activar para Alambre y Cables
+├── ⚖️ Silicio: Solo si hay pedidos de Chips
+├── ❌ Litio: Esperar hasta tener ingresos estables
+└── 🎯 Foco: Diversificar hacia componentes Tier 2
+
+Estrategia: Balancear costos con diversificación
+```
+
+##### **Fase 3: Especialización (45+ min)**
+```
+Spawners Activos:
+├── ✅ Todos los materiales según especialización
+├── 🎯 Hierro/Carbón: Si especialización en Motores/Chasis
+├── 🎯 Cobre/Silicio: Si especialización en Electrónicos
+├── 🎯 Litio: Si especialización en Energía
+└── 📈 Optimización: Según demanda del marketplace
+
+Estrategia: Maximizar ROI de especialización elegida
+```
+
+### **💡 Tips Avanzados de Spawners**
+
+#### **🔧 Micro-gestión Eficiente**
+```
+Técnicas Profesionales:
+├── 🕐 Timing Perfecto: Recoger justo antes del siguiente tick
+├── 📊 Análisis de Demanda: Activar spawners según órdenes pendientes
+├── 💰 Cash Flow Management: Pausar spawners caros en momentos críticos
+├── 🎯 Priorización Dinámica: Cambiar foco según precios de marketplace
+└── ⚡ Eficiencia Energética: Minimizar distancias de transporte
+```
+
+#### **📈 Métricas de Rendimiento**
+```
+KPIs de Spawners:
+├── 📊 Uptime: % tiempo que spawner está generando (objetivo: >90%)
+├── 💰 Cost Efficiency: Costo/unidad vs. valor final del producto
+├── ⏱️ Collection Speed: Tiempo promedio entre generación y recolección
+├── 🎯 ROI per Material: Retorno de inversión por tipo de material
+└── 📈 Throughput Optimization: Unidades/hora vs. capacidad teórica máxima
 ```
 
 ---
 
-## 🤖 Autómatas (Tier 4)
+## 🧱 Materiales Básicos (Tier 1) - Solo Spawners
 
-### **Tipos de Autómatas por Especialización**
+### **Recursos Primarios** - Únicamente de spawners con costo
 
-#### **🚚 Autómata de Transporte**
-**Función:** Movimiento eficiente de materiales
+| Material | Símbolo | Costo | Tick Rate | Uso Principal | Estrategia |
+|----------|---------|-------|-----------|---------------|------------|
+| **Hierro** | Fe 🔴 | 0.5₡ | 3 seg | Estructura base | Mantener activo siempre |
+| **Cobre** | Cu 🟠 | 0.8₡ | 4 seg | Conductividad | Según demanda de cables |
+| **Carbón** | C ⚫ | 0.3₡ | 2 seg | Aleaciones | Activar para acero |
+| **Silicio** | Si 🔵 | 1.5₡ | 6 seg | Electrónicos | Solo para chips/sensores |
+| **Litio** | Li 🟡 | 3.0₡ | 8 seg | Baterías | Minimizar hasta late game |
+
+### **💰 Cálculo de Costos por Hora**
+
 ```
-Componentes Requeridos:
-├── Chasis (1) → 4 Acero + 2 Bronce
-├── Motor (2) → 4 Acero + 6 Cables + 2 Chips
-├── Sensor (1) → 2 Chips + 1 Silicio + 3 Cables
-└── Procesador (1) → 3 Chips + 1 Batería + 2 Cables
+Spawner Activo 1 Hora:
+├── Hierro: 0.5₡ × 1200 ticks = 600₡/hora
+├── Cobre: 0.8₡ × 900 ticks = 720₡/hora
+├── Carbón: 0.3₡ × 1800 ticks = 540₡/hora
+├── Silicio: 1.5₡ × 600 ticks = 900₡/hora
+└── Litio: 3.0₡ × 450 ticks = 1350₡/hora
 
-Tiempo Total de Fabricación: ~15 minutos
-Valor de Mercado: 50-80 créditos
-```
-
-#### **🔨 Autómata de Construcción**
-**Función:** Construcción y reparación de estructuras
-```
-Componentes Requeridos:
-├── Chasis (1) → 4 Acero + 2 Bronce
-├── Actuador (2) → 2 Motores + 4 Acero + 2 Procesadores
-├── Sensor (2) → 4 Chips + 2 Silicio + 6 Cables
-└── Procesador (1) → 3 Chips + 1 Batería + 2 Cables
-
-Tiempo Total de Fabricación: ~25 minutos
-Valor de Mercado: 120-180 créditos
+Total 5 Spawners: 4110₡/hora
 ```
 
-#### **⚡ Autómata de Energía**
-**Función:** Gestión y distribución de energía
-```
-Componentes Requeridos:
-├── Chasis (1) → 4 Acero + 2 Bronce
-├── Baterías (3) → 6 Litio + 3 Cobre
-├── Procesador (2) → 6 Chips + 2 Baterías + 4 Cables
-└── Cables (15) → 30 Cobre
+### **🎯 Recomendaciones de Activación**
 
-Tiempo Total de Fabricación: ~20 minutos
-Valor de Mercado: 200-300 créditos
-```
+#### **Fase Inicial (0-30 min)**
+- ✅ Hierro + Carbón: Producir Acero básico
+- ❌ Otros materiales: Demasiado costosos
 
-#### **🧠 Autómata Inteligente**
-**Función:** Coordinación y optimización de procesos
-```
-Componentes Requeridos:
-├── Chasis (1) → 4 Acero + 2 Bronce
-├── Procesador (3) → 9 Chips + 3 Baterías + 6 Cables
-├── Sensor (3) → 6 Chips + 3 Silicio + 9 Cables
-└── Actuador (1) → 1 Motor + 2 Acero + 1 Procesador
+#### **Fase Expansión (30-60 min)**
+- ✅ + Cobre: Alambre y cables
+- ⚖️ Silicio: Solo si hay demanda de chips
 
-Tiempo Total de Fabricación: ~35 minutos
-Valor de Mercado: 400-600 créditos
-```
+#### **Fase Avanzada (60+ min)**
+- ✅ + Litio: Para baterías y autómatas energéticos
+- 🎯 Optimización completa según especialización
 
 ---
 
-## 🏭 Máquinas de Transformación
-
-### **Máquinas Básicas (Fase 4)**
-
-#### **🔥 Horno Básico**
-- **Función:** Fusión de metales básicos
-- **Procesa:** Hierro + Carbón → Acero, Cobre + Hierro → Bronce
-- **Velocidad:** 1 unidad cada 30 segundos
-- **Costo:** 10 Hierro + 5 Carbón
-
-#### **🔌 Extrusora**
-- **Función:** Formado de alambre de cobre básico
-- **Procesa:** Cobre → Alambre de Cobre
-- **Velocidad:** 2 alambres cada 8 segundos
-- **Costo:** 8 Hierro + 5 Cobre
-
-#### **🔌 Ensamblador de Cables**
-- **Función:** Creación de cables aislados
-- **Procesa:** Alambre de Cobre + Aislante → Cables
-- **Velocidad:** 3 cables cada 12 segundos
-- **Costo:** 10 Hierro + 8 Cobre + 3 Silicio
-
-#### **💻 Fábrica Electrónica**
-- **Función:** Creación de componentes electrónicos
-- **Procesa:** Silicio + Alambre de Cobre → Chips, Chips + Componentes → Sensores
-- **Velocidad:** 1 unidad cada 25-28 segundos
-- **Costo:** 15 Hierro + 10 Cobre + 5 Silicio
-
-#### **🔋 Ensamblador de Baterías**
-- **Función:** Fabricación de sistemas de almacenamiento energético
-- **Procesa:** Litio + Alambre de Cobre → Baterías
-- **Velocidad:** 1 batería cada 20 segundos
-- **Costo:** 12 Hierro + 8 Alambre de Cobre + 5 Litio
-
-### **Máquinas Avanzadas (Fase 5-6)**
-
-#### **🏗️ Ensambladora Avanzada**
-- **Función:** Ensamblaje de componentes complejos
-- **Procesa:** Motores, Actuadores, Autómatas completos
-- **Velocidad:** 1 unidad cada 2-5 minutos
-- **Costo:** 25 Acero + 15 Chips + 10 Cables
-
-#### **⚙️ Soldadora**
-- **Función:** Unión de estructuras metálicas
-- **Procesa:** Chasis y estructuras grandes
-- **Velocidad:** 1 unidad cada 90 segundos
-- **Costo:** 20 Acero + 10 Bronce + 5 Cables
-
----
-
-## 💰 Economía y Balanceado
-
-### **📈 Progresión de Valor**
-
-```mermaid
-graph LR
-    subgraph Valores["💰 VALORES DE MERCADO"]
-        subgraph T1["Tier 1 - Básicos"]
-            Fe1[Fe: 1₡]
-            Cu1[Cu: 1₡]
-            C1[C: 1₡]
-            Si1[Si: 2₡]
-            Li1[Li: 3₡]
-        end
-        
-        subgraph T2["Tier 2 - Procesados"]
-            Acero2[Acero: 5₡]
-            Bronce2[Bronce: 8₡]
-            AlambreCobre2[Alambre de Cobre: 2₡]
-            Cables2[Cables: 3₡]
-            Chips2[Chips: 12₡]
-            Baterias2[Baterías: 15₡]
-        end
-        
-        subgraph T3["Tier 3 - Componentes"]
-            Motor3[Motor: 45₡]
-            Procesador3[Procesador: 65₡]
-            Chasis3[Chasis: 35₡]
-            Sensor3[Sensor: 40₡]
-            Actuador3[Actuador: 85₡]
-        end
-        
-        subgraph T4["Tier 4 - Autómatas"]
-            AutoT4[Transporte: 250₡]
-            AutoC4[Construcción: 320₡]
-            AutoE4[Energía: 450₡]
-            AutoI4[Inteligente: 580₡]
-        end
-    end
-    
-    %% Flujo de valor
-    T1 --> T2
-    T2 --> T3
-    T3 --> T4
-    
-    %% Multiplicadores de valor
-    T1 -.->|x5-15| T2
-    T2 -.->|x3-8| T3
-    T3 -.->|x3-7| T4
-    
-    %% Estilos
-    classDef tier1 fill:#ff6b6b,stroke:#d63031,stroke-width:2px,color:#fff
-    classDef tier2 fill:#4ecdc4,stroke:#00b894,stroke-width:2px,color:#fff
-    classDef tier3 fill:#45b7d1,stroke:#0984e3,stroke-width:2px,color:#fff
-    classDef tier4 fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
-    
-    class Fe1,Cu1,C1,Si1,Li1 tier1
-    class Acero2,Bronce2,AlambreCobre2,Cables2,Chips2,Baterias2 tier2
-    class Motor3,Procesador3,Chasis3,Sensor3,Actuador3 tier3
-    class AutoT4,AutoC4,AutoE4,AutoI4 tier4
-```
-
-### **📊 Análisis Tiempo vs Valor**
-
-| Material/Componente | Tiempo Total | Valor Final | Eficiencia (₡/min) |
-|---------------------|--------------|-------------|-------------------|
-| 🔴 **Materiales Básicos** | 5 seg | 1-3₡ | 12-36₡/min |
-| 🔶 **Alambre de Cobre** | 8 seg | 2₡ | 15₡/min |
-| 🔵 **Materiales Procesados** | 12-25 seg | 3-15₡ | 12-45₡/min |
-| 🟦 **Componentes Avanzados** | 28-85 seg | 35-85₡ | 25-110₡/min |
-| 🟢 **Autómatas Completos** | 180-300 seg | 250-580₡ | 50-116₡/min |
-
-### **Tiempo vs. Valor**
-- **Materiales Básicos:** Extracción instantánea (5 seg)
-- **Alambre de Cobre:** Procesamiento rápido (8 seg)
-- **Tier 2:** 12-60 segundos por unidad
-- **Tier 3:** 28-200 segundos por unidad
-- **Tier 4:** 15-35 minutos por autómata completo
-
----
-
-## 🔄 Cadenas de Producción Optimizadas
-
-### **Cadena Básica de Transporte**
-```
-Extracción → Procesamiento → Ensamblaje
-├── 4 Hierro + 2 Carbón → 2 Acero (60s)
-├── 4 Cobre → 8 Alambre de Cobre (32s)
-├── 6 Alambre + Aislante → 3 Cables (36s)
-├── 1 Silicio + 1 Alambre → 1 Chip (25s)
-└── Ensamblaje final → Autómata (15 min)
-
-Tiempo Total: ~17 minutos
-Recursos Totales: 4 Fe, 2 C, 5 Cu, 1 Si
-```
-
-### **Cadena Avanzada Inteligente**
-```
-Múltiples Líneas Paralelas:
-├── Línea A: Procesadores (3x) → 180s cada uno
-├── Línea B: Sensores (3x) → 150s cada uno
-├── Línea C: Chasis + Actuador → 290s total
-├── Línea D: Alambre de Cobre → Cables → 48s total
-└── Ensamblaje Final → 35 minutos
-
-Tiempo Total: ~45 minutos (con paralelización)
-Recursos Totales: 25+ materiales básicos
-```
-
----
-
-## 🎯 Estrategias de Optimización
-
-### **Early Game (Fases 1-2)**
-- **Foco:** Acero y Cables para infraestructura básica
-- **Prioridad:** Establecer líneas de Hierro y Cobre
-- **Objetivo:** Primer autómata de transporte
-
-### **Mid Game (Fases 3-4)**
-- **Foco:** Diversificación hacia Chips y Baterías
-- **Prioridad:** Exploración para Silicio y Litio
-- **Objetivo:** Autómatas especializados
-
-### **Late Game (Fases 5-6)**
-- **Foco:** Optimización y autómatas inteligentes
-- **Prioridad:** Eficiencia y marketplace
-- **Objetivo:** Dominación económica
-
----
-
-## 🏪 Marketplace y Competencia
-
-### **Factores de Precio**
-- **Rareza de materiales:** Litio y Silicio más valiosos
-- **Complejidad de fabricación:** Más pasos = mayor valor
-- **Demanda del mercado:** Oferta y demanda dinámica
-- **Calidad del autómata:** Eficiencia del código programado
-
-### **Estrategias Competitivas**
-- **Especialización:** Dominar un tipo específico de autómata
-- **Integración Vertical:** Controlar toda la cadena de suministro
-- **Innovación:** Desarrollar algoritmos más eficientes
-- **Velocidad:** Ser el primero en el mercado con nuevos diseños
-
----
-
-## 📈 Métricas de Progresión
-
-### **Indicadores de Eficiencia**
-- **Tiempo por Autómata:** Objetivo < 10 minutos para básicos
-- **Utilización de Recursos:** >90% de eficiencia en materiales
-- **Throughput:** Autómatas por hora producidos
-- **ROI del Marketplace:** Retorno de inversión por venta
-
-### **Objetivos por Fase**
-- **Fase 4:** Producir 1 autómata básico cada 20 minutos
-- **Fase 5:** Línea de producción automatizada completa
-- **Fase 6:** Dominación del marketplace en categoría especializada
-
----
-
-**Relacionado:** [🎮 Mecánicas de Gameplay](gameplay.md) | [💰 Costos de Infraestructura](costs.md) | **Volver a:** [🏠 README Principal](../../README.md) 
+**Relacionado:** [🎮 Mecánicas de Gameplay](gameplay.md) | [💰 Costos de Infraestructura](costs.md) | **Volver a:** [🏠 README Principal](../../README.md)
