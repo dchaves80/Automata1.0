@@ -44,6 +44,12 @@ Un juego de automatización industrial donde los jugadores programan autómatas 
 ### 📋 **Reorganización del Proyecto**
 - **[🗂️ Nueva Estructura de Fases](docs/phases/NUEVA-ESTRUCTURA-FASES.md)** - Documentación completa de la reorganización
 
+### 🛠️ **Desarrollo y Lineamientos**
+- **[🎯 Filosofía de Desarrollo](docs/development/philosophy.md)** - Principios, flujo de trabajo y convenciones
+- **[⚡ Guía de Referencia Rápida](docs/development/quick-reference.md)** - Comandos y emojis para commits
+- **[🎨 Convenciones de Código](docs/development/coding-standards.md)** - Estándares y mejores prácticas
+- **[🔄 Proceso de Review](docs/development/review-process.md)** - Criterios de calidad y merge
+
 ## 🚀 Estado Actual
 
 **Fase 0 en desarrollo** - Implementando menú principal y fundación del proyecto.  
