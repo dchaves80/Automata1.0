@@ -103,30 +103,149 @@ $currentBranch = git branch --show-current
 Write-Host "Rama actual: $currentBranch" -ForegroundColor Green
 Write-Host ""
 
-# Solicitar rama destino
-Write-Host "A que rama quieres hacer commit?" -ForegroundColor Yellow
-Write-Host "Presiona Enter para usar la rama actual ($currentBranch)" -ForegroundColor Gray
-$targetBranch = Read-Host "Rama destino"
+# Gestión de ramas mejorada
+Write-Host "Gestion de ramas:" -ForegroundColor Yellow
+Write-Host "  1. Usar rama actual ($currentBranch)" -ForegroundColor White
+Write-Host "  2. Cambiar a otra rama existente" -ForegroundColor White
+Write-Host "  3. Crear nueva rama" -ForegroundColor White
+Write-Host "  4. Actualizar ramas desde remoto y seleccionar" -ForegroundColor White
+Write-Host ""
 
-if ([string]::IsNullOrWhiteSpace($targetBranch)) {
-    $targetBranch = $currentBranch
+do {
+    $branchChoice = Read-Host "Selecciona una opcion (1-4)"
+    $validBranchChoice = $branchChoice -match '^[1-4]$'
+    if (-not $validBranchChoice) {
+        Write-Host "Por favor ingresa un numero entre 1 y 4" -ForegroundColor Red
+    }
+} while (-not $validBranchChoice)
+
+$targetBranch = $currentBranch
+
+switch ($branchChoice) {
+    "1" {
+        # Usar rama actual
+        $targetBranch = $currentBranch
+        Write-Host "Usando rama actual: $currentBranch" -ForegroundColor Green
+    }
+    
+    "2" {
+        # Cambiar a rama existente
+        Write-Host ""
+        Write-Host "Ramas locales disponibles:" -ForegroundColor Cyan
+        $localBranches = git branch --format="%(refname:short)" | Where-Object { $_ -ne $currentBranch }
+        
+        if ($localBranches.Count -eq 0) {
+            Write-Host "No hay otras ramas locales disponibles" -ForegroundColor Yellow
+            $targetBranch = $currentBranch
+        } else {
+            for ($i = 0; $i -lt $localBranches.Count; $i++) {
+                Write-Host "  $($i + 1). $($localBranches[$i])" -ForegroundColor White
+            }
+            Write-Host ""
+            
+            do {
+                $branchIndex = Read-Host "Selecciona el numero de rama (1-$($localBranches.Count))"
+                $validIndex = $branchIndex -match "^[1-$($localBranches.Count)]$"
+                if (-not $validIndex) {
+                    Write-Host "Por favor ingresa un numero entre 1 y $($localBranches.Count)" -ForegroundColor Red
+                }
+            } while (-not $validIndex)
+            
+            $targetBranch = $localBranches[$branchIndex - 1]
+            Write-Host "Seleccionada: $targetBranch" -ForegroundColor Green
+        }
+    }
+    
+    "3" {
+        # Crear nueva rama
+        Write-Host ""
+        $newBranchName = Read-Host "Nombre de la nueva rama"
+        if ([string]::IsNullOrWhiteSpace($newBranchName)) {
+            Write-Host "Error: El nombre de la rama no puede estar vacio" -ForegroundColor Red
+            exit 1
+        }
+        $targetBranch = $newBranchName
+        Write-Host "Nueva rama: $targetBranch" -ForegroundColor Green
+    }
+    
+    "4" {
+        # Actualizar desde remoto y seleccionar
+        Write-Host ""
+        Write-Host "Actualizando ramas desde remoto..." -ForegroundColor Cyan
+        git fetch origin
+        
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "Ramas actualizadas exitosamente!" -ForegroundColor Green
+        } else {
+            Write-Host "Advertencia: No se pudieron actualizar las ramas remotas" -ForegroundColor Yellow
+        }
+        
+        Write-Host ""
+        Write-Host "Todas las ramas disponibles:" -ForegroundColor Cyan
+        
+        # Obtener ramas locales y remotas
+        $allBranches = @()
+        $localBranches = git branch --format="%(refname:short)"
+        $remoteBranches = git branch -r --format="%(refname:short)" | Where-Object { $_ -notlike "*/HEAD*" }
+        
+        # Agregar ramas locales
+        foreach ($branch in $localBranches) {
+            if ($branch -ne $currentBranch) {
+                $allBranches += @{ Name = $branch; Type = "local" }
+            }
+        }
+        
+        # Agregar ramas remotas que no existen localmente
+        foreach ($remoteBranch in $remoteBranches) {
+            $branchName = $remoteBranch -replace "origin/", ""
+            $existsLocally = $localBranches -contains $branchName
+            if (-not $existsLocally -and $branchName -ne $currentBranch) {
+                $allBranches += @{ Name = $branchName; Type = "remote" }
+            }
+        }
+        
+        if ($allBranches.Count -eq 0) {
+            Write-Host "No hay otras ramas disponibles" -ForegroundColor Yellow
+            $targetBranch = $currentBranch
+        } else {
+            for ($i = 0; $i -lt $allBranches.Count; $i++) {
+                $branch = $allBranches[$i]
+                $typeIndicator = if ($branch.Type -eq "local") { "(local)" } else { "(remoto)" }
+                Write-Host "  $($i + 1). $($branch.Name) $typeIndicator" -ForegroundColor White
+            }
+            Write-Host ""
+            
+            do {
+                $branchIndex = Read-Host "Selecciona el numero de rama (1-$($allBranches.Count))"
+                $validIndex = $branchIndex -match "^[1-$($allBranches.Count)]$"
+                if (-not $validIndex) {
+                    Write-Host "Por favor ingresa un numero entre 1 y $($allBranches.Count)" -ForegroundColor Red
+                }
+            } while (-not $validIndex)
+            
+            $selectedBranch = $allBranches[$branchIndex - 1]
+            $targetBranch = $selectedBranch.Name
+            Write-Host "Seleccionada: $targetBranch ($($selectedBranch.Type))" -ForegroundColor Green
+        }
+    }
 }
 
 # Cambiar de rama si es necesario
 if ($targetBranch -ne $currentBranch) {
     $branchExists = git branch --list $targetBranch
     if (-not $branchExists) {
-        Write-Host "La rama '$targetBranch' no existe localmente" -ForegroundColor Yellow
-        $createBranch = Read-Host "Quieres crearla? (y/N)"
-        if ($createBranch -eq "y" -or $createBranch -eq "Y") {
+        if ($branchChoice -eq "3") {
+            # Crear nueva rama
             Write-Host "Creando rama '$targetBranch'..." -ForegroundColor Cyan
             git checkout -b $targetBranch
-            if ($LASTEXITCODE -ne 0) {
-                Write-Host "Error al crear la rama" -ForegroundColor Red
-                exit 1
-            }
         } else {
-            Write-Host "Operacion cancelada" -ForegroundColor Red
+            # Rama remota - crear tracking branch
+            Write-Host "Creando rama local '$targetBranch' desde origin/$targetBranch..." -ForegroundColor Cyan
+            git checkout -b $targetBranch origin/$targetBranch
+        }
+        
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "Error al crear/cambiar la rama" -ForegroundColor Red
             exit 1
         }
     } else {
