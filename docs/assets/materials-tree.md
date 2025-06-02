@@ -239,7 +239,7 @@ Estrategia de Autómatas:
 ```
 🤖 Automatización Recomendada:
 ├── 🔄 Autómata de Transporte: Recolección automática cada 2-3 segundos
-├── 📦 Almacén Cercano: Máximo 2 hexágonos de distancia
+├── 📦 Almacén Cercano: Máximo 2 tiles de distancia
 ├── ⚡ Prioridad: Materiales más costosos primero (Li > Si > Cu > Fe > C)
 └── 🎯 Backup Manual: Para emergencias o inicio de partida
 

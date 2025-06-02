@@ -74,7 +74,7 @@ Tipos de Datos:
 ├── TEXTO: Cadenas de caracteres
 ├── BOOLEANO: Verdadero/Falso
 ├── MATERIAL: Tipos de materiales
-├── POSICION: Coordenadas hexagonales
+├── POSICION: Coordenadas cartesianas
 └── LISTA: Arrays de elementos
 ```
 

@@ -1,310 +1,409 @@
-# 🧮 Calculadora Integrada - Especificaciones Completas
+# 🧮 Calculadora de Eficiencia - Automata Factory Game
 
-## 🎯 Visión General
-
-La **Calculadora Integrada** es una herramienta esencial que permite a los jugadores realizar cálculos complejos de optimización, gestión de costos y análisis de eficiencia directamente dentro del juego, con persistencia de datos y integración completa con el sistema de fábrica.
-
----
-
-## 🔧 Funcionalidades Core
-
-### **🔢 Calculadora Básica**
-```
-Operaciones Matemáticas:
-├── ➕ Suma, resta, multiplicación, división
-├── 📐 Potencias, raíces, porcentajes
-├── 🔢 Funciones trigonométricas básicas
-├── 📊 Promedio, mediana, suma de rangos
-└── 🧮 Historial de operaciones (últimas 50)
-```
-
-### **📊 Calculadora de Costos de Producción**
-```
-Análisis Económico:
-├── 💰 Costo total de materiales por producto
-├── ⏱️ Tiempo de producción vs. costo
-├── 📈 ROI (Retorno de Inversión) por cadena
-├── 🎯 Break-even point de inversiones
-├── 📉 Análisis de eficiencia por máquina
-└── 💡 Comparación de rutas de producción
-```
-
-### **⏱️ Calculadora de Tiempos y Eficiencia**
-```
-Optimización Temporal:
-├── ⚡ Throughput por línea de producción
-├── 🔄 Tiempo de ciclo completo
-├── 📦 Capacidad de almacenamiento requerida
-├── 🤖 Número óptimo de autómatas
-├── ⏰ Tiempo hasta completar pedido
-└── 📊 Análisis de cuellos de botella
-```
-
-### **💰 Calculadora de ROI y Rentabilidad**
-```
-Análisis Financiero:
-├── 💹 ROI por tipo de autómata
-├── 📈 Proyección de ingresos por hora/día
-├── 💸 Costo de oportunidad de decisiones
-├── 🎯 Punto de equilibrio de expansiones
-├── 📊 Comparación de estrategias
-└── 💰 Análisis de flujo de caja
-```
+**Versión:** 1.0  
+**Última Actualización:** Enero 2025  
+**Estado:** 📋 Definido y Validado
 
 ---
 
-## 📝 Sistema de Notas y Persistencia
+## 🎯 Propósito de la Calculadora
 
-### **📋 Gestión de Notas**
-```
-Funcionalidades:
-├── 📝 Notas de texto libre por cálculo
-├── 🏷️ Tags y categorías personalizables
-├── 🔍 Búsqueda por contenido y tags
-├── 📅 Timestamp automático
-├── 🔗 Enlaces a elementos del juego
-└── 📊 Adjuntar capturas de pantalla
-```
-
-### **💾 Historial Persistente**
-```
-Almacenamiento:
-├── 🗄️ Últimos 500 cálculos guardados
-├── 📊 Exportar a CSV/JSON
-├── 📥 Importar datos externos
-├── 🔄 Sincronización con cuenta de usuario
-├── 📱 Backup automático local
-└── 🗑️ Limpieza automática de datos antiguos
-```
+La **Calculadora de Eficiencia** es una herramienta integrada que ayuda a los jugadores a optimizar sus fábricas, analizar rendimiento y tomar decisiones estratégicas basadas en datos precisos.
 
 ---
 
-## 🎮 Integración con el Juego
+## 📊 Métricas Principales
 
-### **🎯 Acceso Rápido**
-```
-Controles:
-├── ⌨️ Hotkey global: F12 o Ctrl+C
-├── 🖱️ Botón flotante en UI principal
-├── 📱 Acceso desde menú contextual
-├── 🔗 Enlaces directos desde tooltips
-└── 📊 Auto-apertura en pantallas de análisis
-```
+### **⚡ Eficiencia Energética**
 
-### **📊 Auto-completar con Datos del Juego**
+#### **🔋 Consumo vs Producción**
 ```
-Integración Automática:
-├── 💰 Precios actuales del marketplace
-├── ⏱️ Tiempos reales de máquinas
-├── 📦 Inventario actual de materiales
-├── 🏭 Estado de spawners y producción
-├── 🤖 Eficiencia de autómatas activos
-└── 📈 Historial de transacciones
+Fórmula Base:
+Eficiencia = (Energía Producida / Energía Consumida) × 100%
+
+Rangos de Eficiencia:
+├── 🔴 Crítica: <50% (Déficit energético)
+├── 🟡 Baja: 50-75% (Ineficiente)
+├── 🟢 Buena: 75-90% (Aceptable)
+├── 🔵 Excelente: 90-95% (Optimizada)
+└── 🟣 Perfecta: >95% (Máxima eficiencia)
 ```
 
-### **🔗 Enlaces Directos**
+#### **📈 Cálculo Detallado**
 ```
-Navegación Inteligente:
-├── 🎯 Click en resultado → ir a spawner/máquina
-├── 📊 Resaltar elementos relacionados en mapa
-├── 🔍 Zoom automático a área relevante
-├── 📋 Crear recordatorios en elementos
-└── 🎨 Overlay visual de optimizaciones
+Variables:
+├── E_prod = Energía producida por generadores (kW/h)
+├── E_maq = Energía consumida por máquinas (kW/h)
+├── E_auto = Energía consumida por autómatas (kW/h)
+├── E_base = Energía base de estructuras (kW/h)
+└── E_total = E_maq + E_auto + E_base
+
+Eficiencia = (E_prod / E_total) × 100%
+```
+
+### **🏭 Throughput de Producción**
+
+#### **📦 Materiales por Hora**
+```
+Fórmula de Throughput:
+TPH = (Unidades Producidas / Tiempo Transcurrido) × 3600
+
+Factores de Modificación:
+├── Velocidad de Máquinas (0.5x - 2.0x)
+├── Eficiencia de Autómatas (0.7x - 1.3x)
+├── Disponibilidad de Materiales (0.0x - 1.0x)
+├── Tiempo de Inactividad (0.8x - 1.0x)
+└── Bonus de Investigación (1.0x - 1.5x)
+
+TPH_Real = TPH_Base × Π(Factores)
+```
+
+#### **🎯 Análisis de Cuellos de Botella**
+```
+Identificación Automática:
+├── Máquina más lenta en cadena
+├── Autómata con mayor tiempo de ciclo
+├── Almacén que se llena/vacía frecuentemente
+├── Ruta de transporte más congestionada
+└── Recurso con mayor escasez
+```
+
+### **💰 Retorno de Inversión (ROI)**
+
+#### **📊 Cálculo Financiero**
+```
+ROI = ((Beneficio - Inversión) / Inversión) × 100%
+
+Componentes:
+├── Inversión = Costo_Materiales + Costo_Construcción + Costo_Investigación
+├── Ingresos = Ventas_Marketplace + Valor_Producción_Interna
+├── Gastos = Mantenimiento + Energía + Materiales_Consumidos
+└── Beneficio = Ingresos - Gastos
+
+Período de Análisis: 1 hora, 1 día, 1 semana
 ```
 
 ---
 
-## 📋 Templates de Cálculos Comunes
+## 🔧 Herramientas de Optimización
 
-### **🏭 Templates de Producción**
-```
-Plantillas Predefinidas:
-├── 🤖 "Costo de Autómata Completo"
-├── ⚡ "Eficiencia de Línea de Producción"
-├── 💰 "ROI de Expansión de Spawners"
-├── 📊 "Comparación de Estrategias"
-├── ⏱️ "Tiempo Óptimo de Recolección"
-└── 🎯 "Análisis de Especialización"
-```
+### **🎯 Optimizador de Layout**
 
-### **💡 Templates Personalizables**
+#### **📐 Algoritmo de Colocación**
 ```
-Funcionalidades:
-├── 📝 Crear templates propios
-├── 🔄 Modificar templates existentes
-├── 📤 Compartir con otros jugadores
-├── 📥 Importar templates de la comunidad
-├── 🏷️ Categorizar por tipo de análisis
-└── ⭐ Marcar favoritos
+Factores de Optimización:
+├── Distancia mínima entre estructuras relacionadas
+├── Flujo eficiente de materiales
+├── Acceso óptimo para autómatas
+├── Expansión futura planificada
+└── Consumo energético minimizado
+
+Puntuación de Layout:
+Score = (Eficiencia × 0.4) + (Velocidad × 0.3) + (Costo × 0.2) + (Flexibilidad × 0.1)
 ```
 
----
-
-## 🎨 Diseño de Interfaz
-
-### **📱 Layout Principal**
+#### **🗺️ Sugerencias de Mejora**
 ```
-Distribución de Pantalla:
-├── 🔢 Panel de calculadora (40% izquierda)
-├── 📊 Panel de resultados (35% centro)
-├── 📝 Panel de notas (25% derecha)
-├── 📋 Barra de templates (superior)
-└── 💾 Historial expandible (inferior)
+Recomendaciones Automáticas:
+├── 📍 Reubicación de estructuras ineficientes
+├── 🔄 Reorganización de rutas de autómatas
+├── ⚡ Optimización de distribución energética
+├── 📦 Mejora de ubicación de almacenes
+└── 🏗️ Expansión estratégica de terreno
 ```
 
-### **🎯 Elementos Interactivos**
+### **🤖 Optimizador de Autómatas**
+
+#### **📝 Análisis de Programas**
 ```
-Controles UI:
-├── 🖱️ Botones grandes para touch-friendly
-├── ⌨️ Soporte completo de teclado
-├── 🔄 Drag & drop para reorganizar
-├── 📏 Paneles redimensionables
-├── 🎨 Temas claro/oscuro
-└── 📱 Responsive design
+Métricas de Código:
+├── Complejidad Ciclomática (líneas de código)
+├── Eficiencia de Rutas (distancia vs óptima)
+├── Tiempo de Ejecución (ciclos por tarea)
+├── Uso de Memoria (variables utilizadas)
+└── Robustez (manejo de errores)
+
+Puntuación de Programa:
+Score = Σ(Métrica_i × Peso_i) / Σ(Peso_i)
 ```
 
----
-
-## 🤖 Sugerencias Automáticas
-
-### **💡 Sistema de Recomendaciones**
+#### **🔄 Sugerencias de Código**
 ```
-IA Básica:
-├── 📊 Detectar ineficiencias automáticamente
-├── 💰 Sugerir optimizaciones de costo
-├── ⏱️ Recomendar mejoras de tiempo
-├── 🎯 Alertas de oportunidades perdidas
-├── 📈 Proyecciones basadas en tendencias
-└── 🔔 Notificaciones de cambios importantes
-```
-
-### **📈 Análisis Predictivo**
-```
-Proyecciones:
-├── 📊 Tendencias de precios del marketplace
-├── 💰 Proyección de ingresos futuros
-├── ⚡ Predicción de cuellos de botella
-├── 🎯 Recomendaciones de especialización
-├── 📈 Análisis de crecimiento óptimo
-└── 🔮 Simulación de escenarios "qué pasaría si"
+Optimizaciones Automáticas:
+├── 🚀 Simplificación de rutas redundantes
+├── 🔄 Eliminación de bucles innecesarios
+├── 📊 Optimización de condiciones
+├── 🎯 Mejora de algoritmos de búsqueda
+└── 🤝 Coordinación entre autómatas
 ```
 
 ---
 
-## 🔧 Implementación Técnica
+## 📈 Simulador de Escenarios
 
-### **🏗️ Arquitectura**
-```
-Estructura del Sistema:
-├── 🧮 CalculatorCore: Motor de cálculos
-├── 📊 DataIntegration: Conexión con juego
-├── 💾 PersistenceManager: Guardado/carga
-├── 🎨 UIController: Interfaz de usuario
-├── 📝 NotesSystem: Gestión de notas
-└── 🤖 SuggestionEngine: Recomendaciones
-```
+### **🔮 Predicción de Rendimiento**
 
-### **📊 Integración de Datos**
+#### **📊 Modelos Predictivos**
 ```
-Fuentes de Información:
-├── 🏭 GameState: Estado actual de la fábrica
-├── 💰 MarketplaceAPI: Precios y tendencias
-├── ⏱️ ProductionMetrics: Métricas de producción
-├── 🤖 AutomataStats: Estadísticas de autómatas
-├── 📈 HistoricalData: Datos históricos
-└── 👤 UserPreferences: Configuración personal
+Variables de Entrada:
+├── Configuración actual de fábrica
+├── Programas de autómatas
+├── Disponibilidad de recursos
+├── Condiciones de mercado
+└── Objetivos de producción
+
+Salidas del Modelo:
+├── Producción estimada (próximas 24h)
+├── Consumo energético proyectado
+├── Cuellos de botella potenciales
+├── ROI esperado
+└── Tiempo hasta objetivos
 ```
 
----
-
-## 📊 Casos de Uso Específicos
-
-### **🎯 Caso 1: Optimización de Spawners**
+#### **🎯 Análisis "What-If"**
 ```
-Escenario: Jugador quiere optimizar costos de spawners
-├── 📊 Input: Materiales necesarios por hora
-├── 🧮 Cálculo: Costo por spawner vs. demanda
-├── 💡 Resultado: Recomendación de activación
-├── 📝 Nota: "Activar Li solo después de 45 min"
-└── 🔗 Link: Ir directamente al spawner de Litio
+Escenarios Simulables:
+├── ➕ Agregar nueva máquina
+├── 🤖 Aumentar número de autómatas
+├── ⚡ Mejorar generación energética
+├── 📦 Expandir capacidad de almacenamiento
+├── 🧪 Aplicar nueva tecnología
+└── 🏗️ Expandir a nuevo tile
 ```
 
-### **🎯 Caso 2: Análisis de ROI de Autómata**
-```
-Escenario: ¿Vale la pena producir Autómata Inteligente?
-├── 📊 Input: Costos de materiales + tiempo
-├── 🧮 Cálculo: ROI vs. otras opciones
-├── 💡 Resultado: 163% ROI en 35 minutos
-├── 📝 Nota: "Mejor que Construcción (128%)"
-└── 🔗 Link: Ir a línea de producción
-```
+### **📋 Comparador de Estrategias**
 
-### **🎯 Caso 3: Planificación de Expansión**
+#### **⚖️ Análisis Comparativo**
 ```
-Escenario: ¿Cuándo expandir a nuevo hexágono?
-├── 📊 Input: Costo expansión + beneficios
-├── 🧮 Cálculo: Break-even point
-├── 💡 Resultado: Rentable después de 2.5 horas
-├── 📝 Nota: "Expandir cuando tenga 500₡"
-└── 🔗 Link: Ir al borde del terreno
+Estrategia A vs Estrategia B:
+├── 📊 Throughput: +15% vs +8%
+├── ⚡ Eficiencia Energética: 92% vs 87%
+├── 💰 ROI: 145% vs 132%
+├── ⏱️ Tiempo de Implementación: 2h vs 45min
+├── 🔧 Complejidad: Alta vs Media
+└── 🎯 Recomendación: Estrategia A (Score: 8.7/10)
 ```
 
 ---
 
-## 🎮 Experiencia de Usuario
+## 🎮 Casos de Uso Prácticos
 
-### **🚀 Flujo de Trabajo Típico**
+### **🏭 Caso 1: Optimización de Línea de Acero**
+
+#### **📋 Situación Inicial**
 ```
-1. 🎯 Jugador identifica problema de optimización
-2. ⌨️ Presiona F12 para abrir calculadora
-3. 📋 Selecciona template relevante
-4. 📊 Datos se auto-completan del juego
-5. 🧮 Realiza cálculos personalizados
-6. 📝 Agrega notas y observaciones
-7. 💾 Guarda resultado en historial
-8. 🔗 Navega directamente al elemento del juego
-9. ✅ Implementa la optimización
-10. 📈 Monitorea resultados
+Configuración Actual:
+├── 2 Extractores de Hierro (4 Fe/min cada uno)
+├── 1 Extractor de Carbón (6 C/min)
+├── 1 Horno de Acero (5 Acero/min, requiere 2 Fe + 1 C)
+├── 3 Autómatas transportadores
+└── Eficiencia actual: 67%
 ```
 
-### **💡 Beneficios para el Jugador**
+#### **🔍 Análisis de la Calculadora**
 ```
-Ventajas Clave:
-├── ⚡ Decisiones más rápidas e informadas
-├── 📊 Comprensión profunda de la economía
-├── 🎯 Optimización basada en datos reales
-├── 📝 Documentación de estrategias exitosas
-├── 🔄 Iteración rápida de experimentos
-├── 🏆 Ventaja competitiva en marketplace
-└── 🧠 Aprendizaje de conceptos económicos
+Problemas Identificados:
+├── 🔴 Cuello de botella: Horno de Acero (capacidad insuficiente)
+├── 🟡 Exceso de Carbón: +1 C/min sin usar
+├── 🟡 Autómata #3: 23% tiempo inactivo
+├── 🟢 Suministro de Hierro: Balanceado
+└── 🔵 Rutas de transporte: Optimizadas
+
+Recomendaciones:
+├── ➕ Agregar 1 Horno de Acero adicional
+├── 🔄 Reasignar Autómata #3 a otra tarea
+├── 📊 Resultado esperado: 89% eficiencia
+└── 💰 ROI proyectado: +34% en 2 horas
+```
+
+### **🏭 Caso 2: Decisión de Expansión**
+
+#### **❓ Pregunta del Jugador**
+```
+Escenario: ¿Cuándo expandir a nuevo tile?
+
+Variables Actuales:
+├── Terreno actual: 85% utilizado
+├── Producción: 45 unidades/hora
+├── Demanda del mercado: 60 unidades/hora
+├── Costo de expansión: 500 créditos
+└── Créditos disponibles: 750
+```
+
+#### **🧮 Análisis de la Calculadora**
+```
+Simulación de Expansión:
+├── 📈 Aumento de producción: +67% (75 unidades/hora)
+├── ⚡ Consumo energético: +45%
+├── 💰 Inversión requerida: 500 + 300 (nuevas máquinas) = 800 créditos
+├── 🕐 Tiempo de recuperación: 3.2 horas
+├── 📊 ROI a 24h: 156%
+└── ✅ Recomendación: EXPANDIR AHORA
+
+Justificación:
+├── Demanda insatisfecha del 25%
+├── ROI superior al 150%
+├── Recursos suficientes disponibles
+└── Tiempo de recuperación aceptable (<4h)
+```
+
+### **🏭 Caso 3: Optimización de Autómata**
+
+#### **🤖 Programa Actual**
+```pseudocode
+// Autómata Recolector - Versión Original
+MIENTRAS(VERDADERO) {
+    MOVER(extractor_hierro)
+    RECOGER("Hierro")
+    MOVER(almacén_hierro)
+    DEPOSITAR("Hierro")
+    ESPERAR(2)
+}
+
+Métricas Actuales:
+├── Ciclo completo: 12 segundos
+├── Distancia por ciclo: 8 tiles
+├── Eficiencia: 73%
+└── Hierro transportado: 15 unidades/hora
+```
+
+#### **🔧 Optimización Sugerida**
+```pseudocode
+// Autómata Recolector - Versión Optimizada
+inventario_lleno = FALSO
+MIENTRAS(VERDADERO) {
+    SI(NO inventario_lleno) {
+        MOVER(extractor_hierro)
+        MIENTRAS(MI_INVENTARIO.espacio_disponible() > 0 Y extractor_hierro.tiene_hierro()) {
+            RECOGER("Hierro")
+        }
+        inventario_lleno = VERDADERO
+    } SINO {
+        MOVER(almacén_hierro)
+        DEPOSITAR(TODOS)
+        inventario_lleno = FALSO
+    }
+}
+
+Métricas Proyectadas:
+├── Ciclo completo: 8 segundos (-33%)
+├── Distancia por ciclo: 6 tiles (-25%)
+├── Eficiencia: 91% (+18%)
+└── Hierro transportado: 22 unidades/hora (+47%)
 ```
 
 ---
 
-## 🔮 Futuras Expansiones
+## 🎯 Alertas y Notificaciones
 
-### **📈 Versión 2.0 (Post-Launch)**
+### **⚠️ Sistema de Alertas Inteligentes**
+
+#### **🔴 Alertas Críticas**
 ```
-Características Avanzadas:
-├── 📊 Gráficos interactivos y visualizaciones
-├── 🤖 IA más avanzada para recomendaciones
-├── 👥 Compartir cálculos con otros jugadores
-├── 📱 App móvil complementaria
-├── 🔗 Integración con herramientas externas
-└── 📚 Base de conocimiento comunitaria
+Problemas Urgentes:
+├── 🔋 Déficit energético: <10% reserva
+├── 📦 Almacén lleno: >95% capacidad
+├── 🤖 Autómata bloqueado: >30 segundos inactivo
+├── 🏭 Máquina averiada: Requiere mantenimiento
+└── 💰 Fondos insuficientes: <100 créditos
 ```
 
-### **🌐 Integración Comunitaria**
+#### **🟡 Alertas de Optimización**
 ```
-Funcionalidades Sociales:
-├── 📤 Compartir templates en workshop
-├── 🏆 Rankings de eficiencia
-├── 💬 Comentarios en cálculos públicos
-├── 📊 Estadísticas globales comparativas
-├── 🎓 Tutoriales creados por la comunidad
-└── 🔬 Colaboración en investigación de meta
+Oportunidades de Mejora:
+├── 📊 Eficiencia baja: <75% en alguna línea
+├── 🎯 Cuello de botella: Detectado en producción
+├── 💡 Mejora disponible: ROI >120%
+├── 🔄 Ruta ineficiente: >150% distancia óptima
+└── 📈 Demanda alta: Oportunidad de mercado
+```
+
+#### **🔵 Alertas Informativas**
+```
+Información Útil:
+├── 🏆 Objetivo completado: Meta alcanzada
+├── 🧪 Investigación lista: Nueva tecnología disponible
+├── 📊 Reporte diario: Resumen de rendimiento
+├── 🎯 Milestone: Hito de progresión alcanzado
+└── 💰 Beneficio récord: Nuevo máximo de ingresos
 ```
 
 ---
 
-**Relacionado:** [🏭 Materiales y Transformación](materials-tree.md) | [🎮 Mecánicas de Gameplay](gameplay.md) | **Volver a:** [🏠 README Principal](../../README.md) 
+## 📊 Dashboard de Métricas
+
+### **📈 Vista General**
+```
+Panel Principal:
+├── 📊 Eficiencia Global: 87% ↗️ (+3%)
+├── ⚡ Balance Energético: +45 kW/h ↗️
+├── 💰 Ingresos/Hora: 234 créditos ↗️ (+12%)
+├── 🏭 Utilización: 92% ↗️ (+5%)
+├── 🤖 Autómatas Activos: 15/18 ↗️
+└── 🎯 Progreso Objetivo: 67% ↗️ (+8%)
+```
+
+### **🔍 Vista Detallada**
+```
+Análisis Profundo:
+├── 📦 Throughput por Material:
+│   ├── Hierro: 45/h (↗️ +5%)
+│   ├── Acero: 22/h (↗️ +8%)
+│   └── Componentes: 12/h (↘️ -2%)
+├── ⚡ Consumo por Categoría:
+│   ├── Máquinas: 67% (↗️ +3%)
+│   ├── Autómatas: 28% (↘️ -1%)
+│   └── Estructuras: 5% (→ 0%)
+└── 💰 ROI por Inversión:
+    ├── Última expansión: 145% ↗️
+    ├── Nuevos autómatas: 167% ↗️
+    └── Upgrade máquinas: 134% ↗️
+```
+
+---
+
+## 🔧 Configuración y Personalización
+
+### **⚙️ Parámetros Ajustables**
+
+#### **📊 Frecuencia de Análisis**
+```
+Opciones de Actualización:
+├── Tiempo Real: Cada 1 segundo (Alto CPU)
+├── Rápida: Cada 5 segundos (Recomendado)
+├── Normal: Cada 15 segundos (Balanceado)
+├── Lenta: Cada 30 segundos (Bajo CPU)
+└── Manual: Solo cuando se solicite
+```
+
+#### **🎯 Sensibilidad de Alertas**
+```
+Niveles de Sensibilidad:
+├── Muy Alta: Alerta por cambios >1%
+├── Alta: Alerta por cambios >5%
+├── Media: Alerta por cambios >10% (Recomendado)
+├── Baja: Alerta por cambios >20%
+└── Muy Baja: Solo alertas críticas
+```
+
+### **📱 Exportación de Datos**
+
+#### **📄 Formatos Disponibles**
+```
+Opciones de Exportación:
+├── 📊 CSV: Para análisis en Excel
+├── 📋 JSON: Para herramientas externas
+├── 📈 PDF: Reportes formateados
+├── 🖼️ PNG: Gráficos e imágenes
+└── 📱 Compartir: Redes sociales
+```
+
+---
+
+**Estado:** 📋 **DEFINIDO Y VALIDADO**  
+**Próxima Revisión:** Abril 2025  
+**Responsable:** Equipo de Analytics
+
+---
+
+**Volver a:** [🏠 README Principal](../../README.md) | **Ver también:** [🎮 Gameplay](gameplay.md) | **Materiales:** [🌳 Árbol de Materiales](materials-tree.md) 

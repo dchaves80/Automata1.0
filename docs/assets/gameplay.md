@@ -129,10 +129,10 @@ Observar → Ajustar → Ejecutar → Evaluar
 
 ## 🏗️ Mecánicas de Construcción y Expansión
 
-### **Sistema de Terreno Hexagonal**
-- **Expansión Gradual:** Compra de hexágonos adyacentes
+### **Sistema de Terreno Cuadrado**
+- **Expansión Gradual:** Compra de tiles adyacentes
 - **Costo Escalado:** Cada expansión es más cara que la anterior
-- **Recursos del Terreno:** Cada hexágono contiene depósitos específicos
+- **Recursos del Terreno:** Cada tile contiene depósitos específicos
 - **Planificación Estratégica:** Layout óptimo para eficiencia
 
 ### **Colocación de Estructuras**
@@ -148,7 +148,7 @@ Tipos de Estructuras:
 ### **Restricciones de Construcción**
 - **Proximidad:** Estructuras deben estar conectadas
 - **Recursos:** Costo en materiales para cada construcción
-- **Espacio:** Límite de estructuras por hexágono
+- **Espacio:** Límite de estructuras por tile
 - **Energía:** Consumo energético balanceado
 
 ---

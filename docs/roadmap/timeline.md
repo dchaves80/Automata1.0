@@ -17,7 +17,7 @@
 **Horas Totales:** 85 horas
 
 #### Logros Completados:
-- ✅ Sistema de grillas hexagonales
+- ✅ Sistema de grillas cuadradas
 - ✅ Generación procedural de terreno
 - ✅ Expansión de terreno funcional
 - ✅ Sistema básico de sprites

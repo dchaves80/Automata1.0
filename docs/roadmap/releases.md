@@ -17,7 +17,7 @@
 **Objetivo:** Construir fundaciones técnicas sólidas
 
 #### v0.0.1 - Fundaciones ✅
-- ✅ Sistema de grillas hexagonales
+- ✅ Sistema de grillas cuadradas
 - ✅ Generación de terreno
 - ✅ Expansión básica
 - ✅ Arquitectura base
@@ -37,7 +37,7 @@
 - ✅ **Sistema de Terreno Completo**
   - Expansión de fábrica funcional
   - Gestión de recursos de terreno
-  - Visualización hexagonal optimizada
+  - Visualización cuadrada optimizada
 
 - ✅ **Programación de Autómatas**
   - Editor de pseudocódigo visual
