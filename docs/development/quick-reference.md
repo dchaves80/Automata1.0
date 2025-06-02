@@ -439,6 +439,38 @@ Los scripts ahora incluyen verificación automática del estado de los issues:
 - 📊 **Muestra información completa** del issue (título, estado, fechas, URL)
 - ✅ **Confirma si fue cerrado** o si aún está pendiente
 - ⚠️ **Manejo de errores** si no se puede verificar
+- 🔗 **Detección automática** del repositorio desde la configuración de Git
+- 🛡️ **Soporte robusto** para diferentes formatos de URL de GitHub
+
+### **🔗 Detección Automática de Repositorio**
+
+Los scripts detectan automáticamente el repositorio desde la configuración de Git, soportando múltiples formatos:
+
+#### **📋 Formatos de URL Soportados:**
+```bash
+# HTTPS con .git
+https://github.com/usuario/repositorio.git
+
+# HTTPS sin .git
+https://github.com/usuario/repositorio
+
+# SSH
+git@github.com:usuario/repositorio.git
+
+# Repositorios con puntos en el nombre
+https://github.com/usuario/proyecto.version.git
+https://github.com/dchaves80/Automata1.0.git
+
+# Repositorios con guiones
+https://github.com/usuario/mi-proyecto-web.git
+```
+
+#### **🔍 Proceso de Detección:**
+1. **Extrae la URL** desde `git config --get remote.origin.url`
+2. **Aplica múltiples patrones** de regex para diferentes formatos
+3. **Valida la extracción** y muestra información de debugging
+4. **Construye la URL de la API** automáticamente
+5. **Maneja errores** con información útil para resolución
 
 ### **📋 Información Mostrada del Issue**
 

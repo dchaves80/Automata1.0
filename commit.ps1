@@ -342,10 +342,26 @@ if ($LASTEXITCODE -eq 0) {
                 
                 # Obtener información del repositorio remoto
                 $remoteUrl = git config --get remote.origin.url
-                if ($remoteUrl -match "github\.com[:/]([^/]+)/([^/.]+)") {
+                Write-Host "URL remota detectada: $remoteUrl" -ForegroundColor Gray
+                
+                # Mejorar la extracción de owner/repo para manejar diferentes formatos de URL
+                $owner = ""
+                $repo = ""
+                
+                # Intentar diferentes patrones de URL de GitHub
+                if ($remoteUrl -match "github\.com[:/]([^/]+)/(.+?)(?:\.git)?/?$") {
                     $owner = $matches[1]
                     $repo = $matches[2] -replace "\.git$", ""
-                    
+                } elseif ($remoteUrl -match "^git@github\.com:([^/]+)/(.+?)(?:\.git)?/?$") {
+                    $owner = $matches[1]
+                    $repo = $matches[2] -replace "\.git$", ""
+                } elseif ($remoteUrl -match "^https://github\.com/([^/]+)/(.+?)(?:\.git)?/?$") {
+                    $owner = $matches[1]
+                    $repo = $matches[2] -replace "\.git$", ""
+                }
+                
+                if ($owner -and $repo) {
+                    Write-Host "Repositorio detectado: $owner/$repo" -ForegroundColor Gray
                     Write-Host "Consultando issue #$issueNumber en $owner/$repo..." -ForegroundColor Cyan
                     
                     try {
@@ -380,6 +396,12 @@ if ($LASTEXITCODE -eq 0) {
                     }
                 } else {
                     Write-Host "⚠️  No se pudo determinar el repositorio de GitHub desde la URL remota" -ForegroundColor Yellow
+                    Write-Host "   URL detectada: $remoteUrl" -ForegroundColor Gray
+                    Write-Host "   Formatos soportados:" -ForegroundColor Gray
+                    Write-Host "     - https://github.com/usuario/repositorio" -ForegroundColor Gray
+                    Write-Host "     - https://github.com/usuario/repositorio.git" -ForegroundColor Gray
+                    Write-Host "     - git@github.com:usuario/repositorio.git" -ForegroundColor Gray
+                    Write-Host "   Puedes verificar manualmente el issue en GitHub" -ForegroundColor Cyan
                 }
             }
         } else {

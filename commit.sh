@@ -370,11 +370,29 @@ if [ $? -eq 0 ]; then
                 
                 # Obtener información del repositorio remoto
                 remoteUrl=$(git config --get remote.origin.url)
-                if [[ "$remoteUrl" =~ github\.com[:/]([^/]+)/([^/.]+) ]]; then
+                echo -e "${GRAY}URL remota detectada: $remoteUrl${NC}"
+                
+                # Mejorar la extracción de owner/repo para manejar diferentes formatos de URL
+                owner=""
+                repo=""
+                
+                # Intentar diferentes patrones de URL de GitHub
+                if [[ "$remoteUrl" =~ github\.com[:/]([^/]+)/(.+?)(\\.git)?/?$ ]]; then
                     owner="${BASH_REMATCH[1]}"
                     repo="${BASH_REMATCH[2]}"
                     repo="${repo%.git}"  # Remover .git si existe
-                    
+                elif [[ "$remoteUrl" =~ ^git@github\.com:([^/]+)/(.+?)(\\.git)?/?$ ]]; then
+                    owner="${BASH_REMATCH[1]}"
+                    repo="${BASH_REMATCH[2]}"
+                    repo="${repo%.git}"  # Remover .git si existe
+                elif [[ "$remoteUrl" =~ ^https://github\.com/([^/]+)/(.+?)(\\.git)?/?$ ]]; then
+                    owner="${BASH_REMATCH[1]}"
+                    repo="${BASH_REMATCH[2]}"
+                    repo="${repo%.git}"  # Remover .git si existe
+                fi
+                
+                if [ -n "$owner" ] && [ -n "$repo" ]; then
+                    echo -e "${GRAY}Repositorio detectado: $owner/$repo${NC}"
                     echo -e "${CYAN}Consultando issue #$issueNumber en $owner/$repo...${NC}"
                     
                     # Hacer curl a la API de GitHub
@@ -427,6 +445,12 @@ if [ $? -eq 0 ]; then
                     fi
                 else
                     echo -e "${YELLOW}⚠️  No se pudo determinar el repositorio de GitHub desde la URL remota${NC}"
+                    echo -e "${GRAY}   URL detectada: $remoteUrl${NC}"
+                    echo -e "${GRAY}   Formatos soportados:${NC}"
+                    echo -e "${GRAY}     - https://github.com/usuario/repositorio${NC}"
+                    echo -e "${GRAY}     - https://github.com/usuario/repositorio.git${NC}"
+                    echo -e "${GRAY}     - git@github.com:usuario/repositorio.git${NC}"
+                    echo -e "${CYAN}   Puedes verificar manualmente el issue en GitHub${NC}"
                 fi
             fi
         else

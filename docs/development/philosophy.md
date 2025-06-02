@@ -43,9 +43,12 @@
   - Gestión de ramas integrada
   - **Vinculación automática con issues de GitHub**
   - **Verificación automática del estado de issues**
+  - **Detección automática del repositorio** desde configuración Git
+  - **Soporte robusto para múltiples formatos** de URL de GitHub
   - Compatible con cualquier configuración de PowerShell/Bash
   - Soporte multiplataforma (Windows/Linux/macOS)
   - Feedback inmediato sobre el cierre de issues
+  - **Aplicable a cualquier proyecto** sin configuración adicional
 
 ---
 
