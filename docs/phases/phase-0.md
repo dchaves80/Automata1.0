@@ -20,6 +20,7 @@ La Fase 0 será el **primer contacto** del jugador con **Automata Factory Game**
 3. **Establecer la identidad visual** que se mantendrá en todo el juego
 4. **Preparar la arquitectura UI** para futuras expansiones
 5. **Crear la base técnica** para todo el desarrollo posterior
+6. **Implementar sistema de autenticación** moderno y seguro
 
 ---
 
@@ -60,50 +61,71 @@ Estética del Juego:
 
 ## 🏗️ Arquitectura del Menú
 
-### **📱 Estructura de Pantallas**
+### **📱 Estructura de Pantallas (NUEVO FLUJO)**
 
 ```
-Menú Principal (Fase 0)
-├── 🏠 Pantalla Principal
-│   ├── Nuevo Juego
-│   ├── Cargar Partida
-│   ├── Configuración
-│   ├── Créditos
-│   └── Salir
-├── ⚙️ Configuración
-│   ├── Gráficos
-│   ├── Audio
-│   ├── Controles
-│   └── Gameplay
-├── 💾 Cargar Partida
-│   ├── Lista de Guardados
-│   ├── Preview de Partida
-│   └── Información de Progreso
-└── 📜 Créditos
-    ├── Equipo de Desarrollo
-    ├── Agradecimientos
-    └── Versión del Juego
+🏠 AUTOMATA FACTORY - Menú Principal
+├── 🔐 Estado NO AUTENTICADO
+│   ├── [🔑 INICIAR SESIÓN]     # Botón principal
+│   ├── [📝 REGISTRARSE]        # Para nuevos usuarios
+│   ├── [⚙️ CONFIGURACIÓN]      # Settings básicos
+│   └── [❌ SALIR]              # Cerrar aplicación
+└── ✅ Estado AUTENTICADO
+    ├── Bienvenido, [Usuario]    # Saludo personalizado
+    ├── [🚀 COMENZAR JUEGO]      # Va directo al juego único
+    ├── [👤 MI PERFIL]           # Stats y progreso
+    ├── [⚙️ CONFIGURACIÓN]       # Settings completos
+    └── [🚪 CERRAR SESIÓN]       # Logout
+```
+
+### **🔐 Pantallas de Autenticación**
+
+```
+🔑 Login
+├── 📧 Email/Usuario
+├── 🔒 Contraseña
+├── [💾 Recordarme]
+├── [🔑 INICIAR SESIÓN]
+├── [📝 ¿No tienes cuenta?]
+└── [🔄 ¿Olvidaste tu contraseña?]
+
+📝 Registro
+├── 👤 Nombre de Usuario
+├── 📧 Email
+├── 🔒 Contraseña
+├── 🔒 Confirmar Contraseña
+├── [✅ Acepto términos]
+├── [📝 REGISTRARSE]
+└── [🔑 ¿Ya tienes cuenta?]
 ```
 
 ### **🎯 Funcionalidades Core**
 
-#### **🆕 Nuevo Juego**
-- **Selección de dificultad** (Fácil, Normal, Difícil)
-- **Configuración inicial** de la fábrica
-- **Tutorial integrado** (opcional)
-- **Transición suave** al juego principal
+#### **🔐 Sistema de Autenticación**
+- **Login obligatorio** para acceder al juego
+- **Registro de nuevos usuarios** con validación
+- **Recordar sesión** para comodidad del usuario
+- **Recuperación de contraseña** por email
+- **Validación en tiempo real** de formularios
 
-#### **💾 Sistema de Guardado**
-- **Lista visual** de partidas guardadas
-- **Preview** con screenshot y estadísticas
-- **Información detallada** (tiempo jugado, progreso, fecha)
-- **Gestión de archivos** (eliminar, renombrar)
+#### **🚀 Comenzar Juego (Post-Login)**
+- **Un juego único por usuario** - no hay múltiples partidas
+- **Carga automática** del progreso del usuario
+- **Continuidad perfecta** - siempre donde lo dejaste
+- **Sincronización en la nube** transparente
+
+#### **👤 Perfil de Usuario**
+- **Estadísticas de progreso** (tiempo jugado, logros)
+- **Información de la fábrica** (tamaño, producción)
+- **Historial de sesiones** y actividad
+- **Configuración de cuenta** (cambiar contraseña, email)
 
 #### **⚙️ Configuración Completa**
 - **Gráficos:** Calidad, resolución, fullscreen
 - **Audio:** Música, efectos, volumen maestro
 - **Controles:** Keybindings personalizables
 - **Gameplay:** Velocidad, dificultad, ayudas
+- **Cuenta:** Configuración de perfil y privacidad
 
 ---
 
@@ -115,23 +137,34 @@ Assets/
 ├── Scripts/
 │   ├── UI/
 │   │   ├── MainMenu/
-│   │   │   ├── MainMenuManager.cs
-│   │   │   ├── MenuNavigator.cs
-│   │   │   ├── SettingsManager.cs
-│   │   │   └── SaveGameManager.cs
+│   │   │   ├── MainMenuManager.cs      # Gestión principal del menú
+│   │   │   ├── AuthenticationUI.cs     # UI de login/registro
+│   │   │   ├── UserProfileUI.cs        # Interfaz de perfil
+│   │   │   ├── MenuNavigator.cs        # Navegación entre pantallas
+│   │   │   └── SettingsManager.cs      # Gestión de configuración
 │   │   ├── Components/
-│   │   │   ├── AnimatedButton.cs
-│   │   │   ├── MenuTransition.cs
-│   │   │   └── UIEffects.cs
+│   │   │   ├── AnimatedButton.cs       # Botones con animaciones
+│   │   │   ├── FormValidator.cs        # Validación de formularios
+│   │   │   ├── MenuTransition.cs       # Transiciones suaves
+│   │   │   └── UIEffects.cs            # Efectos visuales
 │   │   └── Core/
-│   │       ├── UIManager.cs
-│   │       └── SceneLoader.cs
+│   │       ├── UIManager.cs            # Gestión global de UI
+│   │       ├── SceneLoader.cs          # Carga de escenas
+│   │       └── SessionManager.cs       # Gestión de sesión
+│   └── Backend/
+│       ├── AuthManager.cs              # Comunicación con backend
+│       ├── UserDataManager.cs          # Gestión de datos de usuario
+│       └── APIClient.cs                # Cliente HTTP
 ├── Scenes/
-│   ├── MainMenu.unity
-│   ├── Settings.unity
-│   └── LoadGame.unity
+│   ├── MainMenu.unity                  # Menú principal
+│   ├── Authentication.unity            # Pantallas de login/registro
+│   └── UserProfile.unity               # Perfil de usuario
 ├── UI/
 │   ├── Prefabs/
+│   │   ├── LoginPanel.prefab           # Panel de login
+│   │   ├── RegisterPanel.prefab        # Panel de registro
+│   │   ├── UserProfilePanel.prefab     # Panel de perfil
+│   │   └── MenuButtons.prefab          # Botones del menú
 │   ├── Sprites/
 │   └── Fonts/
 └── Audio/
@@ -144,58 +177,75 @@ Assets/
 #### **🎮 MainMenuManager.cs**
 ```csharp
 Responsabilidades:
-├── 🎛️ Gestión de estado del menú
-├── 🔄 Navegación entre pantallas
+├── 🔐 Gestión de estado de autenticación
+├── 🔄 Navegación entre pantallas autenticadas/no autenticadas
 ├── 💾 Carga/guardado de configuración
 ├── 🎵 Control de audio
-└── 🎨 Efectos visuales
+├── 🎨 Efectos visuales
+└── 🌐 Comunicación con backend (Fase 1)
+```
+
+#### **🔐 AuthenticationUI.cs**
+```csharp
+Funcionalidades:
+├── 📝 Formularios de login y registro
+├── ✅ Validación en tiempo real
+├── 🔄 Comunicación con AuthManager
+├── 💾 Recordar sesión
+├── 🎨 Feedback visual de estados
+└── 🔄 Recuperación de contraseña
+```
+
+#### **👤 UserProfileUI.cs**
+```csharp
+Características:
+├── 📊 Visualización de estadísticas
+├── 🏭 Información de la fábrica
+├── ⚙️ Configuración de cuenta
+├── 📈 Progreso y logros
+└── 🔄 Sincronización con backend
 ```
 
 #### **🧭 MenuNavigator.cs**
 ```csharp
 Funcionalidades:
-├── 📱 Stack de pantallas
+├── 📱 Stack de pantallas con estados
 ├── 🔄 Transiciones animadas
 ├── ⌨️ Navegación por teclado
 ├── 🎯 Gestión de focus
-└── 📱 Responsive design
-```
-
-#### **⚙️ SettingsManager.cs**
-```csharp
-Configuraciones:
-├── 🎨 Gráficos y rendimiento
-├── 🔊 Audio y música
-├── ⌨️ Controles y input
-├── 🎮 Preferencias de gameplay
-└── 💾 Persistencia de datos
+└── 🔐 Control de acceso por autenticación
 ```
 
 ---
 
 ## 🎮 Experiencia de Usuario
 
-### **🚀 Flujo de Usuario Ideal**
+### **🚀 Flujo de Usuario Ideal (NUEVO)**
 
 1. **Inicio del Juego**
    - Logo animado con sonido
-   - Carga de configuración guardada
-   - Transición suave al menú principal
+   - Verificación de sesión guardada
+   - Transición al estado apropiado (login/menú autenticado)
 
-2. **Navegación Principal**
-   - Botones claramente visibles
-   - Feedback inmediato en hover
-   - Sonidos sutiles de interfaz
+2. **Primera Vez (No Autenticado)**
+   - Pantalla de bienvenida clara
+   - Opciones de Login/Registro prominentes
+   - Configuración básica disponible
 
-3. **Nuevo Juego**
-   - Selección de dificultad intuitiva
-   - Preview de lo que incluye cada modo
+3. **Login/Registro**
+   - Formularios intuitivos y validados
+   - Feedback inmediato de errores
+   - Proceso rápido y sin fricciones
+
+4. **Post-Autenticación**
+   - Saludo personalizado al usuario
+   - Botón "Comenzar Juego" prominente
+   - Acceso a perfil y configuración completa
+
+5. **Comenzar Juego**
+   - Carga automática del progreso único del usuario
    - Transición épica al gameplay
-
-4. **Configuración**
-   - Cambios aplicados en tiempo real
-   - Preview de efectos gráficos
-   - Guardado automático de preferencias
+   - Sincronización transparente con la nube
 
 ### **🎨 Animaciones y Efectos**
 
