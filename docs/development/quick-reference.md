@@ -41,6 +41,7 @@ git push origin [branch]
 | 🎮 | `:video_game:` | Unity/Cliente |
 | 🌐 | `:globe_with_meridians:` | API/Backend |
 | 💄 | `:lipstick:` | UI/Interfaz |
+| 🛠️ | `:hammer_and_wrench:` | Herramientas/Scripts |
 
 ---
 
@@ -123,6 +124,9 @@ git commit -m "💄 ui: [cambio en interfaz]"
 # WIP
 git commit -m "🚧 wip: [trabajo en progreso]"
 
+# Herramientas/Scripts
+git commit -m "🛠️ tool: [herramienta o script]"
+
 # Fase completada
 git commit -m "🎉 milestone: Completar Fase X"
 ```
@@ -199,6 +203,9 @@ git commit -m "🔧 config: Configurar conexión MongoDB"
 
 # Commit de documentación
 git commit -m "📚 docs: Actualizar Fase 1"
+
+# Commit de herramientas
+git commit -m "🛠️ tool: Crear script de commit helper"
 ```
 
 ---
@@ -218,4 +225,17 @@ git tag -l
 
 ---
 
-**Referencia completa:** [📋 Filosofía de Desarrollo](philosophy.md) 
+## **📋 Comandos del Proyecto**
+
+### **Commits Automatizados**
+```powershell
+# Ejecutar helper de commits (desde la raíz)
+.\commit-helper.ps1
+
+# Con alias (después de configurar)
+ac
+```
+
+---
+
+**Referencia completa:** [📋 Filosofía de Desarrollo](philosophy.md)

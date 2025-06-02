@@ -49,6 +49,7 @@ Un juego de automatización industrial donde los jugadores programan autómatas 
 - **[⚡ Guía de Referencia Rápida](docs/development/quick-reference.md)** - Comandos y emojis para commits
 - **[🎨 Convenciones de Código](docs/development/coding-standards.md)** - Estándares y mejores prácticas
 - **[🔄 Proceso de Review](docs/development/review-process.md)** - Criterios de calidad y merge
+- **[🛠️ Scripts de Desarrollo](scripts/README.md)** - Herramientas automatizadas para commits y tareas comunes
 
 ## 🚀 Estado Actual
 
