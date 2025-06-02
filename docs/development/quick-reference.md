@@ -44,6 +44,55 @@ git push origin [branch]
 
 ---
 
+## 📚 Commits de Documentación - Casos Específicos
+
+### **📋 Tipos de Documentación**
+```bash
+# Actualizar documentación de fase
+git commit -m "📚 docs: Actualizar progreso Fase 1 a 25%"
+
+# Crear nueva documentación
+git commit -m "📚 docs: Crear lineamientos de desarrollo"
+
+# Documentación técnica
+git commit -m "📚 docs: Documentar API de autenticación"
+
+# Actualizar README
+git commit -m "📚 docs: Actualizar tabla de progreso en README"
+
+# Documentación de arquitectura
+git commit -m "📚 docs: Agregar esquemas de base de datos"
+
+# Guías de desarrollo
+git commit -m "📚 docs: Crear guía de referencia rápida"
+
+# Roadmap y planificación
+git commit -m "📚 docs: Actualizar timeline del proyecto"
+
+# Documentación de gameplay
+git commit -m "📚 docs: Documentar mecánicas de autómatas"
+```
+
+### **🎯 Documentación por Fases**
+```bash
+# Fase 0 - Menú Principal
+git commit -m "📚 docs: Actualizar especificaciones UI Fase 0"
+
+# Fase 1 - Backend
+git commit -m "📚 docs: Documentar endpoints de autenticación"
+
+# Fase 2 - Terreno
+git commit -m "📚 docs: Especificar sistema de cimientos"
+
+# Fase 3 - Autómatas
+git commit -m "📚 docs: Definir comportamientos de autómatas"
+
+# Fase 4 - Programación
+git commit -m "📚 docs: Documentar pseudo-lenguaje"
+```
+
+---
+
 ## 📝 Plantillas de Commit
 
 ```bash
