@@ -20,21 +20,22 @@ graph TD
     %% Materiales Procesados (Tier 2)
     Acero[⚙️ Acero<br/>2Fe + 1C]
     Bronce[🟤 Bronce<br/>3Cu + 1Fe]
-    Cables[🔌 Cables<br/>2Cu → 3 Cables]
-    Chips[💻 Chips<br/>1Si + 1Cu]
-    Baterias[🔋 Baterías<br/>2Li + 1Cu]
+    AlambreCobre[🔶 Alambre de Cobre<br/>1Cu → 2 Alambres]
+    Cables[🔌 Cables<br/>3 Alambre + Aislante]
+    Chips[💻 Chips<br/>1Si + 1 Alambre]
+    Baterias[🔋 Baterías<br/>2Li + 1 Alambre]
     
     %% Componentes Avanzados (Tier 3)
     Motor[⚡ Motor<br/>2 Acero + 3 Cables + 1 Chip]
     Procesador[🧠 Procesador<br/>3 Chips + 1 Batería + 2 Cables]
     Chasis[🏗️ Chasis<br/>4 Acero + 2 Bronce]
-    Sensor[👁️ Sensor<br/>2 Chips + 1 Si + 3 Cables]
+    Sensor[👁️ Sensor<br/>2 Chips + 1Si + 3 Alambre]
     Actuador[🦾 Actuador<br/>1 Motor + 2 Acero + 1 Procesador]
     
     %% Autómatas (Tier 4)
     AutoTransporte[🚚 Autómata Transporte<br/>1 Chasis + 2 Motor + 1 Sensor + 1 Procesador]
     AutoConstruccion[🔨 Autómata Construcción<br/>1 Chasis + 2 Actuador + 2 Sensor + 1 Procesador]
-    AutoEnergia[⚡ Autómata Energía<br/>1 Chasis + 3 Baterías + 2 Procesador + 10 Cables]
+    AutoEnergia[⚡ Autómata Energía<br/>1 Chasis + 3 Baterías + 2 Procesador + 15 Cables]
     AutoInteligente[🧠 Autómata Inteligente<br/>1 Chasis + 3 Procesador + 3 Sensor + 1 Actuador]
     
     %% Conexiones Tier 1 → Tier 2
@@ -42,11 +43,12 @@ graph TD
     C --> Acero
     Cu --> Bronce
     Fe --> Bronce
-    Cu --> Cables
+    Cu --> AlambreCobre
+    AlambreCobre --> Cables
     Si --> Chips
-    Cu --> Chips
+    AlambreCobre --> Chips
     Li --> Baterias
-    Cu --> Baterias
+    AlambreCobre --> Baterias
     
     %% Conexiones Tier 2 → Tier 3
     Acero --> Motor
@@ -59,7 +61,7 @@ graph TD
     Bronce --> Chasis
     Chips --> Sensor
     Si --> Sensor
-    Cables --> Sensor
+    AlambreCobre --> Sensor
     Motor --> Actuador
     Acero --> Actuador
     Procesador --> Actuador
@@ -92,7 +94,7 @@ graph TD
     classDef tier4 fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
     
     class Fe,Cu,C,Si,Li tier1
-    class Acero,Bronce,Cables,Chips,Baterias tier2
+    class Acero,Bronce,AlambreCobre,Cables,Chips,Baterias tier2
     class Motor,Procesador,Chasis,Sensor,Actuador tier3
     class AutoTransporte,AutoConstruccion,AutoEnergia,AutoInteligente tier4
 ```
@@ -119,14 +121,21 @@ flowchart LR
     subgraph ProcBasico["🔥 PROCESAMIENTO BÁSICO"]
         Fundicion[🔥 Fundición<br/>10 seg]
         Refineria[⚗️ Refinería<br/>15 seg]
-        Ensamblador1[🔧 Ensamblador I<br/>8 seg]
+        Extrusora[🔧 Extrusora<br/>8 seg]
+    end
+    
+    %% Procesamiento Intermedio
+    subgraph ProcIntermedio["⚙️ PROCESAMIENTO INTERMEDIO"]
+        EnsambladorCables[🔌 Ensamblador Cables<br/>12 seg]
+        FabricaChips[💻 Fábrica Chips<br/>25 seg]
+        EnsambladorBaterias[🔋 Ensamblador Baterías<br/>20 seg]
     end
     
     %% Procesamiento Avanzado
     subgraph ProcAvanzado["⚙️ PROCESAMIENTO AVANZADO"]
-        Ensamblador2[🔧 Ensamblador II<br/>20 seg]
-        FabricaChips[💻 Fábrica Chips<br/>25 seg]
         TallerMotores[⚡ Taller Motores<br/>30 seg]
+        FabricaProcesadores[🧠 Fábrica Procesadores<br/>35 seg]
+        TallerSensores[👁️ Taller Sensores<br/>28 seg]
     end
     
     %% Ensamblaje Final
@@ -138,26 +147,35 @@ flowchart LR
     Mina --> |Fe, Cu, Si, Li| Fundicion
     Pozo --> |C| Refineria
     
-    Fundicion --> |Acero, Bronce| Ensamblador2
-    Refineria --> |Cables| Ensamblador1
-    Ensamblador1 --> |Chips, Baterías| FabricaChips
+    Fundicion --> |Acero, Bronce| TallerMotores
+    Mina --> |Cu| Extrusora
+    Extrusora --> |Alambre de Cobre| EnsambladorCables
+    Extrusora --> |Alambre de Cobre| FabricaChips
+    Extrusora --> |Alambre de Cobre| EnsambladorBaterias
     
-    Ensamblador2 --> |Chasis| LineaAutomatas
-    FabricaChips --> |Procesador, Sensor| TallerMotores
-    TallerMotores --> |Motor, Actuador| LineaAutomatas
+    EnsambladorCables --> |Cables| TallerMotores
+    FabricaChips --> |Chips| FabricaProcesadores
+    FabricaChips --> |Chips| TallerSensores
+    EnsambladorBaterias --> |Baterías| FabricaProcesadores
+    
+    TallerMotores --> |Motor, Chasis| LineaAutomatas
+    FabricaProcesadores --> |Procesador| LineaAutomatas
+    TallerSensores --> |Sensor| LineaAutomatas
     
     LineaAutomatas --> |Autómatas| Marketplace[🏪 Marketplace]
     
     %% Estilos
     classDef extraccion fill:#8b5a3c,stroke:#6d4c41,stroke-width:2px,color:#fff
     classDef basico fill:#ff7675,stroke:#d63031,stroke-width:2px,color:#fff
-    classDef avanzado fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
-    classDef final fill:#55a3ff,stroke:#2d3436,stroke-width:3px,color:#fff
-    classDef market fill:#00b894,stroke:#00a085,stroke-width:3px,color:#fff
+    classDef intermedio fill:#74b9ff,stroke:#0984e3,stroke-width:2px,color:#fff
+    classDef avanzado fill:#55a3ff,stroke:#2d3436,stroke-width:2px,color:#fff
+    classDef final fill:#00b894,stroke:#00a085,stroke-width:3px,color:#fff
+    classDef market fill:#a29bfe,stroke:#6c5ce7,stroke-width:3px,color:#fff
     
     class Mina,Pozo extraccion
-    class Fundicion,Refineria,Ensamblador1 basico
-    class Ensamblador2,FabricaChips,TallerMotores avanzado
+    class Fundicion,Refineria,Extrusora basico
+    class EnsambladorCables,FabricaChips,EnsambladorBaterias intermedio
+    class TallerMotores,FabricaProcesadores,TallerSensores avanzado
     class LineaAutomatas final
     class Marketplace market
 ```
@@ -167,10 +185,13 @@ flowchart LR
 |---------|-------------|------------|---------------|
 | ⛏️ Mina | 5 seg/unidad | 100% | 2 kW |
 | 🔥 Fundición | 10 seg | 95% | 5 kW |
-| 🔧 Ensamblador I | 8 seg | 90% | 3 kW |
-| 🔧 Ensamblador II | 20 seg | 85% | 8 kW |
-| 💻 Fábrica Chips | 25 seg | 80% | 12 kW |
-| ⚡ Taller Motores | 30 seg | 75% | 15 kW |
+| 🔧 Extrusora | 8 seg | 90% | 3 kW |
+| 🔌 Ensamblador Cables | 12 seg | 88% | 4 kW |
+| 💻 Fábrica Chips | 25 seg | 85% | 8 kW |
+| 🔋 Ensamblador Baterías | 20 seg | 87% | 6 kW |
+| ⚡ Taller Motores | 30 seg | 80% | 12 kW |
+| 🧠 Fábrica Procesadores | 35 seg | 78% | 15 kW |
+| 👁️ Taller Sensores | 28 seg | 82% | 10 kW |
 | 🤖 Línea Autómatas | 60-120 seg | 70% | 25 kW |
 
 ---
@@ -202,17 +223,19 @@ flowchart LR
 |----------|-------------|---------|--------|-------|
 | **Acero** | 2 Hierro + 1 Carbón | Horno Básico | 30s | 3x |
 | **Bronce** | 3 Cobre + 1 Hierro | Horno Básico | 25s | 2.5x |
-| **Cables** | 2 Cobre | Extrusora | 15s | 2x |
-| **Chips** | 1 Silicio + 1 Cobre | Fab. Electrónica | 45s | 4x |
-| **Baterías** | 2 Litio + 1 Cobre | Ensambladora | 60s | 5x |
+| **Alambre de Cobre** | 1 Cobre | Extrusora | 15s | 2x |
+| **Cables** | 3 Alambre de Cobre + Aislante | Extrusora | 15s | 2x |
+| **Chips** | 1 Silicio + 1 Alambre de Cobre | Fab. Electrónica | 45s | 4x |
+| **Baterías** | 2 Litio + 1 Alambre de Cobre | Ensambladora | 60s | 5x |
 
 ### **Fórmulas de Transformación:**
 ```
 Acero = 2Fe + 1C → 1 Acero (Valor: 3 unidades básicas)
 Bronce = 3Cu + 1Fe → 1 Bronce (Valor: 2.5 unidades básicas)
-Cables = 2Cu → 3 Cables (Valor: 2 unidades básicas)
-Chips = 1Si + 1Cu → 1 Chip (Valor: 4 unidades básicas)
-Baterías = 2Li + 1Cu → 1 Batería (Valor: 5 unidades básicas)
+Alambre de Cobre = 1Cu → 2 Alambres (Valor: 2 unidades básicas)
+Cables = 3 Alambre de Cobre + Aislante → 3 Cables (Valor: 2 unidades básicas)
+Chips = 1Si + 1 Alambre de Cobre → 1 Chip (Valor: 4 unidades básicas)
+Baterías = 2Li + 1 Alambre de Cobre → 1 Batería (Valor: 5 unidades básicas)
 ```
 
 ---
@@ -226,7 +249,7 @@ Baterías = 2Li + 1Cu → 1 Batería (Valor: 5 unidades básicas)
 | **Motor** | 2 Acero + 3 Cables + 1 Chip | Ensambladora Avanzada | 120s | Media |
 | **Procesador** | 3 Chips + 1 Batería + 2 Cables | Fab. Avanzada | 180s | Alta |
 | **Chasis** | 4 Acero + 2 Bronce | Soldadora | 90s | Baja |
-| **Sensor** | 2 Chips + 1 Silicio + 3 Cables | Fab. Electrónica | 150s | Media |
+| **Sensor** | 2 Chips + 1 Silicio + 3 Alambre | Fab. Electrónica | 150s | Media |
 | **Actuador** | 1 Motor + 2 Acero + 1 Procesador | Ensambladora Avanzada | 200s | Alta |
 
 ### **Cadenas de Dependencia:**
@@ -281,7 +304,7 @@ Componentes Requeridos:
 ├── Chasis (1) → 4 Acero + 2 Bronce
 ├── Baterías (3) → 6 Litio + 3 Cobre
 ├── Procesador (2) → 6 Chips + 2 Baterías + 4 Cables
-└── Cables (10) → 20 Cobre
+└── Cables (15) → 30 Cobre
 
 Tiempo Total de Fabricación: ~20 minutos
 Valor de Mercado: 200-300 créditos
@@ -313,16 +336,28 @@ Valor de Mercado: 400-600 créditos
 - **Costo:** 10 Hierro + 5 Carbón
 
 #### **🔌 Extrusora**
-- **Función:** Formado de cables y componentes simples
-- **Procesa:** Cobre → Cables
-- **Velocidad:** 3 unidades cada 15 segundos
+- **Función:** Formado de alambre de cobre básico
+- **Procesa:** Cobre → Alambre de Cobre
+- **Velocidad:** 2 alambres cada 8 segundos
 - **Costo:** 8 Hierro + 5 Cobre
+
+#### **🔌 Ensamblador de Cables**
+- **Función:** Creación de cables aislados
+- **Procesa:** Alambre de Cobre + Aislante → Cables
+- **Velocidad:** 3 cables cada 12 segundos
+- **Costo:** 10 Hierro + 8 Cobre + 3 Silicio
 
 #### **💻 Fábrica Electrónica**
 - **Función:** Creación de componentes electrónicos
-- **Procesa:** Silicio + Cobre → Chips, Chips + Componentes → Sensores
-- **Velocidad:** 1 unidad cada 45 segundos
+- **Procesa:** Silicio + Alambre de Cobre → Chips, Chips + Componentes → Sensores
+- **Velocidad:** 1 unidad cada 25-28 segundos
 - **Costo:** 15 Hierro + 10 Cobre + 5 Silicio
+
+#### **🔋 Ensamblador de Baterías**
+- **Función:** Fabricación de sistemas de almacenamiento energético
+- **Procesa:** Litio + Alambre de Cobre → Baterías
+- **Velocidad:** 1 batería cada 20 segundos
+- **Costo:** 12 Hierro + 8 Alambre de Cobre + 5 Litio
 
 ### **Máquinas Avanzadas (Fase 5-6)**
 
@@ -358,6 +393,7 @@ graph LR
         subgraph T2["Tier 2 - Procesados"]
             Acero2[Acero: 5₡]
             Bronce2[Bronce: 8₡]
+            AlambreCobre2[Alambre de Cobre: 2₡]
             Cables2[Cables: 3₡]
             Chips2[Chips: 12₡]
             Baterias2[Baterías: 15₡]
@@ -396,7 +432,7 @@ graph LR
     classDef tier4 fill:#96ceb4,stroke:#00b894,stroke-width:3px,color:#fff
     
     class Fe1,Cu1,C1,Si1,Li1 tier1
-    class Acero2,Bronce2,Cables2,Chips2,Baterias2 tier2
+    class Acero2,Bronce2,AlambreCobre2,Cables2,Chips2,Baterias2 tier2
     class Motor3,Procesador3,Chasis3,Sensor3,Actuador3 tier3
     class AutoT4,AutoC4,AutoE4,AutoI4 tier4
 ```
@@ -406,14 +442,16 @@ graph LR
 | Material/Componente | Tiempo Total | Valor Final | Eficiencia (₡/min) |
 |---------------------|--------------|-------------|-------------------|
 | 🔴 **Materiales Básicos** | 5 seg | 1-3₡ | 12-36₡/min |
-| 🔵 **Materiales Procesados** | 15-25 seg | 5-15₡ | 12-36₡/min |
-| 🟦 **Componentes Avanzados** | 45-85 seg | 35-85₡ | 25-60₡/min |
+| 🔶 **Alambre de Cobre** | 8 seg | 2₡ | 15₡/min |
+| 🔵 **Materiales Procesados** | 12-25 seg | 3-15₡ | 12-45₡/min |
+| 🟦 **Componentes Avanzados** | 28-85 seg | 35-85₡ | 25-110₡/min |
 | 🟢 **Autómatas Completos** | 180-300 seg | 250-580₡ | 50-116₡/min |
 
 ### **Tiempo vs. Valor**
-- **Materiales Básicos:** Extracción instantánea
-- **Tier 2:** 15-60 segundos por unidad
-- **Tier 3:** 90-200 segundos por unidad
+- **Materiales Básicos:** Extracción instantánea (5 seg)
+- **Alambre de Cobre:** Procesamiento rápido (8 seg)
+- **Tier 2:** 12-60 segundos por unidad
+- **Tier 3:** 28-200 segundos por unidad
 - **Tier 4:** 15-35 minutos por autómata completo
 
 ---
@@ -424,12 +462,13 @@ graph LR
 ```
 Extracción → Procesamiento → Ensamblaje
 ├── 4 Hierro + 2 Carbón → 2 Acero (60s)
-├── 7 Cobre → 3 Cables + 1 Chip (60s)
-├── 1 Silicio → Chip adicional (45s)
+├── 4 Cobre → 8 Alambre de Cobre (32s)
+├── 6 Alambre + Aislante → 3 Cables (36s)
+├── 1 Silicio + 1 Alambre → 1 Chip (25s)
 └── Ensamblaje final → Autómata (15 min)
 
 Tiempo Total: ~17 minutos
-Recursos Totales: 4 Fe, 2 C, 7 Cu, 1 Si
+Recursos Totales: 4 Fe, 2 C, 5 Cu, 1 Si
 ```
 
 ### **Cadena Avanzada Inteligente**
@@ -438,10 +477,11 @@ Múltiples Líneas Paralelas:
 ├── Línea A: Procesadores (3x) → 180s cada uno
 ├── Línea B: Sensores (3x) → 150s cada uno
 ├── Línea C: Chasis + Actuador → 290s total
+├── Línea D: Alambre de Cobre → Cables → 48s total
 └── Ensamblaje Final → 35 minutos
 
 Tiempo Total: ~45 minutos (con paralelización)
-Recursos Totales: 20+ materiales básicos
+Recursos Totales: 25+ materiales básicos
 ```
 
 ---
