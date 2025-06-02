@@ -96,13 +96,44 @@
 **Estado:** OBJETIVO PRINCIPAL 🎯  
 **Inicio:** Julio 2026  
 **Fin Estimado:** Septiembre 2026 (10 semanas)  
-**Horas Totales:** 85 horas
+**Horas Totales:** 95 horas
 
 #### **🚀 PRIMER RELEASE JUGABLE (Alpha v0.1)**
 - Sistema completo de materiales
 - Cadenas de producción básicas
 - Máquinas de transformación
+- **🧮 Calculadora integrada con historial y notas**
 - **¡Primera versión jugable del juego!**
+
+#### Cronograma Detallado Fase 4:
+| Semana | Tarea | Horas | Prioridad |
+|--------|-------|-------|-----------|
+| 1-2 | Sistema de spawners con costos | 18h | 🔴 Alta |
+| 3-4 | Máquinas de transformación | 18h | 🔴 Alta |
+| 5-6 | Cadenas de producción básicas | 18h | 🔴 Alta |
+| 7-8 | **🧮 Calculadora integrada** | 16h | 🟡 Media |
+| 9 | Balanceado económico | 12h | 🔴 Alta |
+| 10 | Testing y pulido | 13h | 🟡 Media |
+
+#### **🧮 Calculadora Integrada - Especificaciones**
+```
+Funcionalidades Core:
+├── 🔢 Calculadora básica (operaciones matemáticas)
+├── 📊 Calculadora de costos de producción
+├── ⏱️ Calculadora de tiempos y eficiencia
+├── 💰 Calculadora de ROI y rentabilidad
+├── 📝 Sistema de notas y comentarios
+├── 💾 Historial persistente de cálculos
+├── 🔄 Importar/exportar datos de la fábrica
+└── 📋 Templates de cálculos comunes
+
+Integración con el Juego:
+├── 🎯 Acceso rápido desde cualquier pantalla (hotkey)
+├── 📊 Auto-completar con datos actuales de la fábrica
+├── 🔗 Enlaces directos a spawners y máquinas
+├── 📈 Gráficos de tendencias y proyecciones
+└── 🤖 Sugerencias automáticas de optimización
+```
 
 ---
 
@@ -139,13 +170,13 @@
 | Fase | Fin Estimado | Horas Acumuladas | Progreso Total |
 |------|--------------|------------------|----------------|
 | Fase 1 | ✅ Mayo 2025 | 85h | 12% |
-| Fase 1.5 | Agosto 2025 | 195h | 28% |
-| Fase 1.6 | Diciembre 2025 | 312h | 44% |
-| Fase 2 | Marzo 2026 | 407h | 58% |
-| Fase 3 | Junio 2026 | 487h | 69% |
-| **Fase 4** | **Septiembre 2026** | **572h** | **81% 🎯** |
-| Fase 5 | Marzo 2027 | 722h | 92% |
-| Fase 6 | Septiembre 2027 | 862h | 100% ✅ |
+| Fase 1.5 | Agosto 2025 | 195h | 27% |
+| Fase 1.6 | Diciembre 2025 | 312h | 43% |
+| Fase 2 | Marzo 2026 | 407h | 56% |
+| Fase 3 | Junio 2026 | 487h | 67% |
+| **Fase 4** | **Septiembre 2026** | **582h** | **80% 🎯** |
+| Fase 5 | Marzo 2027 | 732h | 92% |
+| Fase 6 | Septiembre 2027 | 872h | 100% ✅ |
 
 ## 🎯 Hitos Importantes
 

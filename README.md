@@ -37,6 +37,7 @@ Un juego de automatización industrial donde los jugadores programan autómatas 
 ### 🎨 **Assets y Recursos**
 - **[🏭 Materiales y Transformación](docs/assets/materials-tree.md)** - Árbol completo de producción
 - **[🎮 Gameplay](docs/assets/gameplay.md)** - Mecánicas y flujo de juego
+- **[🧮 Calculadora Integrada](docs/assets/calculator.md)** - Herramienta de optimización y análisis
 - **[💰 Costos y Infraestructura](docs/assets/costs.md)** - Estimaciones económicas
 
 ## 🚀 Estado Actual
