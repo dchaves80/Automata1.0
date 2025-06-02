@@ -185,22 +185,216 @@ Add user registration
 ```
 main (producción)
 ├── develop (desarrollo principal)
-├── feature/fase-0-menu-principal
 ├── feature/fase-1-backend-auth
-├── feature/fase-1-mongodb-integration
-├── hotfix/critical-auth-bug
+├── feature/fase-2-terrain-system
+├── tool/commit-helper-improvements
+├── docs/development-guidelines
+├── bugfix/mongodb-connection-timeout
+├── hotfix/critical-auth-vulnerability
+├── config/mongodb-production-setup
+├── wip/experimental-automata-ai
 └── release/v0.1-alpha
 ```
 
-### **📋 Convenciones de Nombres**
+### **📋 Tipos de Ramas y Convenciones**
 
-| Tipo | Formato | Ejemplo |
-|------|---------|---------|
-| **Feature** | `feature/fase-X-descripcion` | `feature/fase-1-backend-auth` |
-| **Bugfix** | `bugfix/descripcion-corta` | `bugfix/mongodb-connection` |
-| **Hotfix** | `hotfix/descripcion-critica` | `hotfix/auth-security-flaw` |
-| **Release** | `release/vX.Y-nombre` | `release/v0.1-alpha` |
-| **Docs** | `docs/tipo-documentacion` | `docs/development-guidelines` |
+| Tipo | Prefijo | Uso | Ejemplo |
+|------|---------|-----|---------|
+| **Feature** | `feature/` | Nuevas funcionalidades | `feature/fase-1-user-auth` |
+| **Tool** | `tool/` | Herramientas y scripts | `tool/commit-helper-v2` |
+| **Docs** | `docs/` | Documentación | `docs/api-documentation` |
+| **Config** | `config/` | Configuración | `config/docker-setup` |
+| **Bugfix** | `bugfix/` | Corrección de bugs | `bugfix/login-validation` |
+| **Hotfix** | `hotfix/` | Correcciones críticas | `hotfix/security-patch` |
+| **WIP** | `wip/` | Trabajo experimental | `wip/new-ui-concept` |
+| **DB** | `db/` | Base de datos | `db/user-schema-migration` |
+| **Unity** | `unity/` | Cliente Unity | `unity/terrain-rendering` |
+| **API** | `api/` | Backend/API | `api/auth-endpoints` |
+| **UI** | `ui/` | Interfaz de usuario | `ui/login-screen-redesign` |
+| **Test** | `test/` | Testing | `test/integration-tests` |
+| **Security** | `security/` | Seguridad | `security/jwt-implementation` |
+| **Perf** | `perf/` | Performance | `perf/database-optimization` |
+| **Release** | `release/` | Preparación de releases | `release/v0.2-beta` |
+
+### **🎯 Convenciones de Nomenclatura**
+
+#### **📝 Formato General**
+```
+[tipo]/[fase-opcional]-[descripcion-corta]
+```
+
+#### **✅ Ejemplos Correctos por Fase**
+
+**Fase 0 - Menú Principal:**
+```bash
+feature/fase-0-login-screen
+ui/fase-0-main-menu-design
+docs/fase-0-ui-specifications
+```
+
+**Fase 1 - Backend:**
+```bash
+feature/fase-1-user-authentication
+api/fase-1-auth-endpoints
+db/fase-1-user-schema
+config/fase-1-mongodb-setup
+```
+
+**Fase 2 - Terreno:**
+```bash
+feature/fase-2-terrain-generation
+unity/fase-2-terrain-rendering
+perf/fase-2-chunk-optimization
+```
+
+**Fase 3 - Autómatas:**
+```bash
+feature/fase-3-automata-behavior
+unity/fase-3-automata-ai
+test/fase-3-automata-testing
+```
+
+**Herramientas y Mantenimiento:**
+```bash
+tool/commit-helper-improvements
+tool/deployment-scripts
+docs/development-workflow
+config/ci-cd-pipeline
+```
+
+#### **❌ Ejemplos Incorrectos**
+```bash
+# Muy genérico
+feature/auth
+fix/bug
+
+# Sin tipo
+user-authentication
+terrain-system
+
+# Muy largo
+feature/fase-1-implementar-sistema-completo-de-autenticacion-con-jwt-y-validacion
+
+# Espacios o caracteres especiales
+feature/fase 1 auth
+feature/fase-1_auth!
+```
+
+### **🔄 Flujo de Trabajo por Tipo de Rama**
+
+#### **🚀 Feature Branches**
+```bash
+# Crear feature branch
+git checkout -b feature/fase-1-user-auth
+
+# Desarrollo...
+git commit -m ":sparkles: feat: Implementar registro de usuarios"
+
+# Merge a develop
+git checkout develop
+git merge feature/fase-1-user-auth
+```
+
+#### **🛠️ Tool Branches**
+```bash
+# Crear tool branch
+git checkout -b tool/commit-helper-v2
+
+# Desarrollo...
+git commit -m ":hammer_and_wrench: tool: Mejorar gestión de ramas"
+
+# Merge directo a main (herramientas)
+git checkout main
+git merge tool/commit-helper-v2
+```
+
+#### **🐛 Bugfix Branches**
+```bash
+# Crear bugfix branch
+git checkout -b bugfix/mongodb-timeout
+
+# Corrección...
+git commit -m ":bug: fix: Aumentar timeout de MongoDB"
+
+# Merge a develop
+git checkout develop
+git merge bugfix/mongodb-timeout
+```
+
+#### **🚑 Hotfix Branches**
+```bash
+# Crear hotfix desde main
+git checkout main
+git checkout -b hotfix/critical-security
+
+# Corrección crítica...
+git commit -m ":ambulance: hotfix: Parche de seguridad crítico"
+
+# Merge a main Y develop
+git checkout main
+git merge hotfix/critical-security
+git checkout develop
+git merge hotfix/critical-security
+```
+
+### **📊 Mapeo Rama-Commit**
+
+| Tipo de Rama | Emoji de Commit | Tipo de Commit | Ejemplo |
+|--------------|-----------------|----------------|---------|
+| `feature/` | `:sparkles:` | `feat` | `:sparkles: feat: Nueva funcionalidad` |
+| `tool/` | `:hammer_and_wrench:` | `tool` | `:hammer_and_wrench: tool: Mejorar script` |
+| `docs/` | `:books:` | `docs` | `:books: docs: Actualizar documentación` |
+| `config/` | `:wrench:` | `config` | `:wrench: config: Configurar MongoDB` |
+| `bugfix/` | `:bug:` | `fix` | `:bug: fix: Corregir validación` |
+| `hotfix/` | `:ambulance:` | `hotfix` | `:ambulance: hotfix: Parche crítico` |
+| `wip/` | `:construction:` | `wip` | `:construction: wip: Experimento en progreso` |
+| `db/` | `:file_cabinet:` | `db` | `:file_cabinet: db: Migración de esquema` |
+| `unity/` | `:video_game:` | `unity` | `:video_game: unity: Renderizado de terreno` |
+| `api/` | `:globe_with_meridians:` | `api` | `:globe_with_meridians: api: Endpoints de auth` |
+| `ui/` | `:lipstick:` | `ui` | `:lipstick: ui: Rediseñar pantalla login` |
+| `test/` | `:rotating_light:` | `test` | `:rotating_light: test: Tests de integración` |
+| `security/` | `:lock:` | `security` | `:lock: security: Implementar JWT` |
+| `perf/` | `:racehorse:` | `perf` | `:racehorse: perf: Optimizar consultas` |
+
+### **🎯 Reglas de Merge**
+
+#### **📋 Destinos de Merge por Tipo**
+
+| Tipo de Rama | Merge a | Justificación |
+|--------------|---------|---------------|
+| `feature/` | `develop` | Funcionalidades van a desarrollo |
+| `tool/` | `main` | Herramientas van directo a producción |
+| `docs/` | `main` | Documentación va directo |
+| `config/` | `develop` | Configuración necesita testing |
+| `bugfix/` | `develop` | Bugs van a desarrollo primero |
+| `hotfix/` | `main` + `develop` | Críticos van a ambos |
+| `wip/` | No merge | Solo experimentación |
+| `test/` | `develop` | Tests van a desarrollo |
+| `security/` | `develop` | Seguridad necesita testing |
+| `perf/` | `develop` | Performance necesita validación |
+
+### **🏷️ Etiquetado y Limpieza**
+
+#### **🧹 Limpieza de Ramas**
+```bash
+# Después del merge exitoso
+git branch -d feature/fase-1-user-auth
+
+# Eliminar rama remota
+git push origin --delete feature/fase-1-user-auth
+
+# Limpiar referencias remotas obsoletas
+git remote prune origin
+```
+
+#### **🏷️ Tags por Fase**
+```bash
+# Al completar una fase
+git tag -a fase-1-complete -m "🎉 Fase 1: Backend completado"
+
+# Al hacer release
+git tag -a v0.1.0-alpha -m "🚀 Primera versión jugable"
+```
 
 ---
 

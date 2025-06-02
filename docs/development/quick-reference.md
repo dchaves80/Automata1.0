@@ -135,22 +135,132 @@ git commit -m "🎉 milestone: Completar Fase X"
 
 ## 🌿 Comandos de Branch
 
-```bash
-# Crear nueva feature branch
-git checkout -b feature/fase-X-descripcion
+### **🎯 Crear Ramas por Tipo**
 
-# Cambiar a branch
+```bash
+# Feature branches (funcionalidades)
+git checkout -b feature/fase-1-user-auth
+git checkout -b feature/fase-2-terrain-generation
+
+# Tool branches (herramientas)
+git checkout -b tool/commit-helper-v2
+git checkout -b tool/deployment-scripts
+
+# Docs branches (documentación)
+git checkout -b docs/api-documentation
+git checkout -b docs/development-workflow
+
+# Config branches (configuración)
+git checkout -b config/mongodb-production
+git checkout -b config/docker-setup
+
+# Bugfix branches (corrección de bugs)
+git checkout -b bugfix/login-validation
+git checkout -b bugfix/mongodb-timeout
+
+# Hotfix branches (correcciones críticas)
+git checkout -b hotfix/security-patch
+git checkout -b hotfix/critical-auth-bug
+
+# WIP branches (trabajo experimental)
+git checkout -b wip/new-ui-concept
+git checkout -b wip/experimental-ai
+
+# Branches específicos por área
+git checkout -b db/user-schema-migration
+git checkout -b unity/terrain-rendering
+git checkout -b api/auth-endpoints
+git checkout -b ui/login-screen-redesign
+git checkout -b test/integration-tests
+git checkout -b security/jwt-implementation
+git checkout -b perf/database-optimization
+```
+
+### **🔄 Flujo de Trabajo por Tipo**
+
+```bash
+# Feature workflow
+git checkout -b feature/fase-1-auth
+# ... desarrollo ...
+git checkout develop
+git merge feature/fase-1-auth
+git branch -d feature/fase-1-auth
+
+# Tool workflow (directo a main)
+git checkout -b tool/new-script
+# ... desarrollo ...
+git checkout main
+git merge tool/new-script
+git branch -d tool/new-script
+
+# Hotfix workflow (a main y develop)
+git checkout main
+git checkout -b hotfix/critical-fix
+# ... corrección ...
+git checkout main
+git merge hotfix/critical-fix
+git checkout develop
+git merge hotfix/critical-fix
+git branch -d hotfix/critical-fix
+```
+
+### **📋 Gestión de Ramas**
+
+```bash
+# Listar todas las ramas
+git branch -a
+
+# Cambiar a rama
 git checkout [branch-name]
+
+# Crear y cambiar
+git checkout -b [tipo]/[descripcion]
 
 # Merge a develop
 git checkout develop
-git merge feature/fase-X-descripcion
+git merge [branch-name]
 
-# Eliminar branch local
-git branch -d feature/fase-X-descripcion
+# Eliminar rama local
+git branch -d [branch-name]
 
-# Eliminar branch remoto
-git push origin --delete feature/fase-X-descripcion
+# Eliminar rama remota
+git push origin --delete [branch-name]
+
+# Limpiar referencias remotas
+git remote prune origin
+
+# Actualizar desde remoto
+git fetch origin
+```
+
+### **🎯 Ejemplos por Fase del Proyecto**
+
+```bash
+# Fase 0 - Menú Principal
+git checkout -b feature/fase-0-login-screen
+git checkout -b ui/fase-0-main-menu
+git checkout -b docs/fase-0-specifications
+
+# Fase 1 - Backend
+git checkout -b feature/fase-1-user-auth
+git checkout -b api/fase-1-auth-endpoints
+git checkout -b db/fase-1-user-schema
+git checkout -b config/fase-1-mongodb
+
+# Fase 2 - Terreno
+git checkout -b feature/fase-2-terrain-system
+git checkout -b unity/fase-2-terrain-rendering
+git checkout -b perf/fase-2-optimization
+
+# Fase 3 - Autómatas
+git checkout -b feature/fase-3-automata-ai
+git checkout -b unity/fase-3-automata-behavior
+git checkout -b test/fase-3-automata-testing
+
+# Herramientas y Mantenimiento
+git checkout -b tool/commit-helper-improvements
+git checkout -b docs/development-guidelines
+git checkout -b config/ci-cd-pipeline
 ```
 
 ---
